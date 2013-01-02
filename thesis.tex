@@ -1,0 +1,1391 @@
+\documentclass[122pt,oneside]{fithesis}
+% \documentclass[11pt,draft,oneside]{fithesis} puvodni nastaveni, draft nedovilil obrazky
+\usepackage[plainpages=false, pdfpagelabels, draft=false]{hyperref}
+\usepackage{graphicx} % obrazky
+\usepackage{listings} % zdrojovy kod
+\usepackage{hyperref} % url ref
+\usepackage{float} % H u obrazku
+\usepackage{enumitem} % mezery mezi Item
+\textwidth 6.2in % see http://faculty.uoit.ca/bohun/latex/margins.html
+\oddsidemargin 0.0in
+\setcounter{tocdepth}{5} % subsubsection bude v obsahu
+\setcounter{secnumdepth}{5} % subsection bude met cislo
+% \addtolength{\textwidth}{2cm}
+% \addtolength{\hoffset}{-1cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+\graphicspath{{/home/pkremens/Dropbox/diplomka/img}}
+\renewcommand{\figurename}{Obrázek} % zmena popisu pod obrazkem
+\lstset{ % nastaveni formatu zdrojaku
+basicstyle=\footnotesize\tt,
+identifierstyle=,
+showstringspaces=false,
+tabsize=3,
+keywordstyle=,
+language=java
+}
+\thesistitle{Java EE aplikace pro výkonnostní testování}
+\thesissubtitle{Diplomová práce}
+\thesisstudent{Bc. Petr Křemenský}
+
+\thesiswoman{false}
+\thesisfaculty{fi}
+\thesisyear{podzim 2012}
+\thesisadvisor{Mgr. Jiří Kolář}
+
+\begin{document}
+\FrontMatter
+\ThesisTitlePage
+
+\begin{ThesisDeclaration}
+\DeclarationText
+\AdvisorName
+\end{ThesisDeclaration}
+
+\begin{ThesisThanks}
+Zde bude uvedeno poděkovani...
+\end{ThesisThanks}
+
+\begin{ThesisAbstract}
+Abstract cesky
+\end{ThesisAbstract}
+
+\begin{ThesisAbstracten}
+Abstract en
+\end{ThesisAbstracten}
+
+\begin{ThesisKeyWords}
+Klicova slova
+\end{ThesisKeyWords}
+
+\MainMatter
+\tableofcontents
+
+\chapter*{Úvod}
+
+V moderním světě blabla úvod... (Businesses in today's world live and die by the performance of mission-critical software applications. Sadly, many applications are deployed without being adequately tested for scalability and performance. Effective performance testing identifies performance bottlenecks in a timely fashion and tells you where they are located in the application landscape.)
+
+“Zátěžové testy simulují práci velkého počtu uživatelů na testované aplikaci (systému) nebo generují velký počet operací v informačním systému. Součástí zátěžového testování je i monitoring aplikací a zařízení s cílem zjistit výkon systémů nebo odhalit výkonnostní problémy.” (CITACE: http://www.butteland.com/en/node/277)
+
+Cílem zátěžových testů není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují výkon naší aplikace a zároveň určit počáteční výkonnost pro budoucí regresní testování. Testovaná aplikace by měla dostatečně stabilní blabla...
+
+Java Platform, Enterprise Edition (neboli Java EE, dříve označovaná jako Java 2 Enterprise Edition nebo J2EE) je součást platformy Java určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Java EE~\cite{wikiJavaEE}.
+
+V prvni kapitoile bla
+
+V druhe blabla
+
+a v treti blablabla
+
+
+\chapter{Výkonnostní testování}
+
+Kdy se tedy dá naše aplikace považovat za skutečně výkonnou? Z pohledu koncového uživatele je odpověď na tuto otázku překvapivě snadná. Dobře odladěná aplikace je taková, která dovolí uživateli vykonat požadovanou posloupnost akcí bez pocitu frustrace způsobeného pomalou odezvou aplikace nebo jejím nepředvídaným chováním. Avšak k tomu, abychom mohli měřit výkonnost aplikace, musíme být schopni definovat, čeho chceme dosáhnout~\cite{molyneaux09}.
+
+\section{Metriky měření výkonu}
+Před tím, než budou rozebrány jednotlivé požadavky a nároky, které můžeme klást na výkonnost naší aplikace, definujeme klíčové metriky, které se k měření výkonnosti aplikace běžně používají. Tyto metriky lze rozdělit na metriky orientované na službu a metriky orientované na výkonnost.
+\subsection{Metriky orientované na službu}
+U metrik orientovaných na službu nás zajímá, jak se alikace chová jako služba z pohledu klienta. Patří zde: 
+
+\vspace{5 mm}\noindent{\bf Čas odezvy}
+\\\indent Představuje čas, který trvá aplikaci odpovědět na požadavek klienta. Tuto metriku nelze obecně považovat za nejdůležitější, ale na straně klienta jsou jakékoliv nedostatky v této oblasti na naší aplikaci nejevidentnější. Pomalá odezva může působit neblaze na konkurenceschopnost aplikace. Klienti považují rychlou odezvu aplikace za samozřejmost, takže sebemenší opoždění na ně nechá silný negativní dojem. Platí, že hodnota vnímaná člověkem jako průměrná odezva, není skutečným průměrem, ale hodnotou, která je větší než 90 procent všech jednotlivých odezev~\cite{haines06}.
+
+\vspace{5 mm}\noindent{\bf Dostupnost}
+\\\indent Představuje množství času, po který je aplikace klientovi k dispozici. Je důležité, aby zbytek aplikace dokázal reagovat po selhání některé z komponent. I nepatrné množství času, po který bude aplikace nedostupná, může pro velké firmy znamenat značné ztráty.
+
+\subsection{Metriky orientované na výkonnost}
+U metrik orientovaých na výkonnost nás zajímá, jakým způsobem aplikace využívá zdroje prostředí, ve kterém běží
+
+\vspace{5 mm}\noindent{\bf Propustonst}
+\\\indent Představuje počet akcí, které lze dokončit v určitém časovém okamžiku. Vysoká míra propustnosti odráží naši schopnost rychle a efektivně obsluhovat požadavky klientů, což se pozitivně projeví na celkové výkonnosti naší aplikace~\cite{haines06}.
+
+\vspace{5 mm}\noindent{\bf Efektivita práce se zdroji}
+\\\indent Představuje poměr využití systémových zdrojů s jejich celkovou kapacitou. Dobře navržená aplikace by měla se svými zdroji nakládat co nejefektivněji, aby byla schopna obsloužit co největší počet požadavků v co nejkratším čase, a přitom svými zdroji zbytečně neplýtvala.
+
+\section{Klíčové cíle výkonnosti}
+Výkonnost počítačových aplikací je velmi komplexním tématem. Obecně platí, že celková výkonnost aplikace je rovna součtu výkonnosti jednotlivých částí. Je velmi důležité pochopit, že výkonnost naší aplikace se dá odladit jen do takové míry, do jaké se dají odladit jednotlivé části prostředí, ve kterém naše aplikace poběží. 
+
+Projděme si například strukturu Java EE (Enterprise Edition) aplikace, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
+
+Jelikož je každá aplikace unikátní, jsou unikátní také požadavky na její výkonnost. Jsou situace, kdy lze za dobrou výkonnost považovat schopnost obsloužit vysoký počet klientů, kteří k aplikaci přistupují souběžně, ale také situace (počet klientů současně využívajících aplikaci není vysoký), kdy je jediné, co nás zajímá rychlost, s jakou dokáže naše aplikace požadavky jednotlivých klientů obsloužit.
+ 
+Se znalostí základních metrik výkonnosti nyní můžeme definovat klíčové cíle výkonnosti (Key performance targets).
+
+\vspace{5 mm}\noindent{\bf Dostupnost aplikace}
+\\\indent Požadavek na dostupnost z pohledu klienta je celkem jednoduchý: aplikace by měla být dostupná po celou dobu s výjimkou plánovaných údržeb. To, že aplikace reaguje na požadavky klienta, nemusí nutně znamenat, že je dostupná. Aplikace je považována za nedostupnou, jakmile ji není klient schopen efektivně využívat (aplikace vrací chybové hlášky a jiné).
+Z pohledu výkonnostních testů nás zajímá dostupnost aplikace s rostoucí zátěží (počet klientů souběžně přistupujících k aplikaci, objem dat nutných ke zpracování). 
+
+\vspace{5 mm}\noindent{\bf Čas odezvy}
+\\\indent Čas odezvy se dá měřit více způsoby. Aby nedocházelo k nejednoznačnostem, mělo by být jasně definováno, jak měřit čas odezvy ještě před formulováním požadavků. U moderních webových aplikací se čas odezvy počítá jako součet času odezvy serveru, času který data putují sítí a času, který zabere klientovi zpracovat a zobrazit požadovaný obsah. Nicméně z pohledu výkonnostního testování je za čas odezvy považována častěji hodnota získaná vypuštěním doby na zpracování a zobrazení klientem. Toto je způsobeno tím, že nástroje na generování zátěže, které jsou při výkonnostních testech hojně používány, často tyto hodnoty ignorují~\cite{moorthy09}.
+V závislosti na povaze testu nás mohou zajímat:
+\begin{itemize}
+  \item čas odezvy požadavku na zobrazení stránky
+  \item čas odezvy zpracování jednoduché transakce
+  \item čas odezvy komplexních scénářů
+  \item průměrný čas odezvy požadavku
+  \item poměr splnění a nesplnění stanovené hodnoty času odezvy
+  \item agregovaný čas odezvy (suma průměrných časů odezev všech požadavků v daném scénáři podělena počtem scénářů)
+\end{itemize}
+
+
+\vspace{5 mm}\noindent{\bf Propustnost aplikace}
+\\\indent Z pohledu Java EE aplikace nás většinou zajímá počet požadavků (transakcí), které jsme schopni obsloužit za daný časový úsek. V typické aplikaci bude více klientů vykonávat různorodé akce souběžně, proto nás zajímá propustnost jak jednotlivých požadavků, tak různých skupin složitějších scénářů (simulace reálného vytížení aplikace). Cílem testů je monitorovat chování aplikace při zvyšujícím se počtu souběžných požadavků a nalézt bod saturace, tj. počet požadavků, při nichž dojde k zahlcení aplikace, což se projeví například náhlým zhoršením času odezvy aplikace. 
+
+\vspace{5 mm}\noindent{\bf Využití zdrojů}
+\\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientam a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten pokud možno nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
+\begin{itemize}
+  \item objem dat procházejících sítí
+  \item datová propustnost - jedním z naších cílů může být dosáhnout určitého datového toku, který by měla být naše aplikace schopna zpracovat
+  \item chybovost dat - vysoký počet chyb při přenosu vyžaduje přeposílání, čímž samozřejmě dochází k degradaci výkonnosti aplikace
+\end{itemize}
+V podobném smyslu bychom měli také definovat limity zdrojů serveru, které by naše aplikace neměla překračovat. Zde se zajímáme převážně o:
+\begin{itemize}
+  \item vytížení CPU
+  \item využití paměti
+  \item frekvenci V/V operací
+  \item a jiných
+\end{itemize}
+
+\section{SLA}
+V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Před tím než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikace srovnávat a tudíž dělat o její výkonnosti jakékoliv závěry.
+
+Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou tím zároveň splněny požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou potřeba k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Pokud by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
+
+Efektivní SLA musí mít být specifické, flexibilní a realistické.
+
+\vspace{5 mm}\noindent{\bf Specifické SLA}
+\\\indent Cíle určené v SLA by měli mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. Jak ABO tak ATO by se měli dohodnout na konkrétních hodnotách, to nám zaručí, že bude spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
+
+\vspace{5 mm}\noindent{\bf Flexibilní SLA}
+\\\indent Flexibility SLA lze dosáhnout určením míry požadovaného úspěchu a tím brát v potaz nesplnění podmínek v důsledku nepředvídatelných okolností. Pokud naše aplikace bude v jednom případě ze dvaceti požadavků odpovídat o něco pomaleji, dá se to většinou klientů akceptovat. Ani s flexibilitou se to však nesmí přehánět a to, o kolik pomaleji může naše aplikace v oněch pár případech odpovídat, musí být přesně definováno.
+
+\vspace{5 mm}\noindent{\bf Realistické SLA}
+\\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou jak ABO, tak ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Po té co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
+
+
+\section{Identifikace a příprava kritických scénářů}
+V této části se budeme věnovat hledání co nejvěrnější simulace aplikační zátěže, tj. spouštění běžných akcí klientů ve správném poměru (např. přihlášení se do systému, vyhledání určité položky v katalogu a odhlášení se). Je dobré pouštět testy s různým typem zátěže, abychom zjistili, jak se mění charakteristika výkonu aplikace s měnící se podobou zátěže. K vytvoření zátěže lze využít některý z automatizovaných nástrojů. Dříve než začneme psát testy, tak je potřeba si rozmyslet, z jakých akcí se bude zátěž skládat.
+
+\subsection{Požadavky na aplikaci}
+
+Před tím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, a proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstraněním těchto nedostatků než testováním, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
+
+Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, ba dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Pokud je během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Pokud je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
+
+\subsection{Určení cílové zátěže}
+
+Nyní již předpokládejme, že je naše aplikace připravena k testování. Existuje několik způsobů, jakými lze postupovat při vybírání vhodné zátěže~\cite{barber11}.
+
+Pokud se nejedná o první generaci aplikace, je průzkum historie používání předchozí verze aplikace nejsnadnější a nejefektivnější cestou, jak získat věrohodná data o zátěži, se kterou je nutné počítat.
+
+Pokud taková data nemáme, je možné je získat od konkurence, jedná-li se o podobný typ aplikace (společnosti se rády chlubí dosaženými výsledky, pokud jsou příznivé)
+
+Pokud nemáme k dispozici ani jedno, tak nám nezbývá než zátěž odhadnout na základě marketingových předpokladů.
+
+Při provádění průzkumu dat, ať už historických nebo dat konkurence, by nás mělo zajímat hlavně:
+	\begin{itemize}
+  \item maximalní počet uživatelských sezení, která běžela souběžně
+  \item maximální počet prohlížených stránek souběžně
+  \item průměrná délka trvání jednoho sezení
+  \item průměrný počet stránek, které uživatel během jednoho sezení shlédne
+\end{itemize}
+
+\subsection{Distribuce zátěže mezi jednotlivé funkce}
+
+Nyní když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba ji vhodně distribuovat mezi jednotlivé transakce, které naše aplikace nabízí. Termínem transakce se v tomto případě myslí "jakákoliv operace, kterou může uživatel s naší aplikací vykonat". I v tomto případě je nejlepší cestou využít historii předchozí verze aplikace, pokud je tato k dispozici, pokud není, tak nezbývá než rozložení zátěže mezi transakce opět odhadnout. 
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1.0\textwidth]{tabulkanavigace}
+\caption{Vybrané scénáře prezentovány pomocí tabulky~\cite{molyneaux09}}
+\label{fig:tabulkaNavigace}
+\end{figure}
+
+Jedním z možných řešení je transakce rozdělit do následujících (né nutně disjunktních) skupin:
+\begin{itemize}
+  \item {\bf běžné}
+  \item {\bf náročné} - zejména na zdroje
+  \item {\bf kritické} - zásadní pro provoz
+  \item {\bf právně vymahatelné} - SLA
+  \item {\bf zjevné} - uživatel si okamžitě všimne pokud je něco špatně
+  \item {\bf technicky riskantní} - místa která ráda selhávají
+\end{itemize}
+
+Do každé skupiny vybereme nejvýše 5 transakcí (raději míň než víc, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezenovat buď pomocí tabulky (viz. obrázek \ref{fig:tabulkaNavigace}), nebo pomocí diagramu (viz. obrázek \ref{fig:diagramNavigace}).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{diagramnavigace}
+\caption{Vybrané scénáře prezentovány pomocí diagramu}
+\label{fig:diagramNavigace}
+\end{figure}
+
+\section{Typy testů}
+Exituje několik typů testů, které se liší jak svým průběhem, tak účelem za kterým je provádíme. Představme si proto nejdůležitějšíé z nich~\cite{loadTest}.
+
+\vspace{5 mm}\noindent{\bf Základní test}
+\\\indent Slouží k ustanovení počátečních hodnot, které mohou být později použity pro porovnávání s výsledky ostatních testů. Test je běžně prováděn za použití jediného virtuálního uživatele pro předem určený počet akcí. Díky těmto hodnotám můžeme sledovat míru degradace výkonnosti aplikace v závislosti na měnících se metrikách testu (např. počet virtuálních uživatelů).
+
+\vspace{5 mm}\noindent{\bf Zátěžový test}
+\\\indent Slouží k určení výkonnosti aplikace při běhu s požadovanou zátěží, kterou získáváme jako odhad skutečného vytížení aplikace v reálných podmínkách. Test probíhá přibližně 5 minut, během nichž by měla být křivka zátěže na aplikaci konstantní. Cílem testu je rezhodnout, zda-li naše aplikace splňuje hodnoty určené v SLA a určit minimální požadavky na běhové prostředí.
+
+\vspace{5 mm}\noindent{\bf Test hraniční zátěže}
+\\\indent Zátěž na aplikaci je postupně zvyšována, díky čemuž můžeme sledovat chování aplikace v momentech, kdy počet uživatelů neustále roste a systémové zdroje začínají docházet. Cílem tohoto testu je nalezení horní hranice zátěže (čas odezvy převýší akceptovatelné maximum, pád aplikace nebo části podpůrné infrastruktury, a jiných), kterou je aplikace schopna unést. Po dosažení horní hranice snižujeme zátěž, abychom zjistili, zda-li je aplikace schopna se opět vzpamatovat. Na rozdíl o zátěžových testů se nesnažime o simulaci reálné zátěže, ale aplikaci záměrně přetěžujeme.
+
+\vspace{5 mm}\noindent{\bf Test odolnosti}
+\\\indent Test odolnosti je specifický svou délkou. Ta se běžne pohybuje v rozmezí dnů (testy odolnosti aplikací, na jejichž funkcionalitě závisí lidské životy mohou trvat i několik mesíců). Cílem je ujistit se, že se neobjeví nové problémy (chyby, paměťové úniky, limit počtu transakcí, a jiné) po delší době běhu aplikace, které se neprojevili u předchozích testů kvůli jejich relativně krátkým dobám běhu. Tyto defekty se projeví buď postupným zvýšením doby odezvy, nebo náhlou ztrátou dostupnosti aplikace (po dosažení určitého počtu transakcí).
+
+\vspace{5 mm}\noindent{\bf Test selhání}
+\\\indent Během testu selhání zkoumáme chování reduntantních mechanismů při selhání jednoho z nich. Příkladem může být test webováho prostředí, které používá více serverů a jeden z nich náhle selže. Cílem testu je zjistit jak se s timto selháním vypořádají ostatní komponenty.
+ 
+\vspace{5 mm}\noindent{\bf Test výkonnosti}
+\\\indent Test výkonnosti probíha za relativně malé zátěže. Měl by předcházet ostatním tesům. Pomůže nám včas identifikovat vážné nedostatky na výkonnosti naší aplikace, ale také zásadní nedostatky na běhovém prostrědí.
+
+\section{Způsoby budovani zateze}
+
+Kromě počtu klientů, kteří budou k naší aplikací přistupovat souběžně, můžeme běh testu ovlivnit také způsobem, jakým budeme klienty do aplikace přidávat~\cite{molyneaux09}.
+
+\vspace{5 mm}\noindent{\bf Velký třesk}
+\\\indent Všichni klienti přistupují k aplikaci ve stejný čas a pracují souběžně, ale nikoliv synchronně (vykonávají různé scénáře).
+
+\vspace{5 mm}\noindent{\bf Postupné navyšování}
+\\\indent Začínáme s jedním klientem a další je přidán vždy po uplynutí definovaného časového intervalu. Tento postup je opakován, dokud není dosaženo požadované zátěže, je ovšem nutné zvolit vhodný interval mezi přidáním jednotlivých klientů, aby nebylo věnováno více času budování zátěže než samotnému testování.
+
+\vspace{5 mm}\noindent{\bf Postupné navyšování s mezikroky}
+\\\indent Tato varianta rozšiřuje tu předchozí o schopnost zachytit chování aplikace v určitých etapách budování zátěže. Příkladem by mohlo být postupné navyšování na 1000 klientů s tím, že v momentě, kdy jich bude k aplikaci souběžně přistupovat 300 (resp. 700), bude generování na nějaký čas pozastaveno, což nám umožní sledovat chování aplikace i těchto mezikrocích.
+
+\vspace{5 mm}\noindent{\bf Postupné navyšování (s mezikroky), postupné snižování (s mezikroky)}
+\\\indent Po dosažení požadované hodnoty je zátěž na systém postupně snižována. Různé hodnoty naměřené v mezních hodnotách mohou indikovat paměťové úniky nebo jiné defekty na aplikaci.
+
+\section{Nástroje pro budování zátěže}
+
+Pro usnadnění testování je nutné vybrat vhodný testovací nástroj. V současnosti je k dispozici řada komerčních variant (IBM Rational Performance Tester, Blitz), ale také nespočet řešení s otevřenými zdrojovými kódy (Apache JMeter, Faban, Hammerora). Tyto nástroje nám usnadňují všechny etapy testovacího cyklu od návrhu testů až po zpracování naměřených dat. 
+
+Testovací nástroje běžně poskytují následující funkcionalitu:
+
+\vspace{5 mm}\noindent{\bf Skriptovací modul}
+\\\indent Umožňuje zaznamenání aktivity klienta. Každou operaci, kterou klient vykoná, je možné později modifikovat (změnit hodnoty zadané klientem, upravit časování, a jiné).
+
+\vspace{5 mm}\noindent{\bf Modul na správu testů}
+\\\indent Umožňuje vytvářet složitější scénáře, které jsou složeny z různých aktivit klientů. Pomocí generátorů zátěže jsou tyto scénáře využívány k vytváření zátěže na aplikaci.
+
+\vspace{5 mm}\noindent{\bf Modul na generování zátěže}
+\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže.
+
+\vspace{5 mm}\noindent{\bf Analytický modul}
+\\\indent Poskytuje nám schopnost sbírat a vyhodnocovat hodnoty naměřené v každém testu. Vyhodnocením se rozumí například vykreslení grafů, znázornění důležitých hodnot v tabulkách, a jiné.
+
+\section{Co nelze opomenout}
+Nyní zmíníme pár věcí, které nesmíme při používání těchto nástrojů opomenout.
+
+\vspace{5 mm}\noindent{\bf Latence}
+\\\indent Pokud přistupujeme k nějakému vzdálenému zdroji (webová stránka, webová služba, aj.), tak musíme počítat s určitou odezvou. Latencí nazýváme čas, který trvá požadavku, než doputuje k serveru a zase zpátky (nepočítáme čas, který potřebuje server na zpracování). S latencí můžeme mít problémy, pokud využíváme vzdálená datová centra. S tímto je potřeba počítat už při formulování SLA a zahrnout latenci i do našich testů~\cite{bhatt09}.
+
+\vspace{5 mm}\noindent{\bf Navigace po stránkách}
+\\\indent Zejména u webových aplikací platí, že se dá dosáhnout jednoho cíle mnoha různými způsoby. Představme si uživatele vykonávajícího určitou transakci, který si uvědomí, že se spletl a pomocí tlačítek navigace se přesune z půlky jedné transakce na začátek jiné. Nasimulovat všechny kombinace je nemožné, protože jejich počet je nekonečný, takže bychom se o to neměli ani pokoušet. Není na škodu přidat pár scénářů, které tuto situaci simulují, ale je naprostou ztrátou času se těmto situacím intensivněji věnovat.
+
+\vspace{5 mm}\noindent{\bf Čas na rozmyšlenou}
+\\\indent Pokud mají být podmínky při testování aplikace co nejvěrohodnější, je vhodné v testovacích scénářích simulovat čas, který uživatel strávil mezi jednotlivými obrazovkami. Pokud jsou na tvorbu testovaných scénářů použity automatizované nástroje, jsou nám hodnoty mezi jednotlivými požadavky známy. Tyto hodnoty je potřeba brát pouze jako ukázkové, protože koncovému uživateli bude vše trvat mnohem déle, proto by měly být ještě před použitím upraveny.
+
+Čas na rozmyšlenou se používá při provádění výkonnostních testů u hotové, funkční aplikace. Pokud jsou výsledkem testů obecná měření, tak se čas na rozmyšlenou nepoužívá. Příkladem může být porovnání výkonnosti různých programovacích technik. Po té, co najdeme nejefektivnější implementaci dané části, můžeme ji otestovat i s časem na rozmyšlenou.
+
+\vspace{5 mm}\noindent{\bf Počet virtuálních uživatelů se nerovná počtu aktivních uživatelů}
+\\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Pokud se uživatel musí před použitím aplikace přihlásit a po použití zase odhlásit (pokud nemusí, je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, pokud máme za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašováni a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Toto se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
+
+\chapter{Benchmarknig}
+
+Pojmem benchmarking rozumíme proces porovnávání výkonnosti objektu tím, že na něm provádíme různé testy a zkoušky a naměřené hodnoty porovnáváme s výsledky měření na jiných objektech se stejnou funkcionalitou. Nové generace produktů a stále nové architektury mají za následek, že je nemožné porovnat výkonnost příbuzných produktů pouze pohledem na jejich specifikace. Chceme-li například porovnat výkonnost procesorů od dvou různých výrobců, nestačí nám srovnat jen velikosti taktovacích frekvencí, počty jader a jiné metriky, ale je nutné brát v úvahu i míru optimalizace, použitou architekturu a další faktory, které již číselně vyjádřit nelze. K tomuto nám slouží benchmarkové aplikace, které jsou speciálně navržené k tomu, aby produkovaly specifický druh zátěže na konkrétní komponentu nebo systému.
+
+Benchmarková aplikace můžeme mít podobu reálné aplikace pro testování kompletní funkcionality systému, ale může se taky zaměřit na konkrétní komponenty (V/V operace, rychlost databáze a jiné).
+
+Benchmarkové aplikace se používají, jak při vývoji a testování nových komponent, tak při propagaci nových produktů, čehož ovšem někteří výrobci začali zneužívat. Z historie jsou známé příklady podvádění, kdy firmy vyvíjely své produkty záměrně tak, aby měly co nejlepší skóre při benchmark testech, tyto produkty ale slibovaného výkonu ve skutečných podmínkách nedosahovaly~\cite{wikiBench}.
+
+Pokud hledáme specifický produkt, nelze vybírat pouze podle výsledků benchmarkových testů. Dobré výsledky v benchmark testech nám zaručí kvalitu výpočetního výkonu, nesmíme ale opomenout:
+
+\begin{itemize}
+  \item kvalitu služeb
+  \begin{itemize}
+    \item zabezpečení, spolehlivost, škálovatelnost, robustnost a jiné
+  \end{itemize}
+  \item celkovou cenu vzhledem k dosaženému výkonu 
+  \begin{itemize}
+    \item  výrobci sice musí udávat vedle naměřeného skóre také poměr ceny a výkonu spočítaný podle speciálního vzorce, ale je známo, že v těchto měřeních jsou použity konfigurace speciálně navržené pouze pro benchmarking. Pokud bychom chtěli těchto hodnot dosáhnout i my, museli bychom si připlatit.
+  \end{itemize}
+  \item omezení prostředí
+  \begin{itemize}
+    \item více výkonu znamená větší energetické nároky, což může být kritické například u mobilních zařízení
+    \item server, který zabírá příliš místa nemusí vyhovovat omezením datového centra
+  \end{itemize}
+\end{itemize}
+
+\section{Servery}
+
+Pod pojmem server rozumíme fyzický počítač, jehož výpočetní výkon je věnován běhu jedné nebo více služeb. Tyto služby jsou poskytovány ostatním strojům prostřednictvím počítačové sítě. Servery dělíme vzhledem k povaze služeb, které mohou poskytovat. Jedny z nejběžnějších typů jsou~\cite{wikiServerComp}:
+\begin{itemize}
+  \item {\bf aplikační server} - poskytuje běhové prostředí aplikacím
+  \item {\bf databázový server} - poskytuje databázové služby ostatním počítačovým programům nebo počítačům
+  \item {\bf souborový server} - poskytuje vzdálený přístup k souborům
+  \item {\bf herní server} - poskytuje klientům počítačových her schopnost hrát po síti
+  \item {\bf DNS server} - poskytuje službu převodu doménových jmen na IP adresy
+  \item {\bf webový server} - doručuje a odesilá odpovědi na požadavek klienta prostřednictvím HTTP protokolu
+\end{itemize}
+
+V naší práci budeme dále pojem sever používat výhradně pro aplikační sever certifikovaný na Java EE plný profil. Dříve něž si vysvětlíme princip profilů v Java EE, podíváme se podrobněji na rozdíl mezi aplikačním a webovým serverem, jelikož jsou tyto dva pojmy často zaměňovány.
+
+\subsection{Webový server}
+Hlavní funkcí webového serveru je doručovat obsah klientům, kteří o nej požádali pomocí HTTP protokolu. Obsahem může být například: statická HTML stránka, obrázek nebo kaskádový styl. Odpovědí webového serverů může být také přesměrování požadavku na jinou adresu nebo generování dynamického obsahu pomocí technologií jako JSP, servletů, JSF, ASP, PHP, JavaScriptu a jiných. Požadavek klienta na určitou stránku je proveden kontaktováním webového serveru na specifické adrese (IP adresa). Po přijetí požadavku doručí webový server obsah klientovi, kterým je nejčastěji webový prohlížeč.
+
+Plná implementace HTTP protokolu poskytuje také funkcionalitu k příjímání obsahu od klientů. Této schopnosti je využito například při vyplňování webových formulářů nebo při nahrávání dat na server.
+
+Co do výkonnosti nás u webových serverů zajímá zejména:
+\begin{itemize}
+  \item počet požadavků, které je server schopen obsloužit za určitý časový interval
+  \item čas potřebný k obsloužení jednolivých požadavků
+  \item datová propustnost
+\end{itemize}
+Mezi populární webové servery patří například:
+\begin{itemize}
+  \item Apache
+  \item IIS
+  \item nginx
+  \item GWS
+\end{itemize}
+
+\subsection{Aplikační server}
+Zatímco webový server se zabývá výhradně odesíláním HTML stránek zobrazovaných na webovém prohlížeči klienta, aplikační server navíc poskytuje klientským aplikacím přístup k aplikační logice pomocí různých protokolů včetně HTTP. Data putující mezi aplikačním serverem a klientem nejsou nijak omezena a mohou mít podobu programové logiky. Ve většině případů server využívá tuto logiku skrze aplikační rozhraní komponent.
+Aplikační server si spravuje své vlastní zdroje a nabízí služby jako například zabezpečení, zpracování transakcí, fondy zdrojů (vláken, připojení k databázi, a jiné) a JMS. Aplikační server by měl být zejména schopen obsloužit mnoho souběžně přistupujících klientů, zvládat transakce pomocí Enterprise Java Bean (EJB) v co nejkratšín čase a podporovat komplexní databázové operace.
+
+
+\subsubsection{Java EE plný profil}
+\label{profily}
+Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem je redukovat velikost platformy tak, aby co nejlépe vyhovovala specifickým požadavkům vývojářů. Bez profilů nezáleželo jak komplexní aplikaci jsme vyvíjeli, ale museli jsme ji nasadit na server podporující všech 28 specifikací, což bylo terčem mnohé kritiky. Profil definuje podmnožinu (v budoucnu může být i nadmnožinou, jelikož každý profil se může vyvíjet nezávisle na EE specifikaci) celé java EE platformy. Ve verzi java EE 6 jsou specifikovány profily dva, webový profil a Java EE 6 plný profil. K tomu, aby byl server certifikovaný na webový profil, musí podporovat následující specifikace:
+\begin{itemize}
+  \item Servlet 3.0
+  \item JavaServer Pages (JSP) 2.2
+  \item Expression Language (EL) 2.2
+  \item Podpora debugování pro ostatní jazyky (JSR-45)\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP tak v pracovních skupinách JSR poté pracují zástupci různých firem.~\cite{wikiJSR}} 1.0
+  \item Standardní knihovna značek pro JSP (JSTL) 1.2
+  \item JavaServer Faces (JSF) 2.0
+  \item Běžné anotace Java platformy (JSR-250) 1.1
+  \item Enterprise JavaBeans (EJB) 3.1 odlehčená verze
+  \item Java Transaction API (JTA) 1.1
+  \item Java Persistence API (JPA) 2.0
+  \item Validace Bean 1.0
+  \item Managed Beany 1.0
+  \item Interceptory 1.1
+  \item CDI 1.0
+  \item DI 1.0
+\end{itemize}
+
+K certifikaci na java EE 6 plný profil je potřeba, aby server podporoval kompletní java EE platformu.
+Mezi populární aplikační servery patří:
+\begin{itemize}
+  \item JBoss Enterprise Application Platform 6 (certifikace na webový i plný profil)
+  \item Oracle GlassFish Server 3.x (certifikace na webový i plný profil)
+  \item JBoss Application Server 7.x (certifikace na webový i plný profil)
+  \item Apache Geronimo 3.0-beta-1 (certifikace na webový i plný profil)
+  \item Caucho Resin 4.0.17 (certifikace pouze na webový profil)
+  \item Apache TomEE 1.0 (certifikace na webový i plný profil)
+  \item IBM WebSphere Application Server 8.x (certifikace pouze na plný profil)
+\end{itemize}
+
+\section{Benchmarking aplikačního serveru}
+Kvalitní benchmarková aplikace pro aplikační servery by měla být schopna běžet na aplikačních serverech všech výrobců. Měla by simulovat reálné podmínky a vykonávat komplexní databázové transakce na co nejvíce objemných databázích. Měla by být navržena tak, aby nám umožnila testovat co nejvíce funkcí aplikačního serveru~\cite{sybase}. 
+
+K dosažení smysluplných výsledků při benchmarkingu bychom měli postupovat dle následujících kroků:
+\begin{itemize}
+  \item identifikace a pochopení základní funkcionality produktu, který testujeme
+  \item definice metrik na měření požadované funkcionality
+  \item vytvoření testů, které budou tuto funkcionalitu vytěžovat a simulovat běh v reálných podmínkách
+  \item testovat produkt ve stabilních podmínkách tj. všechny testy by měly probíhat ve stejném prostředí
+  \item měření a vyhodnocení definovaných metrik
+  \item prezentace výsledků ve odpovídájící formě (grafy, tabulky, a jiné)
+\end{itemize}
+
+\subsection{Benchmarkning komerčních aplikačních serverů}
+K porovnání komerčních aplikačních serverů nám může  sloužit například sada benchmarkových testů vyvíjených organizací SPEC (Standard Performance Evaluation Corporation). Tato každého čtvrt roku na svých stránkách zveřejňuje výsledky testů mnoha typu produktů.
+
+SPEC si dává za cíl poskytnout trhu férovou metriku k porovnávání různých systémů. Nejnovější verze testů pro porovnávání aplikačních serverů má v době psaní práce název SPECJEnterprise2010. SPECJEnterprise2010 umožňuje srovnávání výkonnosti Java EE 5 serverů a jejich podpůrné infrastruktury. Tato benchmarková aplikace je tvořena Java třídami, Java servlety, JSP, EJB, JPA entitami a MDB. Jedná se již o třetí generaci testů vyvíjených organizací SPEC pro porovnávání aplikačních serverů. Výsledky testů lze zdarma prohlížet na stránkách SPEC organizace.
+
+Mezi výrobce aplikačních serverů, jichž výsledky jsou k dispozici patří:
+\begin{itemize}
+  \item IBM se svým WebSphere Application Server
+  \item Oracle se svým Weblogic Server
+\end{itemize}
+Bohužel, jelikož nejsou benchmarky organizace SPEC zdarma, nejsou k dispozici výsledky serverů s otevřeným zdrojovým kódem, což nám znemožňuje jakékoliv porovnání mezi s komerčními produkty.
+
+\subsection{Benchmarkning aplikačních serverů s otevřeným zdrojovým kódem}
+Nejistá ekonomická situace posledních let a stále se zvyšující náklady na podnikání nutí mnoho společností opoustit prostředí drahých komerčních produktů a hledat náhradu v podobě aplikací s otevřeným zdrojovým kódem. Toto řešení zároveň snižuje počáteční kapitál, který je nutno investovat do začátku podnikání, což zvyšuje šance na přežití mnoha společnostem.
+
+Základem našeho podnikání by proto měl být i kvalitní aplikační server, který poskytne našim aplikacím stabilní a výkonné běhové prostředí.
+
+Na výběr máme více možností, mezi nejpopulárnější patří:
+\begin{itemize}
+  \item Apache Geronimo 3
+  \item GlassFish Server 3
+  \item JBoss Application Server 7
+  \item Resin Application Server 4
+\end{itemize}
+
+Jedním z důvodů, proč je těžké se mezi nimi rozhodnout, je nedostupnost dat z benchmark testování, na základě kterých bychom mohli tyto servery mezi sebou porovnávat. Mezi dostupné aplikace s otevřeným zdrojovým kódem používané pro porovnávání výkonu aplikačních serverů je DayTrader momentálně spravovaný firmou Apache. 
+
+\subsubsection{DayTrader}
+DayTrader, původně vyvinut firmou IBM, simuluje online burzu s akciemi. Uživatelé se mohou zaregistrovat, nakupovat a prodávat akcie nebo sledovat stav svého portfólia. S pomocí některého z nástrojů pro generování zátěže nám DayTrader poskytuje zátěž srovnatelnou s reálnými podmínkami. DayTrader neposkytuje pouze možnost simulovat běžný provoz, umožňuje nám také testovat mnohé komponenty izolovaně (např. zobrazení jednoduché HTML stránky, zavolání servletu pro přečtení a zobrazení jednoho řádku z databáze za použití předem připraveného SQL dotazu, zaslání zprávy na dané téma za použití JMS a mnoho dalších). 
+
+Jednou z předností DayTraderu je jeho konfigurovatelnost. DayTrader nám umožňuje vybrat si způsob, jakým bude aplikace přistupovat k databázi. K dispozici máme implementace tří různých návrhových vzorů~\cite{daytrader}.
+
+\vspace{5 mm}\noindent{\bf Servlet-JDBC}
+\\\indent Třída TradeDirect provádí CRUD (vytvoření, čtení, editaci a smazání) operace přímo za použití vlastního JDBC\footnote[1]{Java Database Connectivity - jednotné rozhraní pro přístup k relačním databázím} kódu. Připojení k databázi i potvrzení a rušení transakcí jsou spravovány manuálně.
+
+\vspace{5 mm}\noindent{\bf Servlet-SessionBean-JDBC}
+\\\indent TradeJDBC bezstavová session beana je použita jako obalová trída pro třídu TradeDirect.
+
+\vspace{5 mm}\noindent{\bf Servlet-SessionBean-EntityBean}
+\\\indent Bezstavová session beana TradeBean používá entity beany jako reprezentaci objektů. Stav těchto objektů je spravován EJB kontainerem aplikačního serveru.
+\newline
+\\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcii. Na výběr máme synchronní a asynchronní mód. Zatím co v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
+
+Po té co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, ale pokud nás zajímá výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
+
+\section{Ladění serveru}
+Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a máme k dispozici také aplikační server, na kterém naše aplikace poběží, můžeme spustit testy, abychom zjistili, jak si naše aplikace stojí oproti požadavkům. Máme-li štěstí, dosáhneme požadovaných hodnot z SLA napoprvé a aplikace nepotřebuje žádné ladění. Ovšem to se zase tak často nestává. Jednou z možností jak zlepšit výkon naší aplikace je optimalizace serveru na kterém je naše aplikace nasazena. I přesto, že se většina expertů shodne na tom, že 75 \% výkonu aplikace závisí na tom, jak je aplikace implementována, špatně nakonfigurované běhové prostředí může negativně ovlivnit pocit uživatelů z práce s naší aplikací~\cite{performanceTuning}. 
+
+U serveru nás nejvíce zajímají následující parametry:
+
+\vspace{5 mm}\noindent{\bf Vytížení JVM}
+\\\indent Stejně tak jako každá aplikace, tak i aplikační server běží na JVM. Optimalizace JVM v zásadě znamená nastavení správné velikosti haldy a vybrání vhodného algoritmu pro Garbage collector\footnote[1]{mechanismus, pomocí kterého jsou odstraňovány z paměti JVM objekty, na které již neexistují žádné reference}.
+
+\vspace{5 mm}\noindent{\bf Fond vláken}
+\\\indent Každý nový požadavek na aplikaci je nejprve vložen do fronty. Tato fronta je obsluhována fondem vláken, které požadavek vyjme a zpracuje. Pokud je fond vláken příliš veliký, dochází ke zbytečnému zabírání systémových zdrojů, které mohly být použity jinde, ba dokonce může dojít k degradaci výkonu v důsledku častého přepínání kontextu. Je-li naopak počet vláken příliš malý, trpí tím propustnost aplikace, protože žádná volná vlákna jsou ekvivalentem žádné práce navíc.
+
+\vspace{5 mm}\noindent{\bf Fond JDBC připojení}
+\\\indent Většina aplikací používá jako datové úložiště databázi. Každý požadavek na přístup k databázi je před vykonáním uložen do fondu připojení (connection pool). Pokud nemá tento fond žádné volné připojení, musí požadavek čekat, což má negativní vliv na výkonnost aplikace.
+
+\vspace{5 mm}\noindent{\bf Cache}
+\\\indent K redukci počtu přístupů k databázi lze použít cache, protože poskytnout obsah vnitřní paměti bude vždy rychlejší než přistupovat k databázi. Ovšem je potřeba mít se na pozoru, protože enormní velikost cache může zabrat veškeré místo na haldě a způsobit selhání aplikace. Také správu cache nelze zanedbat. Při zaplnění cache a volání stale nových prvků se může stát, že aplikace stráví víc času řízením cache než poskytováním dat (thrashing). V tomto případě ztrácí cache veškeré své výhody. Je proto potřeba zvážit využití cache paměti v závislosti na povaze konkrétní aplikace. 
+
+\vspace{5 mm}\noindent{\bf Fondy pro bezstavové komponenty}
+\\\indent Veškeré bezstavové komponenty jsou uloženy ve fondu. Jakmile proces potřebuje zdroj, tak je mu poskytnut a následně vrácen do fondu. Bezstavovost nám umožňuje poskytnout procesu pokaždé jiný zdroj. Správně nastavená velikost fondu by měla zaručovat dostatek zdrojů pro všechny procesy, ovšem velikost fondu by němela být zbytečně veliká z důvodu paměťových nákladů na údržbu.
+
+\vspace{5 mm}\noindent{\bf JMS fond}
+\\\indent K dosažení asynchronního zpracování používají aplikace zprávy (messaging). Tyto zprávy jsou na straně serveru zachycovány JMS fondem. JMS fond může mít (v závislosti na implementaci) nastaven maximální počet zpráv (bytů), který je schopen příjmat. Je-li JMS fond plný a pokusí se přijímat novou zprávu, tak dojde buď k totálnímu selhání služby nebo "pouze" ke zhoršení výkonu.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Návrh a implementace}
+V této kapitole se zaměříme na návrh a implementaci samotné aplikace a společně s ukázkami si blíže představíme některé specifikace Java EE platformy, které byly při implementování aplikace použity. Nejprve si krátce představíme novinky v platformě Java EE 6 a směr kterým se celá platforma ubírá. Poté budeme postupně procházet jednotlivé vrstvy aplikace od persistence dat až po jejich prezentaci a představíme si jak použité technologie, tak samotné řešení.
+
+Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Obrázek \ref{fig:overview} znázorňuje vysokoúrovňový přehled architektury celé aplikace.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{overview}
+\caption{Vysokoúrovňový přehled architektury celé aplikace}
+\label{fig:overview}
+\end{figure}
+
+\begin{itemize}
+  \item prezentační vrstva aplikace je vytvořena za pomocí specifikace JSF a knihovny komponent PrimeFaces
+  \item s aplikací je možné komunikovat také pomocí rozhraní REST
+  \item komunikaci mezi prezentační vrstvou a aplikační vrstvou mají na starosti Managed beany s podporou specifikace CDI
+  \item aplikační vrstva je tvořena pomocí specifikace EJB 3.1.
+  \item persistenci dat má na starosti specifikace JPA 2.0
+  \item v aplikaci nalezneme také skladníka, který je implementován pomocí specifikace JMS a speciální časovanou službu ve třídě Controller
+\end{itemize}
+
+\section{Java EE 6 platforma}
+Jedním ze základních požadavků na aplikaci bylo, aby běžela na platformě Java EE 6, díky čemuž se zajistí její přenositelnost na všechny ostatní servery s certifikací na tuto platformu. Java EE 6 pokračuje v rozvíjení trendů zavedených v předchozí verzi a to jsou zejména odlehčení a zjednodušení. V současné době musí aplikační server podporovat 28 různých specifikací, aby mohl být certifikovaný jako Java EE 6 server, aby nedocházelo k dalšímu nárůstu je velikost platformy redukována pomocí profilů (viz. \ref{profily}) a prořezávání. 
+
+Proces prořezávání se používá již od roku 1999. Se stále rostoucím počtem specifikací, které byly do Java EE platformy přidávány, rostla také její velikost. Postupem času se začaly objevovat specifikace, které nezaznamenaly takový úspěch jaký se od nich očekávalo a nebo se staly technicky zastaralými, proto bylo rozhodnuto o jejich odstranění. Odstraněním se myslí buď jejich nahrazení novější specifikací a nebo prosté vypuštění z celé platformy (specifikace se poté může dál samostatně vyvíjet i mimo platformu).
+
+Mezi specifikace, které budou v přítí verzy Java EE platformy vypuštěny patří:
+\begin{itemize}
+  \item {\bf EJB 2.x Entity Beany (částí JSR 318)} - komplexní a težkopádné komponenty pro persistenci dat, již dnes jsou nahrazeny JPA
+  \item {\bf JAX-RPC (JSR 101)} - první pokus o modelování SOAP webových služeb jako volání RPC, nahrazeno JAX-WS
+  \item {\bf JAXR (JSR 93)} - aplikační rozhraní pro komunikaci s UDDI registry. Pro nevalný úspěch bude odstraněno. Stejný osud potká i Java EE Application Deployment (JSR 88) a Java EE Management (JSR 77)
+\end{itemize}
+
+S rostoucí popularitou webových služeb na přístupu REST\footnote{Representational state transfer - architektura založená na webových standardech a HTTP protokolu (viz. \ref{rest})} byla do Java EE 6 přidána specifikace JAX-RS. Stačí jednoduchá třída se speciální anotací, která umožní komunikovat s naší aplikací pomocí HTTP protokolu.
+
+Kromě odlehčení celé platformy bylo věnováno mnoho úsilí také na zjednodušení celého programovacího modelu. Ve verzi Java EE 5 byly představeny anotace, které poskytují metadata potřebná serverem pro určení chování jednotlivých komponent. Před představením anotací byly XML dokumenty obsahující konfigurace jednotlivých komponent jedinou možností, jak serveru tyto metadata poskytnout. Snižující se počet komponent vyžadujících XML dokumenty pozitivně ovlivnil rychlost a jednoduchost vývoje. Ovšem tato změna postihla v Java EE 5 pouze EJB, entity a webové služby, kdežto prezentační vrstva aplikace z těchto změn zatím těžit nedokázala. V Java EE 6 se stalo používání XML dokumentů volitelným i pro prezentační vrstvu a veškeré funkcionality lze nyní dosáhnout pomocí anotací (podpora pro XML dokumentů zůstala nezměněná).
+
+\subsection{EJB}
+Další z komponent, které prošly významnou změnou jsou EJB. EJB jsou komponenty na straně serveru, které zastřešují aplikační logiku a starají se o transakce, zabezpečení, plánování, vzdálený přístup, webové služby a jiné. Tyto již nemusí implementovat žádné rozhraní, ale stačí obyčejná třída s anotací označující typ beany. Ve verzi Java EE 6 máme na výběr z těchto typů:
+
+\begin{itemize}
+  \item {\bf @Stateless} - bezstavová beana, klient může použít jakoukoliv instanci beze změny výsledku
+  \item {\bf @Stateful} - stavová beana, uchovává si stav napříč celým sezením konkrétního klienta
+  \item {\bf @Singleton} - jediná instance, která je sdílená napříč aplikací
+\end{itemize}
+
+Jelikož v předchozí verzi specifikace jasně nedefinovala konvence pro tvorbu JNDI\footnote{Java Naming and Directory Interface - rozhraní které umožňuje klientům hledat objekty pomocí jména} jmen, bylo běžné, že různé aplikační servery přiřazovali EJB různá jména. Proto bylo potřeba měnit kód v závislosti na tom, který server právě používali. Tento problém je již minulostí, jelikož v Java EE 6 jsou konvence pro tvorbu JNDI jmen objektů přímou součástí specifikace.
+
+\subsection{CDI}
+Je specifikace popisující správu životního cyklu kontextu a injektování závislostí, která přebírá to nejlepší z nástaveb jako Spring, Seam nebo Guice. Tato specifikace definuje sadu komplementárních služeb, které zlepšují strukturu aplikačního kódu. Od Java EE 6 se stala součástí platformy, tudíž musí být podporována všemi servery. CDI nám umožňuje:
+
+\begin{itemize}
+  \item typově bezpečný přístup k injektování závisloti
+  \item interakci objektů pomocí událostí
+  \item vylepšení životního cyklu stavových objektů
+  \item volání bean na JSF stránkách pomocí sjednoceného jazyka výrazů (EL)
+\end{itemize}
+
+Každý klient vidí beanu v jiném stavu, závisí pouze na tom, na kterou instanci má právě odkaz. Nicméně pro bezstavové beany a singletony platí, že klient nemá žádnou kontrolu nad jejich životním cyklem. Každá beana má definovaný rozsah, který určuje:
+
+\begin{itemize}
+  \item životní cyklus každé instance dané beany 
+  \item klienty, kteří mohou sdílet odkaz na konkrétní instanci dané beany
+\end{itemize}
+
+CDI definuje čtyři vestavěné rozsahy:
+
+\begin{itemize}
+  \item{\bf @RequestScoped} - kontext je unikátní v rámci daného požadavku
+  \item{\bf @SessionScoped} - kontext je unikátní v rámci daného sezení
+  \item{\bf @ApplicationScoped} - kontext je unikátní v rámci dané aplikace
+  \item{\bf @ConversationScoped} - speciální verze @SessionScoped
+\end{itemize}
+
+Pro libovolné vlákno v aplikaci využívající CDI může existovat kontext, který je pro toto vlákno unikátní (má-li beana nastavený rozsah na požadavek), nebo může být sdílený s určitou skupinou vláken (má-li beana nastavený rozsah na sezení) a nebo může být sdílený všemi vlákny (má-li beana nastavený rozsah na aplikaci). CDI nám umožňuje za běhu aplikace změnit jednu beanu za jinou implementující stejné rozhraní avšak s různým životním cyklem (rozsahem)~\cite{weld}.
+
+CDI se výborně hodí pro práci se zdroji aplikačního serveru. Anotace @Produces nám umožňuje definovat zdroje na jednom místě. Pomocí CDI máme možnost k těmto zdrojům přistupovat napříč celou aplikací uniformním způsobem.
+
+\begin{lstlisting}
+public class Resources {
+	@Produces
+	public Logger produceLog(InjectionPoint injectionPoint) {
+		return Logger.getLogger(injectionPoint.getMember()
+				.getDeclaringClass().getName());
+	}
+}
+\end{lstlisting}
+
+Pomocí anotace @Inject získáme nejenom instanci třídy Logger, ale tato instance bude rovnou serverem naplněna patřicnými parametry, které server získá z bodu injektace.
+
+Anotace @Produces nám dále umožňuje použít návratovou hodnotu metody přímo v našich JSF stránkách. Mějme metodu s touto anotací vracející seznam všech zákazníků:
+
+\begin{lstlisting}
+@Produces
+@Named
+List<Customer> getCustomerList() {
+	return customerList;
+}
+\end{lstlisting}
+
+Vypsání zákazníku na našich stránkách provedeme prostým:
+
+\begin{lstlisting}
+<h:dataTable value="#{customerList}" var="_customer">
+	<h:column>
+	...
+	</h:column>
+</h:dataTable>
+\end{lstlisting}
+
+Aby bylo možné v naší aplikaci používat CDI, je nutné aby byl přítomen soubor beans.xml. Tento soubor může být prázdný, ale musí existovat. U webových aplikací musí být přítomen v adresáři WEB-INF, u EJB modulů a Java archívů potom v adresář META-INF.
+
+\subsection{Validace Bean}
+Je další z řady novinek v Java EE 6. Poskytuje nám jednotný směr k definování omezení na objektový model, čímž dokážem zajistit integritu dat v databázi\footnote[1]{podobný princip validace umožňuje také JSF, kdy jsou dava validována na prezentační vrstvou}. Omezení definujeme uvnitř entit pomocí anotací například následujícím způsobem:
+
+\begin{lstlisting}
+@Entity
+public class Product implements Serializable {
+	@Id
+	private Long id;
+	@Size(min = 1, max = 25, message = "Name may not be null")
+	@Pattern(regexp = "[A-Za-z0-9]*", message = "Name must contain only letters and numbers")
+	private String name;
+	... metody get a set
+}
+\end{lstlisting}
+
+Takto definovaná omezení jsou použita naším poskytovatelem JPA při ukládání nebo změně dat v databázi. Pokud by transakce jakékoliv z omezení porušila, došlo by k jejímu zrušení a vrácení do původního stavu (rollback). Takto definovaná omezení se ovšem dají využít i na ostatních vrstvách aplikace. V naší aplikace je použit k validaci dat následující generický validátor, který umožní validovat všechny entity které se v aplikaci vyskytují. Tento validátor může být následně použit na všech vrstvách aplikace.
+
+\begin{lstlisting}
+public class EntityValidator<T> {
+	public Set<ConstraintViolation<T>> validate(T entity) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+		return constraintViolations;
+	}
+}
+\end{lstlisting}
+
+Díky tomuto jsme schopni validovat data například již při čtení z formuláře a zamezit tak zbytečnému přístupu k databázi. Zprávy popisující omezení, která jsme porušili můžeme rovnou použít jako výstup pro uživatele (viz. \ref{jsfMessage})
+
+\section{Persistentni vrstva}
+Existuje více způsobu, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí pokud bude třída jejíž instanci chceme serializovat implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
+
+	Dalším způsobem, kterým můžeme data ukládat je za použití JDBC, které je součástí Java platformy už od verze 1.1. JDBC nám umožní připojit se k databázi a dotazovat se na ni pomoci SQL. Ačkoliv je tento přístup stále široce používán je čím dál více zastíněn objektově relačním mapováním (ORM). U ORM jsou Java třídy mapovány na tabulky relační databáze, čímž vzniká dojem, že nepracujeme s relační databází, ale databází objektů.
+JPA 2.0
+
+JPA je abstrakcí nad JDBC díky které jsme schopni se úplně osvobodit od SQL. Mezi hlavní komponenty JPA patří:
+
+\begin{itemize}
+  \item{\bf ORM} - mechanismus mapování entit na data uložená v relační databázi 
+  \item{\bf aplikační rozhraní manažera entit} - umožňuje nám volat CRUD operace bez přímého použití JDBC
+  \item{\bf JPQL} - objektově orientovaný dotazovací jazyk
+\end{itemize}
+
+Jakmile ze začínáme bavit o mapování objektů do relační databáze, je na místě začít používat pojem entita namísto pojmu objekt. Objekty nazýváme instance určité třídy, které zrovna existují v paměti. Entity jsou objekty se schopností být namapovány do databáze. které existovaly krátce v paměti, a nyní jsou uchovány v databázi. Jakmile je entita jednou namapována, tak může být spravována pomocí JPA (můžeme ji uložit, změnit, vymazat a dotazovat se na ní pomocí JPQL).
+
+Jak tedy proměnit třídu v třídu entit? Aby se z obyčejné třídy stala entitní třída, tak musí splňovat následující:
+\begin{itemize}
+  \item třída musí mít anotaci @Entity
+  \item anotace @Id musí být použita k určení primárního klíče
+  \item třída musí mít bezparametrický konstruktor s veřejným nebo chráněným modifikátorem přístupu (mimo to může mít i další konstruktory)
+  \item výčtová třída nebo rozhraní nemůže být entitní třídou
+  \item pokud bude k této třídě přistupováno pomocí vzdáleného rozhraní, tak musí implementovat rozhraní Serializable
+  \item entitní třída ani žádné její atributy nesmějí být deklarovány jako finální
+\end{itemize}
+
+Následující příklad ukazuje nejjednodušší možnou entitní třídu.
+
+\begin{lstlisting}
+@Entity
+public class Product {
+	@Id
+	private Long id;
+	private String name;
+	private Float price;
+	public Product() {}
+	... metody get a set
+}
+\end{lstlisting}
+
+Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup "konvence nad konfigurací" což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku \ref{fig:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{EntityToTableMapping}
+\caption{ORM v praxi}
+\label{fig:orm}
+\end{figure}
+
+Pokud dojde k situaci, že se název tabulky nebo sloupce shoduje s některým z klíčových slov SQL (například Order), nebo chceme z nějakého důvodu způsob mapování změnit (například budujeme aplikaci nad existující databází), máme možnost takto učinit pomocí anotací (případně pomocí XML dokumentu). Stačí prostudovat aplikační rozhraní dané anotace a upravit si mapovaní dle vlastních představ. Na ukázce vidíme aplikační rozhraní anotace @Column, kterou lze použít pro úpravu způsobu mapování jednotlivých atributů na sloupce.
+
+\begin{lstlisting}
+@Target({METHOD, FIELD}) @Retention(RUNTIME)
+public @interface Column {
+String name() default "";
+boolean unique() default false;
+boolean nullable() default true;
+boolean insertable() default true;
+boolean updatable() default true;
+String columnDefinition() default "";
+String table() default "";
+int length() default 255;
+int precision() default 0;
+int scale() default 0; 
+}
+\end{lstlisting}
+
+Dalšími z užitečných anotací v JPA jsou například:
+
+\begin{itemize}
+  \item{\bf @Transient} - jakmile označíme třídu anotací @Entity, tak jsou všechny atributy automaticky mapovány do tabulky. Pokud chceme nějaký atribut vyloučit, můžeme použít anotaci @Transient
+  \item{\bf @Temporal} - v Javě můžeme použít pro uložení časových dat třídy java.util.Date a java.util.Calendar. Pro použití těchto tříd v ORM slouží anotace @Temporal
+  \item{\bf @Enumerated} - pokud chceme použít jako atribut výčtovou třídu
+\end{itemize}
+
+Mezi jednotlivými třídami můžeme definovat několik typů vazeb, které nám určují vztahy mezi nimi. Každá vazba definuje směr. Může být buď jednosměrná (můžeme se z jednoho objektu dostat na druhý, ale ne naopak), nebo obousměrná (objekty se vidí navzájem). Další vlastností vazeb je jejich kardinalita, která určuje kolik objektu je ve vazbě zahrnuto. Každý vztah má vlastníka, pokud je vazba jednosměrná je vlastník implicitně daný, je-li vazba obousměrná, musí být explicitně určen. 
+
+V JPA jsme schopni upravovat vztahy mezi entitami pomocí anotací @OneToOne, @OneToMany, @ManyToOne a @ManyToMany. Pomocí těchto anotací jsme schopni definovat jak směr vazby, tak způsob uložení dat v tabulkách (má-li být použit sloupec s cizím klíčem nebo sjednocená tabulka).
+
+Pomocí atributu fetch můžeme u každé z těchto vazeb nastavit způsob načítání dat z tabulky, ten může být buď líný, nebo horlivý. Mějme například entitu zákazníka. Každý zákazník může mít historii svých objednávek. Každá objednávka se může skládat z několika položek s různými produkty. Pokud bychom měli nastavené horlivé načítání u všech entit v tomto příkladě, tak by se do paměti při vyhledání zákazníka v databázi načetly také všechny jeho objednávky a všechny produkty a to i v případě, kdy nás zajímalo pouze zákazníkovo jméno. Takové chování by u aplikace znamenalo značnou degradaci její výkonnosti. Anotace @OneToOne a @ManyToMany používají standardně horlivé načítání, anotace @OneToMany a @ManyToMany líne. K tomu, abychom donutili JPA líně načíst data, můžeme použít metodu initialize, kterou nabízí náš JPA poskytovatel Hibernate. Po zavolání:
+\begin{lstlisting}
+Hibernate.initialize(order.getOrderItems());
+\end{lstlisting}
+	můžeme pracovat i s jednotlivými instancemi položek objednávky.
+
+Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky, na které není odkazováno z žádné jiné tabulky. Pokud bychom například smazali z databáze zákazníka, seznam jeho objednávek by pro nás ztratil význam. Pomocí atributu orphanRemoval upozorníme JPA, aby po smazání zákazníka smazalo také všechny jeho ojednávky.
+\begin{lstlisting}
+...
+	@OneToMany(mappedBy = "customer", orphanRemoval = true)
+	private List<Order> order;
+...
+\end{lstlisting}
+\subsection{Dědičnost v JPA}
+JPA podporuje tři různé strategie při mapování dědičnosti entit. Tato strategie je vždy definována ve třídě s nejvyšší hierarchií pomocí anotace @Inheritance.
+
+\vspace{5 mm}\noindent{\bf Strategie jedné tabulky}
+\\\indent Pokud anotace @Inheritance chybí, je vždy použita tato strategie. Všechny entity, nehledě na postavení v hierarchii, jsou ukládány do jedné tabulky. Ačkoli je tato strategie nejjednodušší, má několik nevýhod. V tabulce vznikají prázdná místa, protože různé třídy mají různé atributy a ani přidání nové entity do hierarchie se neobejde bez problémů, protože je potřeba přidat nové sloupce do tabulky. Navíc je potřeba, aby atributy všech entit kromě rodičovské měly povoleny prázdné hodnoty, jinak nebude možné do tabulky vkládat.
+
+\vspace{5 mm}\noindent{\bf Strategie sjednocené tabulky}
+\\\indent Každá entita má vlastní tabulku, ale společné atributy entit jsou uloženy pouze do rodičovské tabulky. Ta obsahuje extra sloupec označující entitu, které daný řádek patří. Ani tato strategie není zrovna ideální, protože musíme často spojovat tabulky, abychom dostali úplný stav entity.
+
+\vspace{5 mm}\noindent{\bf Strategie jedné tabulky pro každou třídu}
+\\\indent Podobně jako u strategie sjednocené tabulky i zde má každá entita vlastní tabulku s tím rozdílem, že všechny atributy rodiče budou mapovány také v tabulce potomka. Při použití této strategie nenajdeme žádné sjednocené sloupce ani hodnoty. Nevýhodnou se tato strategie stává, pokud chceme najít všechny záznamy jak rodiče, tak všech synů, protože v tomto případě se musí provést sjednocení výsledků z tabulek všech entit.
+
+Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že entity nemusí nutně dědit zase jenom z entit. Existují tři další typy tříd, od kterých mohou entity dědit:
+
+\vspace{5 mm}\noindent{\bf Abstraktní entita}
+\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována tak jako žádná jiná abstraktní třída v jazyce Java.
+
+\vspace{5 mm}\noindent{\bf Neentita}
+\\\indent Pokud entita dědí z neentity, tak jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
+
+\vspace{5 mm}\noindent{\bf Mapovaná supertřída}
+\\\indent Tento speciální druh třídy se používá nejen pro sdílení stavu a chování, ale také pro sdílení informací o mapování pro entity, které od této třídy dědí. Tyto třídy nejsou nijak spravovány JPA poskytovatelem ani nemají vlastní tabulku. Ve vyvíjené aplikaci je použita mapovaná supertřída OrderRoot, která sdružuje společné vlastnosti tříd Order a Invoice, které z této třídy dědí.
+
+\begin{lstlisting}
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class OrderRoot {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	private Customer customer;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+...
+}
+\end{lstlisting}
+
+\subsection{Manažer Entit}
+
+JPA nám neposkytuje pouze možnost entity mapovat, ale také s nimi pracovat a dotazovat se na ně. K tomuto účelu v JPA slouží manažer entit, který nám poskytuje rozhraní pro ukládání, vyhledávání, mazání a synchronizaci objektů s databází. Dovoluje nám dotazovat se na databázi pomocí JPQL\footnote[1]{Java Persisten Query Language - jazyk pro práci s databází objektově orientovaným způsobem}. JPQL nemá ponětí o struktuře dat uložených v databázi ani o řádcích a sloupcích, místo toho nám dovoluje přistupovat k datům jako k objektům s atributy pomocí standardní tečkové notace. Manažer entit je centrálním bodem v JPA. Má na starosti životní cykly entit, vyhledávání entit pomocí klíče, může zamykat přístup k entitám, aby zajistil konzistenci dat při sdíleném přístupu a nebo nám vracet hodnoty JPQL dotazů.
+
+Použití manažeru entit se zásadně liší podle toho, jestli se jedná o aplikaci běžící na serveru (transakce, životní cykly entit a jiné jsou spravovány serverem) nebo Java SE aplikaci, kde se musí o vše postarat aplikace sama.
+
+Použijeme-li již známou třídu Resources, tak může vytvoření nového produktu v aplikaci spravované serverem vypadat následovně:
+
+\begin{lstlisting}
+@Stateless
+public class ProductManager {
+	@Inject
+	private EntityManager em;
+	public Product addProduct(String name, Long price) {
+		Product product = new Product(name, price);
+		em.persist(product);
+		return product;
+	}
+}
+\end{lstlisting}
+
+Nemusíme manažer entit vytvářet, ani zavírat, jelikož je jeho životní cyklus spravován serverem. Ke konfiguraci manažeru entit slouží persistentní jednotka, která je definována v souboru persistence.xml v adresáři META-INF naší aplikace. Požadavky na tento soubor se opět liší vzhledem k tomu, zda-li aplikace poběží na serveru nebo ne. Tento soubor by měl obsahovat adresu databáze, do které chceme data ukládat a různá nastavení, kterými řekneme našemu poskytovateli JPA, jaké chování od něj očekáváme (strategie vytváření tabulek, logování SQL dotazu a jiné).
+
+\subsection{JPQL}
+
+V naší aplikaci si většinou nevystačíme s pouhým ukládáním, mazáním a vyhledáváním pomocí klíče, ale často potřebujeme vyhledat data pomocí specifických kritérií. Zde přichází na řadu JPQL. JPQL do jisté míry vychází ze SQL s tím rozdílem, že výsledkem volání SQL jsou řádky a sloupce, kdežto výsledkem volání JPQL jsou entity nebo kolekce entit. Syntaxe JPQL je velice bohatá a umožňuje nám budovat i složité dotazy, nebo dotazy s parametry. 
+
+V JPA 2.0 máme čtyři různé druhy dotazů, které můžeme volat:
+\begin{itemize}
+  \item {\bf dynamický dotaz} - nejjednodušší forma použití JPQL, dotaz je specifikován za běhu aplikace ve formě řetězce
+  \item {\bf pojmenovaný dotaz} - pojmenované dotazy jsou statické a neměnné (mohou obsahovat parametry)
+  \item {\bf nativní dotaz} - v tomto typu dotazu používáme přímo SQL namísto JPQL
+  \item {\bf kritéria API} - zcela nový druh typovaných dotazu v JPA 2.0
+\end{itemize}
+
+Dotazy vytvořené pomocí kritéria API mají oproti JPQL několik zásadních výhod. Jsou typově zabezpečené, tudíž nám poskytují typovou kontrolu již v době kompilace kódu a nejsou tak náchylné k překlepům, jelikož lze využít doplňování kódu během tvorby našich dotazů, ovšem oproti JPQL je psaní těchto dotazů nepříjemně těžkopádné. Zatímco získání jmen všech produktů z databáze pomocí kritéria API vypadá následovně:
+
+\begin{lstlisting}
+Metamodel mm = em.getMetamodel();
+EntityType<Product> mproduct = mm.entity(Product.class);
+SingularAttribute<Product, String> name = mproduct.getDeclaredSingularAttribute("name", String.class);
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery<String> criteria = cb.createQuery(String.class);
+Root<Product> product = criteria.from(Product.class);
+criteria.select(product.get(name));
+return em.createQuery(criteria).getResultList();
+\end{lstlisting}
+
+Stejná věc by šla udělat pomocí JPQL následujícím dotazem:
+
+\begin{lstlisting}
+Query query = em.createQuery("SELECT p.name FROM Product p");
+return query.getResultList();
+\end{lstlisting}
+
+Z důvodu typové bezpečnosti bylo v aplikaci použito výhradně nového kriteria API.
+
+\subsection{Datový model aplikace}
+Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovanáho u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz. obrázek \ref{fig:class}).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{class}
+\caption{Diagram tříd}
+\label{fig:class}
+\end{figure}
+
+V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí třídy Order a Invoice. Na ERD diagramu (viz. obrázek \ref{fig:erd}) můžeme vidět, jakým způsobem jsou atributy definované v mapované supertřídě přeneseny do jejich potomků
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{erd_diagram}
+\caption{Entitně relační diagram}
+\label{fig:erd}
+\end{figure}
+
+
+\section{Aplikační vrstva}
+Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělené těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších. 
+
+V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty, podporující přístup "konvence nad konfigurací". Programátor se tak může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena, tak ji server poskytuje následující služby~\cite{wikiEJB}:
+
+\begin{itemize}
+  \item {\bf komunikace se vzdáleným klientem} - zjednodušuje komunikaci mezi klientem a aplikací
+  \item {\bf injektování závislosti} - zajišťuje naplnění deklarovaných proměnných (datových atributů) např. dalšími EJB, JMS, datovými zdroji (manažer entit), a jiné
+  \item {\bf řízení stavu} - kontejner udržuje v paměti stavy jednotlivých stavových bean a tím i vzdálený stav u klienta, kterému se jeví stav jakoby uložen lokálně
+  \item {\bf poskytování fondů} - vytváření fondů instancí pro bezstavové beany a message-driven beany (MDB)
+  \item {\bf řízení životního cyklu} - stará se o vytváření, inicializaci a destrukci instancí bean
+  \item {\bf messaging} - umožňuje MDB poslouchat na JMS\footnote[1]{Java Messiging Service - rozhraní umožňující aplikacím asynchronně vytvářet, číst, posílat a příjímat zprávy} destinacích a konzumovat zprávy
+  \item {\bf management transakcí} - beany deklarují transakční vlastnosti metod, kontejner řeší potvrzení a zrušení transakce
+  \item {\bf bezpečnost} - deklarace přístupů na úrovni tříd a metod
+  \item {\bf podpora souběžného zpracování} - vývojář nemusí řešit problémy synchronizace souběžných přístupů ke sdíleným datům
+  \item {\bf správa interceptorů} - komponenty umožňující odchytávat okamžik před a po volání metody
+  \item {\bf asynchronní volání metod} 
+\end{itemize}
+
+Instanci EJB můžeme v aplikaci získat buď pomocí JNDI, nebo pomocí injektování závislosti.
+Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly použity v naší aplikaci.
+
+\vspace{5 mm}\noindent{\bf Bezstavové beany}
+\\\indent Jsou ideální pro implementaci úkolů, které mohou být dokončeny voláním pouze jedné metody. Jsou sdružovány ve fondech, ze kterých jsou odebírány a po obsloužení požadavku zase vráceny zpět. Neuchovávají si žádný stav relevantní pro klienta mezi obsluhou jeho jednotlivých požadavků. Jsou přirozeně vláknově bezpečné. Server nezaručuje, že stejný klienty vždy dostane stejnou instanci beany. Pokud chceme ze třídy udělat bezstavovou EJB, musíme jí označit anotací @Stateless. V naší aplikaci jsou bezstavové beany použity jako základní stavební kámen pro veškerou aplikační logiku.
+
+\vspace{5 mm}\noindent{\bf Singleton}
+\\\indent Singletonem označujeme beanu, které je v celé aplikaci instanciována pouze jednou a má globálně sdílený stav mezi klienty (pracujeme-li v prostředí klastrů, má každý klastr svoji vlastní instanci singletonu).
+
+\vspace{5 mm}\noindent{\bf MDB (Message-Driven Beany)}
+\\\indent slouží k obsluze operací, které nevyžadují okamžitou odpověď tím, že asynchronně konzumují JMS zprávy. I když se chovají podobně jako bezstavové beany, klientské aplikace k nim nemohou přistupovat přímo, ale pouze zasíláním zpráv na adresu na které MDB naslouchá.
+
+
+\subsection{Management transakcí}
+
+Management transakcí
+Transakce slouží k zajištění konzistence dat i při souběžném přístupu více aplikací. Transakce logicky sdružuje větší počet jednoduchých operací. Tyto operace mohou být prováděny jak sekvenčně, tak paralelně. Jakmile jedna část transakce selže (například vyhodí výjimku), tak je celé transakce zrušena a data jsou vrácena do původního stavu. Každá transakce musí mít následující vlastnosti:
+
+\begin{itemize}
+	  \item {\bf atomicita} - transakce je sice tvořena více operacemi, ale navenek se chová pouze jako jedna opera, která proběhne buď celá, nebo je celé zrušena
+  \item {\bf konzistence} - po dokončení transakce musí být data v konzistentním stavu
+  \item {\bf izolovanost} - externí aplikace nevidí vnitřní stav transakce
+  \item {\bf trvalost} - jakmile transakce úspěšně proběhne, tak jsou změny uložené v databázi viditelné i pro ostatní aplikace
+\end{itemize}
+
+Stejně jako tomu bylo u JPA i zde se liší použití transakcí u aplikace, která běží na serveru od použití v aplikaci Java SE. Pokud používáme transakce spravované serverem, nemusíme se starat o vyznačování hranic transakce, ani explicitně rušit transakci při zachycení výjimky. Samozřejmě i zde máme možnost chování transakcí plně řídit pomocí anotací. Pokud nám standardní chování nevyhovuje, můžeme tak učinit pomocí anotace @TransactionalAttribetu. Této můžeme předat jednu z následujících hodnot:
+
+\begin{itemize}
+  \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Pokud je metoda zavolána klientem bez transakčního kontextu, tak je serverem vytvořen nový.
+  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena, na úkor nově vytvořené transakce. Po té, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
+  \item {\bf SUPPORTS} - Pokud je transakční kontext klienta k dispozici, tak je metodou použit, pokud ne, tak je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
+  \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Pokud klient tento kontext nemá, tak je vyhozena výjimka.
+  \item {\bf NOT\_SUPPORTED} - Metoda nemůže být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je probíhající transakce pozastavena a je spuštěna opět po dokončení metody.
+  \item {\bf NEVER} - Metoda nesmí být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je vyhozena výjimka.
+\end{itemize}
+Jedna z věcí, na kterou si musíme dát při konfiguraci transakcí pozor, je volání metod uvnitř jedné třídy. Mějme dvě metody uvnitř třídy OrderManager.
+
+\begin{lstlisting}
+public Order addOrderWithMap(String email, Map<Long, Long> productsWithQuantity) {
+	List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	...
+	return addOrder(email, orderItems);
+}
+\end{lstlisting}
+
+a
+
+\begin{lstlisting}
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+public Order addOrder(String email, List<OrderItem> orderItems) {
+Order order = new Order();
+	...
+	return order;
+}
+\end{lstlisting}
+
+Obě metody vrací instanci třídy Order. První metoda neudělá nic jiného, než že zapouzdří mapu čísel do seznamu položek objednávky a zavolá druhou metodu, která odvede veškerou práci. Problém by mohl nastat v momentě, kdy zavoláme první metodu uvnitř probíhající transakce. Jelikož nemá první metoda žádnou anotaci, je aplikován standardní přístup a metoda běží uvnitř transakčního kontextu klienta. Bohužel, dle specifikace i druhá volaná metoda převezme toto chování a anotace @TransactionAttribute je ignorována, tudíž i tato metoda proběhne uvnitř transakčního kontextu klienta. Naštěstí existuje způsob, jak toto chování obejít. Pomocí injektování závislosti získáme odkaz na jinou instanci této třídy, která vykoná druhou metodu s patřičným nastavením transakce. První metoda bude nyní vypadat takto:
+
+\begin{lstlisting}
+@EJB
+private OrderManager manager;
+public Order addOrderWithMap(String email, Map<Long, Long> productsWithQuantity) {
+	List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	...
+	return manager.addOrder(email, orderItems);
+}
+\end{lstlisting}
+
+Druhá metoda zůstane nezměněna. Aplikace se nyní bude chovat podle očekávání.
+
+
+\subsection{JMS}
+Běžná komunikace mezi komponentami probíhá synchronním způsobem. Jedna komponenta zavolá druhou a čeká než ta dokončí svůj běh před tím, než může pokračovat. Další podmínkou je, že jak volající, tak volaná komponenta musí být dostupné.
+
+Pomocí JMS jsme schopni zajistit asynchronní komunikaci mezi heterogenními systémy. Producent zpráv nemá žádné informace o konzumentech ani o tom, jak s obdrženými zprávami nakládají. Konzument nemusí být v době odeslání zprávy k dispozici a může si zprávu vyzvednout později.
+
+Ke konzumaci zpráv jsou určeny MDB. MDB jsou bezstavové, což znamená, že může na serveru současně běžet více instancí jedné beany, které konzumují zprávy z různých zdrojů. MDB čekají až dorazí zpráva, tu zkonzumují a zpracují. Mohou delegovat aplikační logiku na jiné bezstavové beany. MDB si nezachovávají žádný stav mezi přijetím jednotlivých zpráv.
+JMS podporuje dva základní modely.
+
+\vspace{5 mm}\noindent{\bf Bod-k-bodu}
+\\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesilateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Pokud není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
+
+\vspace{5 mm}\noindent{\bf Publikovat-odebírat}
+\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (z pravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, tak nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho neaktivity zaslány (toto chování se dá ovšem změnit).
+
+Samotná zpráva se skládá z hlavičky, vlastností a těla. Hlavička obsahuje standardní informace pro identifikaci a směrování zprávy. Vlastnosti zprávy obsahují dvojice klíč-hodnota, které může aplikace nastavovat a číst. Tyto vlastnosti slouží spíše jako doplněk hlavičky, protože umožňují, aby se klient na základě vlastností rozhodl, zda zprávu příjme, nebo ne. Samotné tělo zprávy je nepovinné. Tělo zprávy se může skládat z mapy, textového řetězce, objektu a nebo proudu bytů.
+
+V naší aplikaci bylo JMS použito na vytvoření abstrakce skladníka, který uzavírá objednávky a vytváří z nich faktury. Pokaždé, když je vytvořena nová objednávka, je poslána zpráva obsahující její identifikátor. Tato zpráva je zachycena MDB, která deleguje uzavření objednávky na ostatní bezstavové beany. Samotné posílání zprávy vypadá následovně:
+
+\begin{lstlisting}
+@Resource(mappedName = "java:/JmsXA")
+private ConnectionFactory connectionFactory;
+@Resource(mappedName = "java:/queue/test")
+
+private void noticeStoreman(Long orderId) {
+	Connection connection = null;
+	connection = connectionFactory.createConnection();
+		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+	MessageProducer messageProducer = session.createProducer(queue);
+	connection.start();
+	MapMessage message = session.createMapMessage();
+	message.setStringProperty("type", "CLOSE_ORDER");
+	message.setLongProperty("orderId", orderId);
+	messageProducer.send(message);
+	... 
+\end{lstlisting}
+
+část kódu příjemce potom vypadá takto:
+
+\begin{lstlisting}
+@MessageDriven(name = "StoremanMDB", activationConfig = {
+@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+@ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/test"),
+@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
+public class StoremanMDB implements MessageListener {
+	@Override
+	public void onMessage(Message rcvMessage) {
+	if (rcvMessage instanceof MapMessage) {
+		MapMessage msg = (MapMessage) rcvMessage;
+		StoremanMessage message =
+		StoremanMessage.valueOf(msg.getStringProperty("type"));
+	switch (message) {
+			case CLOSE_ORDER:
+			long id = msg.getLongProperty("orderId");
+			// fakturuj
+		...
+}
+\end{lstlisting}
+
+\subsection{Časovaná služba}
+Jedny z požadavků na aplikaci byly, aby aplikace byla schopná běžet dlouhodobě a jednotlivé komponenty bylo možné testovat izolovaně. 
+
+K tomu, aby mohla aplikace běžet dlouhodobě, bylo zapotřebí zajistit postupné promazávání objednávek v databázi, aby nedošlo k nárůstu velikostí tabulek zaznamenávajících objednávky a faktury do enormních hodnot. K tomuto je použita třída Controller a její časovaná služba. Třída Controller je ve skutečnosti singletonem s anotací @Startup, které nám zaručí, že bude naše beana inicializována již během startování aplikace automaticky. Samotná časová služba je vyvolána anotací @Schedule(minute = "*", hour = "*"), která zaručí, že je metoda s touto anotací volána každou minutu běhu aplikace. 
+
+Jakožto singleton je třída Controller zároveň ideálním kandidátem pro umístění všech konfiguračních prvků aplikace (ovládání skladníka, ovládání JMS, ovládání automatického čištění databáze a jiných).
+
+
+\section{Prezentační vrstva}
+K tomu abychom umožnili uživateli pracovat s naší aplikací, je zapotřebí vytvořit nějaké uživatelské rozhraní. V naší aplikaci použijeme webové rozhraní, s kterým může uživatel komunikovat pomocí webového prohlížeče. Na tvorbu tohoto rozhraní využijeme specifikaci JSF (JavaServer Faces). 
+
+JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycházející z návrhového vzoru model-pohled-řadič (MVC). Dává programátorům možnost tvořit webové rozhraní pomocí komponent, událostí, managed bean a vzájemné interakce mezi nimi, čímž usnadňuje a zrychluje vývoj celého rozhraní. Pokud bychom si nevystačili se základní sadou komponent, kterou nám jádro JSF poskytuje, máme k dispozici mnoho knihoven, kterými můžeme tuto sadu rozšířit (PrimeFaces, RichFaces a jiné). JSF 2.0 přineslo ve své nové verzi mnoho novinek jako:
+
+\begin{itemize}
+  \item využití faceletů namísto JSP jako hlavní technologie na tvorbu stránek
+  \item nový způsob nakládání se zdroji
+  \item rozšíření sady rozsahů, které mohou komponenty používat (nově přibyly: rozsah pro komponentu a rozsah pro daný pohled)
+  \item zjednodušený vývoj validátorů, konvertorů a managed bean pomocí anotací
+  \item přivlastnění principu konvence nad konfigurací, což znamená méně XML dokumentů (ty jsou nyní nepovinné)
+  \item podpora pro AJAX
+  \item jednoduchý vývoj nových komponent
+\end{itemize}
+
+\subsection{Facelety}
+Facelety jsou alternativou a náhradou JSP. Poskytují nám možnost tvořit stránky v XML stylu pomocí XHTML dokumentů, což sebou přináší výhodu v podobě možnosti validace stránek použitím standardních nástrojů pro XML, definování vlastních značek a možnost využít objektový model dokumentu (DOM). Další z mnoha výhod, které nám facelety poskytují, je schopnost vytvořit společný vzhled pro více stránek pomocí šablon. 
+
+\subsection{Jazyk výrazů}
+Pokud chceme na našich stránkách vypsat hodnotu nějaké proměnné nebo přistoupit k atributu určitého objektu, můžeme takto učinit pomocí jazyka výrazů. Základní syntaxí tohoto jazyka je \#\{výraz\} (u JSP bylo zvykem používat také \$\{výraz\}, který vyhodnotil výraz okamžitě, toto se ovšem nehodí do životního cyklu JSF stránek). Pomocí tečkové notace můžeme budovat složitější výrazy. Jazyk výrazů nám poskytuje aritmetické, relační a logické operátory, díky kterým můžeme tvořit složitější výrazy.
+
+\subsection{AJAX}
+AJAX (dříve asynchronní JavaScript a XML) je soubor technik, umožňujících nám vytvářet nenáročné, uživatelsky přívětivé a interaktivní webové aplikace. U tradičních webových aplikací musí prohlížeč požádat server o celý HTML dokument což způsobuje překreslení celé stránky i při akcích, které toto chování nevyžadují. Pokud je tato stránka netriviálně veliká, dochází ke zbytečnému plýtvání šířkou pásma a zpomalení celé aplikace. AJAX používá asynchronní přenos dat mezi prohlížečem a serverem k získání pouze potřebné části informace namísto celé stránky, tato část stránky je poté pomocí JavaScriptu překreslena, což činí aplikaci plynulejší a rychlejší. Toto chování je nám umožněno i díky objektovému modelu dokumentu, pomocí kterého můžeme dynamicky pracovat s daty.
+
+\begin{lstlisting}
+<p:commandButton value="Remove" 
+action="#{productBean.deleteProduct(_product.productName)}"
+update="@form" />
+\end{lstlisting}
+
+Výše uvedený kus kódu říká JSF, že chceme po stisknutí tlačítka překreslit pouze formulář, ve kterém se tato komponenta vyskytuje. Pro přesnou specifikaci komponent, které mají být akcí ovlivněny, můžeme použít:
+\begin{itemize}
+  \item {\bf @all} - překleslí všechny komponenty na dané stránce 
+  \item {\bf @none} - žádná komponenta nebude překreslena
+  \item {\bf @this} - překreslí pouze tu komponentu, která vyvolala požadavek
+  \item {\bf @form} - překreslí všechny komponenty z formuláře, ve kterém se komponenta, která vyvolala požadavek, nachází
+  \item {\bf identifikátor komponenty} - překreslí jednu nebo více komponent specifikovaných pomocí jejich identifikátoru
+  \item {\bf jazyk výrazů} - komponenty, které se budou vykreslovat, se mohou měnit za běhu podle toho, zda se budou jejich identifikátory vyskytovat v kolekci textových řetězců, ke které můžeme přistupovat pomocí jazyka výrazů.
+\end{itemize}
+
+
+\subsection{Model-Pohled-Řadič}
+Návrhový vzor model-pohled-řadič podporuje izolaci aplikační logiky od uživatelského rozhraní, což nám zaručuje udržovatelnost aplikace a její vysokou škálovatelnost. Aplikace využívající tohoto vzoru nám umožní modifikovat jak vzhled, tak vnitřní funkce bez toho, aby se tyto změny navzájem ovlivňovaly. Jednotlivé části tohoto vzoru jsou v naší aplikaci tvořeny následujícími komponentami:
+
+\begin{itemize}
+  \item {\bf Model} - tvořen EJB a JPA,
+  \item {\bf Pohled} - tvořen XHTML stránkami
+  \item {\bf Řadič} - JSF nám poskytuje řadič implicitně (FacesServlet)
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.35\textwidth]{frontendmodel}
+\caption{Model prezentační vrstvy vytvořené za pomoci JSF}
+\label{fig:frontend}
+\end{figure}
+
+\subsection{Managed Beany} 
+Managed beany tvoří centrální bod webových aplikací. Jsou často omylem považovány za řadič. Managed beany mohou vykonávat aplikační logiku (nebo operace delegovat na EJB), obstarávat navigaci mezi stránkami, zajišťovat validaci a konvertování dat, ale také jejich přechovávání. K tomu, aby se ze třídy stala Managed beanou, je nutné aby byla:
+\begin{itemize}
+  \item byla označena anotací @Named (díky této anotaci můžeme nyní k naší beaně přistupovat pomocí jazyka výrazů)
+  \item měla definovaný rozsah\footnote[1]{jelikož mají managed beany většinou nastavený rozsah na požadavek, přináší nám CDI novou anotaci @Model, která v sobě zapouzdřuje anotace @Named a @RequestScoped}
+  \item byla deklarována jako veřejná
+\end{itemize}
+
+Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně tak jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz. obrázek \ref{fig:mdb})
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.5\textwidth]{lifeManaged}
+\caption{Model životního cyklu MDB}
+\label{fig:mdb}
+\end{figure}
+
+Metoda s anotací @PostConstruct je volána serverem okamžitě po vytvoření nové instance managed beany. Po zavolání této metody, je beana připravena obsluhovat požadavky uživatele. Před tím, než je beana odstraněna, z paměti tak je volána metoda @PreDestroy. Tyto metody mohou být použity, například na vytvoření a uvolnění externích zdrojů.
+
+\subsection{Zobrazování zpráv uživateli}
+\label{jsfMessage}
+Pokud má být naše aplikace robustní, měla by umět reagovat na nečekané události. Součástí reakce je poskytnutí adekvátních informací uživateli. Neočekávanými událostmi mohou být: chyba v aplikaci (selhání aplikační logiky, selhání sítě, selhání databáze) a nebo chyba uživatele při práci s aplikací (zadání nepovolených hodnot do formuláře). V prvním případě je vhodné přesměrovat uživatele na stránku s požadavkem o zopakování dotazu později. V druhém případě je vhodné uživatele upozornit na místo, ve kterém udělal chybu. K vyprodukování zprávy nám stačí použít v naší třídě následující metodu:
+
+\begin{lstlisting}
+private void addMessage(String summary) {
+	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
+	FacesContext.getCurrentInstance().addMessage(null, message);
+}
+\end{lstlisting}
+
+K zobrazení zprávy na naší stránce můžeme využít například komponentu z knihovny PrimeFaces:
+\begin{lstlisting}
+<p:growl id="messages" />
+\end{lstlisting}
+
+Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem můžeme videt na obráku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{messages}
+\caption{Zobrazení zpráv uživateli}
+\label{fig:messages}
+\end{figure}
+
+\section{REST}
+\label{rest}
+Jako alternativu k webovému rozhraní, lze interagovat s alipkací také pomocí rozhraní REST. REST je koncept pro design distribuované architektury, kdy části programu běží na různých strojích a ke své komunikaci využívají síť. REST je, na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Webové služby definují vzdálené procedury a protokol pro jejich volání, REST určuje, jak se přistupuje k datům~\cite{maly09}. Základními principy RESTu jsou:
+
+\begin{itemize}
+  \item stav aplikace a chování je vyjádřen zdrojem
+  \item každý zdroj má unikátní identifikátor (URL, URN)
+  \item je definován jednotný přístup pro získání a manipulaci se zdroji
+  \item zdroj může mít různé reprezentace (XML, HTML, JSON, SVG, PDF)
+\end{itemize}
+
+REST definuje čtyři základní metody a to vytvoření dat, získání dat, změnu dat a smazání dat. Tyto metody jsou implementovány pomocí odpovídajících metod HTTP protokolu. Námi poskytované REST rozhraní by mělo splňovat několik zásad:
+
+\begin{itemize}
+  \item {\bf jednotnost rozhraní} - rozhraní by mělo být jednotvárné napříč celou aplikací
+  \item {\bf adresovatelnost} - každá informace, která má nějakou hodnotu, by měla být zpřístupněna jako zdroj a měla by mít vlastní URI
+  \item {\bf souvislost} - pokud existuje nějaký vztah mezi dvěma různými zdroji, tak by na sebe tyto zdroje měly vzájemně odkazovat
+  \item {\bf bezstavovost} - požadavky klientů by se neměly navzájem ovlivňovat 
+\end{itemize}
+
+Ke zpřístupnění našeho rozhraní nejprve potřebujeme určit, na které adrese naší aplikace budou jednotlivé zdroje přístupné. K tomu slouží třída JaxRsActivator, která toto definuje pomocí anotace @ApplicationPath.
+
+\begin{lstlisting}
+@ApplicationPath("/rest")
+public class JaxRsActivator extends Application {
+}
+\end{lstlisting}
+
+Následně definujeme pro každý typ zdroje vlastní třídu, která poskytne veškeré služby vztahující se k tomuto zdroji. Pojďme si ukázat, jak probíhá vytvoření a následné získání zákazníka v naší aplikaci pomocí RESTového rozhraní.
+
+Nejprve definujeme třídu, ve které zpřístupníme služby týkající se zákazníků.
+
+\begin{lstlisting}
+@Path("/products")
+@RequestScoped
+public class ProductResourceRESTService {
+...
+}
+\end{lstlisting}
+
+Pomocí anotace @Path deklarujeme adresu, na které budeme moci přistupovat k tomuto zdroji. Definujeme metodu pro vkládání nových záznamů. Tato metoda musí mít anotaci @POST. Uvnitř metody požadavek klienta zpracujeme, validujeme data, vytvoříme nového zákazníka a vrátíme patřičnou odezvu.
+
+\begin{lstlisting}
+@POST
+@Path("/create/{name:[A-Za-z0-9]*}")
+public Response createProduct(@PathParam("name") String name,
+	@QueryParam("price") @DefaultValue("1") Long price,
+	@QueryParam("type") @DefaultValue("1") Integer type,
+	@QueryParam("stored") @DefaultValue("100") Long stored) {
+	...
+}
+\end{lstlisting}
+
+K vytvoření klienta našeho webového rozhraní můžeme použít knihoven jako Jersey nebo RESTeasy, my si ovšem pro naši malou ukázku vystačíme s cURLem. CURL, což je konzolový nástroj pro přenos dat pomocí protokolů jako HTTP, FTP a jiných. Pomocí příkazu:
+
+\begin{lstlisting}
+curl -X POST 'http://localhost:8080/web/
+	rest/products/create/lednice?price=200&stored=100&type=4'
+\end{lstlisting}
+
+vytvoříme nový produkt. Pro získání produktu zpět nejprve musíme definovat metodu s anotací @GET:
+
+\begin{lstlisting}
+@GET
+@Path("/name/{byName:[A-Za-z0-9]*}")
+@Produces(MediaType.APPLICATION_XML)
+public ProductDao lookupProductByName(@PathParam("byName") String name) {
+	return new ProductDao(productManager.getProductByName(name));
+}
+\end{lstlisting}
+
+Tato metoda vrací instanci třídy ProductDao, která je součástí vrstvy objektů určených pro práci s RESTovým rozhraním, která nám zaručí bezstavovost jednotlivých požadavků. 
+
+Třídy vrstvy DAO jsou označeny anotaci @XMLRootElement, což je anotace architektury JAXB, která umožňuje mapovat Java třídy na XML dokumenty. Díky JAXB můžeme nastavit XML jako návratový typ dat, který tato metoda poskytuje. Třídy vrstvy DAO mají pouze jednosměrné asociace. Byla přidána nová třída CustomerLiteDao, která neobsahuje referenci ani na objednávky ani na faktury, díky tomu jsme schopni vypsat zákazníka i se seznamem jeho objednávek, aniž bychom se zacyklili.
+
+Pro získání produktu můžeme jako klienta použít obyčejný webový prohlížeč, který volá metodu GET implicitně. Náš nově vytvořený produkt je k dispozici na adrese http://localhost:8080/web/rest/products/name/lednice.
+Po zadání této adresy do prohlížeče nám bude serverem vrácena XML reprezentace daného produktu.
+
+\begin{lstlisting}
+<product>
+	category>TYPE4</category>
+	id>1</id><name>lednice</name>
+	price>200</price>
+	reserved>0</reserved>
+	stored>100</stored>
+</product>
+\end{lstlisting}
+
+RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám jak práci s objekty, generování náhodných objektů, tak konfiguraci aplikace samotné.
+
+\section{Autentizace}
+Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek \ref{fig:identity}).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.65\textwidth]{loggingmedol}
+\caption{Model autentizace zákazníka a práce s jeho identitou}
+\label{fig:identity}
+\end{figure}
+
+Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Po té, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko "přihlásit se", je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je zapouzdřed ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
+
+
+
+\chapter{Nasazení aplikace na aplikační server}
+
+TODO TOTO JESTE NEMUSIS
+
+požadavky:
+Git
+Apache Maven 3.x
+Java 1.6
+MySQL 5.x
+
+Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná o server s otevřeným zdrojovým kódem, který je k dispozici zdarma ke staženi. V tomto návodu budeme dále předpokládat, že je použit právě tento server. Server lze stáhnout buďto na adrese http://www.jboss.org/jbossas/downloads/ a nebo sestavit ze zdrojových kódů, které lze naleznout zde https://github.com/jbossas/jboss-as.
+Zdrojové kódy stáhneme z repozitáře pomocí příkazu 
+git clone git://github.com/jbossas/jboss-as.git
+cd 
+mvn 
+zkusit pustit
+vypnout ctrl + c nebo jboss CLI
+zapnout databázy, JPA vytvoří tabulky samo netřeba nic delat
+nakonfigurovat JMS a datasource
+pustit server ve full profilu
+stahnout zdrojáky aplikace z repa
+mvn package (skip tests kdyz zfailuje)
+jboss-as:deploy
+www. nebo rest api přad a pak zobrazit... curl
+opt jmeter
+
+
+
+
+
+
+
+
+\begin{thebibliography}{99}
+%The \bibitem is to start a new reference.  Ensure that the cite_key is
+%unique.  You don't need to put each element on a new line, but I did
+%simply for readability.
+\addcontentsline{toc}{section}{References}
+
+\bibitem{molyneaux09}
+MOLYNEAUX, Ian.
+\emph{: The Art of Application Performance Testing}.
+1st ed. Sebasctopol, CA: O'Reilly Media, c2009, xii, 144 p. Theory in Practice (Sebascopol, Calif.). 
+ISBN 987-059-6520-663.
+
+\bibitem{haines06}
+HAINES, Steven.
+\emph{: Pro Java EE 5 Performance Management and Optimization}.
+Berkley, Calif: Apress, 2006.
+ISBN 978-159-0596-104.
+
+\bibitem{hammell05}
+HAMMELL, Thomas, GOLD, Russel a SNYDER, Tom.
+\emph{: Test-driven Developement: A J2EE example}.
+New ed. Berkley, Calif: Apress, 2005.
+ISBN 15-905-9327-8.
+
+\bibitem{barber11}
+BARBER, Scott a MASON, Colin.
+\emph{: Web Load Testing For Dummies}.
+Compuware Special Edition. 111 River Street Hoboken, NJ 07030-5774: John Wiley \& Sons, Inc., 2011.
+ISBN 978-1-118-16016-9.
+	  
+\bibitem{kodali06}
+KODALI, Raghu R, WETHERBEE, Jonathan a ZADROZNY Peter.
+\emph{: Beginning EJB 3 application development: from novice to professional}.
+Berkeley, CA: Apress, c2006, xxviii, 481 p.
+ISBN 978-159-0596-715. 
+
+\bibitem{goncalves09}
+GONCALVES, Antonio.
+\emph{: Beginning Java EE 6 Platform with GlassFish 3: from novice to professional}.
+New ed. Berkeley, CA: Apress, 2009.
+ISBN 978-143-0219-545. 
+
+\bibitem{maly09}
+MALÝ, Martin.
+\emph{: REST: architektura pro webové API}.
+2009-08-03.
+\textless\href{http://www.zdrojak.cz/clanky/rest-architektura-pro-webove-api/}{http://www.zdrojak.cz/clanky/rest-architektura-pro-webove-api}\textgreater.
+
+\bibitem{bhatt09}
+BHATT, NIRAJ.
+\emph{: Performance Testing – Response vs. Latency vs. Throughput vs. Load vs. Scalability vs. Stress vs. Robustness}.
+2009-09-17
+\textless\href{http://nirajrules.wordpress.com/2009/09/17/measuring-performance-response-vs-latency-vs-throughput-vs-load-vs-scalability-vs-stress-vs-robustness/}{http://nirajrules.wordpress.com/2009/09/17/measuring-performance-response-vs-latency-vs-throughput-vs-load-vs-scalability-vs-stress-vs-robustness/}\textgreater.
+
+\bibitem{moorthy09}
+MOORTHY, Thiru
+\emph{:  End User Response Time Vs Tool Response Time}.
+2009-01-15.
+\textless\href{http://perfhints.blogspot.cz/2009/01/end-user-response-time-vs-tool-response.html}{http://perfhints.blogspot.cz/2009/01/end-user-response-time-vs-tool-response.html}\textgreater.
+
+\bibitem{wikiAppSer}
+\emph{Application server}.
+San Francisco (CA): Wikimedia Foundation, 2012-12-30.
+\textless\href{http://en.wikipedia.org/wiki/Application\_server}{http://en.wikipedia.org/wiki/Application\_server}\textgreater.
+
+\bibitem{AppSerVSWebSer}
+\emph{Application Server vs Web Server}.
+Diffent contributors.
+\textless\href{http://www.diffen.com/difference/Application\_Server\_vs\_Web\_Server}{http://www.diffen.com/difference/Application\_Server\_vs\_Web\_Server}\textgreater.
+
+\bibitem{sintes02}
+SINTES, Tony.
+\emph{: App server, Web server: What's the difference?}.
+2002-08-23.
+\textless\href{http://www.javaworld.com/javaqa/2002-08/01-qa-0823-appvswebserver.html?page=1}{http://www.javaworld.com/javaqa/2002-08/01-qa-0823-appvswebserver.html?page=1}\textgreater.
+
+\bibitem{sakowski10}
+SAKOWSKI, Roger.
+\emph{: Java Application Servers: Which One Fits Your Project Best?}.
+2010-06-27.
+\textless\href{http://java.blogs.webucator.com/2010/06/27/java-application-servers-which-one-fits-your-project-best/}{http://java.blogs.webucator.com/2010/06/27/java-application-servers-which-one-fits-your-project-best/}\textgreater.
+
+\bibitem{oracleCompati}
+\emph{Java EE Compatibility}.
+Oracle, 2012-11-22.
+\textless\href{http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html}{http://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html}\textgreater.
+
+\bibitem{wikiServerComp}
+\emph{Server (computing)}.
+San Francisco (CA): Wikimedia Foundation, 2012-12-29.
+\textless\href{http://en.wikipedia.org/wiki/Server\_(computing)}{http://en.wikipedia.org/wiki/Server\_(computing)}\textgreater.
+
+\bibitem{kalali09}
+KALALI, Masoud.
+\emph{: Top 6 Open Source Java EE Application Servers}.
+2009-11-16.
+\textless\href{http://soa.dzone.com/articles/top-open-source-javaEE-application-servers}{http://soa.dzone.com/articles/top-open-source-javaEE-application-servers}\textgreater.
+
+\bibitem{daytrader}
+\emph{Daytrader: A More Complex Application}.
+Apache Geronimo, 2012-11-22.
+\textless\href{https://cwiki.apache.org/GMOxDOC30/daytrader-a-more-complex-application.html}{https://cwiki.apache.org/GMOxDOC30/daytrader-a-more-complex-application.html}\textgreater.
+
+\bibitem{weld}
+KING, Gavin a MUIR, Pete.
+\emph{Weld - JSR-299 Reference Implementation}.
+2009-10-10.
+\textless\href{http://docs.jboss.org/weld/reference/latest/en-US/html/}{http://docs.jboss.org/weld/reference/latest/en-US/html/}\textgreater.
+
+\bibitem{wikiEJB}
+\emph{Enterprise Java Beans}.
+San Francisco (CA): Wikimedia Foundation, 2012-10-04.
+\textless\href{http://cs.wikipedia.org/wiki/Enterprise\_Java\_Beans}{http://cs.wikipedia.org/wiki/Enterprise\_Java\_Beans}\textgreater.
+
+\bibitem{wikiRest}
+\emph{Representational State Transfer}.
+San Francisco (CA): Wikimedia Foundation, 2012-08-30.
+\textless\href{http://cs.wikipedia.org/wiki/Representational\_State\_Transfer}{http://cs.wikipedia.org/wiki/Representational\_State\_Transfer}\textgreater.
+
+\bibitem{wikiJSR}
+\emph{Java Community Process}.
+San Francisco (CA): Wikimedia Foundation, 2011-07-28.
+\textless\href{http://cs.wikipedia.org/wiki/Java\_Community\_Process}{http://cs.wikipedia.org/wiki/Java\_Community\_Process}\textgreater.
+
+\bibitem{wikiJavaEE}
+\emph{Java EE}.
+San Francisco (CA): Wikimedia Foundation, 2012-10-10.
+\textless\href{http://cs.wikipedia.org/wiki/Java\_EE}{http://cs.wikipedia.org/wiki/Java\_EE}\textgreater.
+
+\bibitem{loadTest}
+\emph{Types of Tests}
+RPM Solutions Pty Ltd, 2004-08-04.
+\textless\href{http://www.loadtest.com.au/types\_of\_tests.htm}{http://www.loadtest.com.au/types\_of\_tests.htm}\textgreater.
+
+\bibitem{wikiBench}
+\emph{Benchmark (computing)}.
+San Francisco (CA): Wikimedia Foundation, 2012-09-30.
+\textless\href{http://en.wikipedia.org/wiki/Benchmark\_(computing)}{http://en.wikipedia.org/wiki/Benchmark\_(computing)}\textgreater.
+
+\bibitem{sybase}
+PONNACHATH, Prashanth.
+\emph{Application Server Benchmarking Fundamentals}.
+Sybase Inc.
+\textless\href{http://www.sybase.com/content/1018914/Benchmarking\_fundamentals\_v3.pdf}{http://www.sybase.com/content/1018914/Benchmarking\_fundamentals\_v3.pdf}\textgreater.
+
+\bibitem{performanceTuning}
+\emph{JBoss AS 7 Performance tuning}.
+2013-01-02
+\textless\href{http://www.mastertheboss.com/jboss-performance/jboss-as-7-performance-tuning}{http://www.mastertheboss.com/jboss-performance/jboss-as-7-performance-tuning}\textgreater.
+
+
+\end{thebibliography} %Must end the environment
+
+
+% Následují další kapitoly a podkapitoly, popřípadě závěr, dodatky, 
+% seznam literatury či použitých obrázků nebo tabulek.
+
+% \bibliographystyle{plain}  % bibliografický styl 
+% \bibliography{mujbisoubor} % soubor s citovanými
+                           % položkami bibliografie 
+
+\end{document}
