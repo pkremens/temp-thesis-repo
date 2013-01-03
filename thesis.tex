@@ -862,7 +862,7 @@ V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí tříd
 
 
 \chapter{Aplikační vrstva}
-Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělené těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších. 
+Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších. 
 
 V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty, podporující přístup konvence nad konfigurací. Programátor se tak může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena, tak ji server poskytuje následující služby~\cite{wikiEJB}:
 
@@ -880,14 +880,14 @@ V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako ent
   \item {\bf asynchronní volání metod} 
 \end{itemize}
 
-Instanci EJB můžeme v aplikaci získat buď pomocí JNDI, nebo pomocí injektování závislosti.
+Instanci EJB můžeme v aplikaci získat buď pomocí JNDI nebo pomocí injektování závislosti.
 Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly použity v naší aplikaci.
 
 \vspace{5 mm}\noindent{\bf Bezstavové beany}
-\\\indent Jsou ideální pro implementaci úkolů, které mohou být dokončeny voláním pouze jedné metody. Jsou sdružovány ve fondech, ze kterých jsou odebírány a po obsloužení požadavku zase vráceny zpět. Neuchovávají si žádný stav relevantní pro klienta mezi obsluhou jeho jednotlivých požadavků. Jsou přirozeně vláknově bezpečné. Server nezaručuje, že stejný klienty vždy dostane stejnou instanci beany. Pokud chceme ze třídy udělat bezstavovou EJB, musíme jí označit anotací @Stateless. V naší aplikaci jsou bezstavové beany použity jako základní stavební kámen pro veškerou aplikační logiku.
+\\\indent Jsou ideální pro implementaci úkolů, které mohou být dokončeny voláním pouze jedné metody. Jsou sdružovány ve fondech, ze kterých jsou odebírány a po obsloužení požadavku zase vráceny zpět. Neuchovávají si žádný stav relevantní pro klienta mezi obsluhou jeho jednotlivých požadavků. Jsou přirozeně vláknově bezpečné. Server nezaručuje, že stejný klient vždy dostane stejnou instanci beany. Pokud chceme ze třídy udělat bezstavovou EJB, musíme jí označit anotací @Stateless. V naší aplikaci jsou bezstavové beany použity jako základní stavební kámen pro veškerou aplikační logiku.
 
 \vspace{5 mm}\noindent{\bf Singleton}
-\\\indent Singletonem označujeme beanu, které je v celé aplikaci instanciována pouze jednou a má globálně sdílený stav mezi klienty (pracujeme-li v prostředí klastrů, má každý klastr svoji vlastní instanci singletonu).
+\\\indent Singletonem označujeme beanu, která je v celé aplikaci instanciována pouze jednou a má globálně sdílený stav mezi klienty (pracujeme-li v prostředí klastrů, má každý klastr svoji vlastní instanci singletonu).
 
 \vspace{5 mm}\noindent{\bf MDB (Message-Driven Beany)}
 \\\indent slouží k obsluze operací, které nevyžadují okamžitou odpověď tím, že asynchronně konzumují JMS zprávy. I když se chovají podobně jako bezstavové beany, klientské aplikace k nim nemohou přistupovat přímo, ale pouze zasíláním zpráv na adresu na které MDB naslouchá.
@@ -896,10 +896,10 @@ Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly p
 \section{Management transakcí}
 
 Management transakcí
-Transakce slouží k zajištění konzistence dat i při souběžném přístupu více aplikací. Transakce logicky sdružuje větší počet jednoduchých operací. Tyto operace mohou být prováděny jak sekvenčně, tak paralelně. Jakmile jedna část transakce selže (například vyhodí výjimku), tak je celé transakce zrušena a data jsou vrácena do původního stavu. Každá transakce musí mít následující vlastnosti:
+Transakce slouží k zajištění konzistence dat i při souběžném přístupu více aplikací. Transakce logicky sdružuje větší počet jednoduchých operací. Tyto operace mohou být prováděny jak sekvenčně, tak paralelně. Jakmile jedna část transakce selže (například vyhodí výjimku), tak je celá transakce zrušena a data jsou vrácena do původního stavu. Každá transakce musí mít následující vlastnosti:
 
 \begin{itemize}
-	  \item {\bf atomicita} - transakce je sice tvořena více operacemi, ale navenek se chová pouze jako jedna opera, která proběhne buď celá, nebo je celé zrušena
+  \item {\bf atomicita} - transakce je sice tvořena více operacemi, ale navenek se chová pouze jako jedna opera, která proběhne buď celá, nebo je celá zrušena
   \item {\bf konzistence} - po dokončení transakce musí být data v konzistentním stavu
   \item {\bf izolovanost} - externí aplikace nevidí vnitřní stav transakce
   \item {\bf trvalost} - jakmile transakce úspěšně proběhne, tak jsou změny uložené v databázi viditelné i pro ostatní aplikace
@@ -1209,7 +1209,7 @@ Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus 
 \label{fig:identity}
 \end{figure}
 
-Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Po té, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je zapouzdřed ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
+Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je zapouzdřed ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
 
 
 \appendix
