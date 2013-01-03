@@ -6,6 +6,9 @@
 \usepackage{hyperref} % url ref
 \usepackage{float} % H u obrazku
 \usepackage{enumitem} % mezery mezi Item
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage[cp1250]{inputenc}
 \textwidth 6.2in % see http://faculty.uoit.ca/bohun/latex/margins.html
 \oddsidemargin 0.0in
 \setcounter{tocdepth}{5} % subsubsection bude v obsahu
@@ -19,6 +22,7 @@
 \renewcommand{\bibname}{Literatura}
 \renewcommand{\appendixname}{Příloha}
 \renewcommand{\contentsname}{Obsah}
+\sloppy % slova nepresahuji okraje
 \lstset{ % nastaveni formatu zdrojaku
 basicstyle=\footnotesize\tt,
 identifierstyle=,
@@ -624,7 +628,8 @@ public class Product implements Serializable {
 	@Id
 	private Long id;
 	@Size(min = 1, max = 25, message = "Name may not be null")
-	@Pattern(regexp = "[A-Za-z0-9]*", message = "Name must contain only letters and numbers")
+	@Pattern(regexp = "[A-Za-z0-9]*", 
+		message = "Name must contain only letters and numbers")
 	private String name;
 	... metody get a set
 }
@@ -991,9 +996,12 @@ private void noticeStoreman(Long orderId) {
 
 \begin{lstlisting}
 @MessageDriven(name = "StoremanMDB", activationConfig = {
-@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-@ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/test"),
-@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
+@ActivationConfigProperty(propertyName = "destinationType", 
+	propertyValue = "javax.jms.Queue"),
+@ActivationConfigProperty(propertyName = "destination", 
+	propertyValue = "queue/test"),
+@ActivationConfigProperty(propertyName = "acknowledgeMode", 
+	propertyValue = "Auto-acknowledge")})
 public class StoremanMDB implements MessageListener {
 	@Override
 	public void onMessage(Message rcvMessage) {
@@ -1089,7 +1097,8 @@ Pokud má být naše aplikace robustní, měla by umět reagovat na nečekané u
 
 \begin{lstlisting}
 private void addMessage(String summary) {
-	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
+	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, 
+		summary, null);
 	FacesContext.getCurrentInstance().addMessage(null, message);
 }
 \end{lstlisting}
@@ -1324,7 +1333,7 @@ S webovým rozhraním aplikace můžeme pracovat na adrese:
 \begin{lstlisting}
 http://localhost:8080/web/index.html.
 \end{lstlisting}
-Máme-li k dispozici nejaký nástroj na generování zátěže, můžeme ke generování použít servlet na adrese .... TODO
+Máme-li k dispozici nejaký nástroj na generování zátěže, můžeme ke generování použít servlet na adrese .... TODO  d
 
 
 
