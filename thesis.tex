@@ -4,7 +4,7 @@
 \usepackage{graphicx} % obrazky
 \usepackage{listings} % zdrojovy kod
 \usepackage{hyperref} % url ref
-\usepackage{float} % H u obrazku
+\usepackage{float} % H u obrazku                             
 \usepackage{enumitem} % mezery mezi Item
 \usepackage[czech]{babel}
 \usepackage[T1]{fontenc}
@@ -60,7 +60,7 @@ Cílem práce je prostudovat problematiku výkonnostního testování, prozkouma
 \end{ThesisAbstract}
 
 \begin{ThesisAbstracten}
-The main goal of the thesis is to study issues of performance testing, investigate the present solutions, identify and describe related (...? co tady dat za slovo? ..nebo nejak to preskladat - help) and use obtained knowledge to design and implement complex bechmark application for performance testing of application servers. Main features of the application will be ability to run for long period of time and ability to test each component in izolation. Application will be used to perform series of performance tests.
+The main goal of the thesis is to study issues of performance testing, to investigate the present solutions, to identify and describe related problems and to use obtained knowledge to design and implement a complex benchmark application for performance testing of application servers. Main features of the application will be able to run for a long period of time and able to test each component in isolation. Application will be used to perform series of performance tests.
 \end{ThesisAbstracten}
 
 \begin{ThesisKeyWords}
@@ -71,9 +71,9 @@ výkonnostní testování, aplikační server, benchmarking, generování zátě
 \tableofcontents
 
 \chapter*{Úvod}
-Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě před tím, než je nasazena do produkčního prostředí.
+Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě předtím, než je nasazena do produkčního prostředí.
 
-Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují jéjí výkonnost zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
+Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují její výkonnost, zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
 
 Aplikační servery jsou páteřní komponentou pro svět podnikových aplikací ... TODO
 
@@ -81,7 +81,7 @@ Aplikace by měla java EE 6, moderní technologie, ... TODO
 
 V úvodní kapitole definujeme metriky měření výkonu a popíšeme si klíčové cíle výkonnosti společně s procesem, při kterém nabývají konkrétních hodnot. Ukážeme si, jakým způsobem lze identifikovat kritické scénáře aplikace, vysvětlíme si rozdíly mezi jednotlivými typy testů a řekneme si něco málo o nástrojích, které nám pomáhají s automatizací testů.
 
-V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si základní typy serverů, ukážeme si rozdíly mezi nimi (které mezi nimi jsou?) a představíme si Java EE plný profil pro aplikační servery. Poté se budeme věnovat existujícím možnostem .... Závěr kapitoly bude věnován možnostem optimalizace aplikačního serveru.
+V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si základní typy serverů, ukážeme si rozdíly, které se mezi nimi vyskytují, a představíme si Java EE plný profil pro aplikační servery. Poté se budeme věnovat existujícím možnostem .... Závěr kapitoly bude věnován možnostem optimalizace aplikačního serveru.
 
 Třetí kapitola je věnována popisu architektury aplikace a seznámení se se základními principy Java EE 6 platformy. Dále jsou podrobněji představeny některé specifikace, které jsou v aplikaci použity.
 
@@ -659,13 +659,13 @@ Díky tomuto jsme schopni validovat data například již při čtení z formul�
 \subsection{REST}
 S rostoucí popularitou webových služeb na přístupu REST\footnote[2]{Representational state transfer - architektura založená na webových standardech a HTTP protokolu (viz \ref{rest})} byla do Java EE 6 přidána specifikace JAX-RS. Stačí jednoduchá třída se speciální anotací, která umožní komunikovat s naší aplikací pomocí HTTP protokolu.
 
-\chapter{Persistentni vrstva}
-Existuje více způsobu, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí pokud bude třída jejíž instanci chceme serializovat implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
+\chapter{Persistentní vrstva}
+Existuje více způsobů, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí, pokud bude třída, jejíž instanci chceme serializovat, implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
 
-Dalším způsobem, kterým můžeme data ukládat je za použití JDBC, které je součástí Java platformy už od verze 1.1. JDBC nám umožní připojit se k databázi a dotazovat se na ni pomoci SQL. Ačkoliv je tento přístup stále široce používán je čím dál více zastíněn objektově relačním mapováním (ORM). U ORM jsou Java třídy mapovány na tabulky relační databáze, čímž vzniká dojem, že nepracujeme s relační databází, ale databází objektů.
+Dalším způsobem, kterým můžeme data ukládat je za použití JDBC, které je součástí Java platformy už od verze 1.1. JDBC nám umožní připojit se k databázi a dotazovat se na ni pomocí SQL. Ačkoliv je tento přístup stále široce používán, je čím dál více zastíněn objektově relačním mapováním (ORM). U ORM jsou Java třídy mapovány na tabulky relační databáze, čímž vzniká dojem, že nepracujeme s relační databází, ale databází objektů.
 JPA 2.0
 
-JPA je abstrakcí nad JDBC díky které jsme schopni se úplně osvobodit od SQL. Mezi hlavní komponenty JPA patří:
+JPA je abstrakcí nad JDBC díky, které jsme schopni se úplně osvobodit od SQL. Mezi hlavní komponenty JPA patří:
 
 \begin{itemize}
   \item{\bf ORM} - mechanismus mapování entit na data uložená v relační databázi 
@@ -674,7 +674,7 @@ JPA je abstrakcí nad JDBC díky které jsme schopni se úplně osvobodit od SQL
 \end{itemize}
 
 \section{ORM}
-Jakmile se začínáme bavit o mapování objektů do relační databáze, je na místě začít používat pojem entita namísto pojmu objekt. Objekty nazýváme instance určité třídy, které zrovna existují v paměti. Entity jsou objekty se schopností být namapovány do databáze. které existovaly krátce v paměti, a nyní jsou uchovány v databázi. Jakmile je entita jednou namapována, tak může být spravována pomocí JPA (můžeme ji uložit, změnit, vymazat a dotazovat se na ní pomocí JPQL).
+Jakmile se začínáme bavit o mapování objektů do relační databáze, je na místě začít používat pojem entita namísto pojmu objekt. Objekty nazýváme instance určité třídy, které zrovna existují v paměti. Entity jsou objekty se schopností být namapovány do databáze, které existovaly krátce v paměti, a nyní jsou uchovány v databázi. Jakmile je entita jednou namapována, tak může být spravována pomocí JPA (můžeme ji uložit, změnit, vymazat a dotazovat se na ní pomocí JPQL).
 
 \subsection{Entitní třídy}
 Jak tedy proměnit třídu v třídu entit? Aby se z obyčejné třídy stala entitní třída, tak musí splňovat následující:
@@ -739,11 +739,11 @@ Dalšími z užitečných anotací v JPA jsou například:
 
 \subsection{Vazby mezi entitami}
 
-Mezi jednotlivými třídami můžeme definovat několik typů vazeb, které nám určují vztahy mezi nimi. Každá vazba definuje směr. Může být buď jednosměrná (můžeme se z jednoho objektu dostat na druhý, ale ne naopak), nebo obousměrná (objekty se vidí navzájem). Další vlastností vazeb je jejich kardinalita, která určuje kolik objektu je ve vazbě zahrnuto. Každý vztah má vlastníka, pokud je vazba jednosměrná je vlastník implicitně daný, je-li vazba obousměrná, musí být explicitně určen. 
+Mezi jednotlivými třídami můžeme definovat několik typů vazeb, které nám určují vztahy mezi nimi. Každá vazba definuje směr. Může být buď jednosměrná (můžeme se z jednoho objektu dostat na druhý, ale ne naopak), nebo obousměrná (objekty se vidí navzájem). Další vlastností vazeb je jejich kardinalita, která určuje, kolik objektů je ve vazbě zahrnuto. Každý vztah má vlastníka, pokud je vazba jednosměrná, je vlastník implicitně daný, je-li vazba obousměrná, musí být explicitně určen. 
 
-V JPA jsme schopni upravovat vztahy mezi entitami pomocí anotací @OneToOne, @OneToMany, @ManyToOne a @ManyToMany. Pomocí těchto anotací jsme schopni definovat jak směr vazby, tak způsob uložení dat v tabulkách (má-li být použit sloupec s cizím klíčem nebo sjednocená tabulka).
+V JPA jsme schopni upravovat vztahy mezi entitami pomocí anotací @OneToOne, @OneToMany, @ManyToOne a @ManyToMany. Pomocí těchto anotací jsme schopni definovat směr vazby i způsob uložení dat v tabulkách (má-li být použit sloupec s cizím klíčem nebo sjednocená tabulka).
 
-Pomocí atributu fetch můžeme u každé z těchto vazeb nastavit způsob načítání dat z tabulky, ten může být buď líný, nebo horlivý. Mějme například entitu zákazníka. Každý zákazník může mít historii svých objednávek. Každá objednávka se může skládat z několika položek s různými produkty. Pokud bychom měli nastavené horlivé načítání u všech entit v tomto příkladě, tak by se do paměti při vyhledání zákazníka v databázi načetly také všechny jeho objednávky a všechny produkty a to i v případě, kdy nás zajímalo pouze zákazníkovo jméno. Takové chování by u aplikace znamenalo značnou degradaci její výkonnosti. Anotace @OneToOne a @ManyToMany používají standardně horlivé načítání, anotace @OneToMany a @ManyToMany líne. K tomu, abychom donutili JPA líně načíst data, můžeme použít metodu initialize, kterou nabízí náš JPA poskytovatel Hibernate. Po zavolání:
+Pomocí atributu fetch můžeme u každé z těchto vazeb nastavit způsob načítání dat z tabulky, ten může být buď líný, nebo horlivý. Mějme například entitu zákazníka. Každý zákazník může mít historii svých objednávek. Každá objednávka se může skládat z několika položek s různými produkty. Pokud bychom měli nastavené horlivé načítání u všech entit, načetly by se do paměti při vyhledání zákazníka v databázi také všechny jeho objednávky a všechny produkty a to i v případě, kdy nás zajímalo pouze zákazníkovo jméno. Takové chování by u aplikace znamenalo značnou degradaci její výkonnosti. Anotace @OneToOne a @ManyToMany používají standardně horlivé načítání, anotace @OneToMany a @ManyToMany líné. K tomu, abychom donutili JPA líně načíst data, můžeme použít metodu initialize, kterou nabízí náš JPA poskytovatel Hibernate. Po zavolání:
 \begin{lstlisting}
 Hibernate.initialize(order.getOrderItems());
 \end{lstlisting}
@@ -760,21 +760,21 @@ Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky
 JPA podporuje tři různé strategie při mapování dědičnosti entit. Tato strategie je vždy definována ve třídě s nejvyšší hierarchií pomocí anotace @Inheritance.
 
 \vspace{5 mm}\noindent{\bf Strategie jedné tabulky}
-\\\indent Pokud anotace @Inheritance chybí, je vždy použita tato strategie. Všechny entity, nehledě na postavení v hierarchii, jsou ukládány do jedné tabulky. Ačkoli je tato strategie nejjednodušší, má několik nevýhod. V tabulce vznikají prázdná místa, protože různé třídy mají různé atributy a ani přidání nové entity do hierarchie se neobejde bez problémů, protože je potřeba přidat nové sloupce do tabulky. Navíc je potřeba, aby atributy všech entit kromě rodičovské měly povoleny prázdné hodnoty, jinak nebude možné do tabulky vkládat.
+\\\indent Pokud anotace @Inheritance chybí, je vždy použita tato strategie. Všechny entity, nehledě na postavení v hierarchii, jsou ukládány do jedné tabulky. Ačkoli je tato strategie nejjednodušší, má několik nevýhod. V tabulce vznikají prázdná místa, protože různé třídy mají různé atributy, a ani přidání nové entity do hierarchie se neobejde bez problémů, protože je potřeba přidat nové sloupce do tabulky. Navíc je potřeba, aby atributy všech entit kromě rodičovské měly povoleny prázdné hodnoty, jinak nebude možné do tabulky vkládat.
 
 \vspace{5 mm}\noindent{\bf Strategie sjednocené tabulky}
 \\\indent Každá entita má vlastní tabulku, ale společné atributy entit jsou uloženy pouze do rodičovské tabulky. Ta obsahuje extra sloupec označující entitu, které daný řádek patří. Ani tato strategie není zrovna ideální, protože musíme často spojovat tabulky, abychom dostali úplný stav entity.
 
 \vspace{5 mm}\noindent{\bf Strategie jedné tabulky pro každou třídu}
-\\\indent Podobně jako u strategie sjednocené tabulky i zde má každá entita vlastní tabulku s tím rozdílem, že všechny atributy rodiče budou mapovány také v tabulce potomka. Při použití této strategie nenajdeme žádné sjednocené sloupce ani hodnoty. Nevýhodnou se tato strategie stává, pokud chceme najít všechny záznamy jak rodiče, tak všech synů, protože v tomto případě se musí provést sjednocení výsledků z tabulek všech entit.
+\\\indent Podobně jako u strategie sjednocené tabulky i zde má každá entita vlastní tabulku s tím rozdílem, že všechny atributy rodiče budou mapovány také v tabulce potomka. Při použití této strategie nenajdeme žádné sjednocené sloupce ani hodnoty. Nevýhodnou se tato strategie stává, pokud chceme najít všechny záznamy rodiče i všech synů, protože v tomto případě se musí provést sjednocení výsledků z tabulek všech entit.
 
 Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že entity nemusí nutně dědit zase jenom z entit. Existují tři další typy tříd, od kterých mohou entity dědit:
 
 \vspace{5 mm}\noindent{\bf Abstraktní entita}
-\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována tak jako žádná jiná abstraktní třída v jazyce Java.
+\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována jako žádná jiná abstraktní třída v jazyce Java.
 
 \vspace{5 mm}\noindent{\bf Neentita}
-\\\indent Pokud entita dědí z neentity, tak jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
+\\\indent Pokud entita dědí z neentity, jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
 
 \vspace{5 mm}\noindent{\bf Mapovaná supertřída}
 \\\indent Tento speciální druh třídy se používá nejen pro sdílení stavu a chování, ale také pro sdílení informací o mapování pro entity, které od této třídy dědí. Tyto třídy nejsou nijak spravovány JPA poskytovatelem ani nemají vlastní tabulku. Ve vyvíjené aplikaci je použita mapovaná supertřída OrderRoot, která sdružuje společné vlastnosti tříd Order a Invoice, které z této třídy dědí.
@@ -797,11 +797,11 @@ public class OrderRoot {
 
 \section{Manažer entit}
 
-JPA nám neposkytuje pouze možnost entity mapovat, ale také s nimi pracovat a dotazovat se na ně. K tomuto účelu v JPA slouží manažer entit, který nám poskytuje rozhraní pro ukládání, vyhledávání, mazání a synchronizaci objektů s databází. Dovoluje nám dotazovat se na databázi pomocí JPQL\footnote[1]{Java Persisten Query Language - jazyk pro práci s databází objektově orientovaným způsobem}. JPQL nemá ponětí o struktuře dat uložených v databázi ani o řádcích a sloupcích, místo toho nám dovoluje přistupovat k datům jako k objektům s atributy pomocí standardní tečkové notace. Manažer entit je centrálním bodem v JPA. Má na starosti životní cykly entit, vyhledávání entit pomocí klíče, může zamykat přístup k entitám, aby zajistil konzistenci dat při sdíleném přístupu a nebo nám vracet hodnoty JPQL dotazů.
+JPA nám neposkytuje pouze možnost entity mapovat, ale také s nimi pracovat a dotazovat se na ně. K tomuto účelu v JPA slouží manažer entit, který nám poskytuje rozhraní pro ukládání, vyhledávání, mazání a synchronizaci objektů s databází. Dovoluje nám dotazovat se na databázi pomocí JPQL\footnote[1]{Java Persisten Query Language - jazyk pro práci s databází objektově orientovaným způsobem}. JPQL nemá ponětí o struktuře dat uložených v databázi ani o řádcích a sloupcích, místo toho nám dovoluje přistupovat k datům jako k objektům s atributy pomocí standardní tečkové notace. Manažer entit je centrálním bodem v JPA. Má na starosti životní cykly entit, vyhledávání entit pomocí klíče, může zamykat přístup k entitám, aby zajistil konzistenci dat při sdíleném přístupu, a nebo nám vracet hodnoty JPQL dotazů.
 
 Použití manažeru entit se zásadně liší podle toho, jestli se jedná o aplikaci běžící na serveru (transakce, životní cykly entit a jiné jsou spravovány serverem) nebo Java SE aplikaci, kde se musí o vše postarat aplikace sama.
 
-Použijeme-li již známou třídu Resources, tak může vytvoření nového produktu v aplikaci spravované serverem vypadat následovně:
+Použijeme-li již známou třídu Resources, může vytvoření nového produktu v aplikaci spravované serverem vypadat následovně:
 
 \begin{lstlisting}
 @Stateless
@@ -820,7 +820,7 @@ Nemusíme manažer entit vytvářet, ani zavírat, jelikož je jeho životní cy
 
 \section{JPQL}
 
-V naší aplikaci si většinou nevystačíme s pouhým ukládáním, mazáním a vyhledáváním pomocí klíče, ale často potřebujeme vyhledat data pomocí specifických kritérií. Zde přichází na řadu JPQL. JPQL do jisté míry vychází ze SQL s tím rozdílem, že výsledkem volání SQL jsou řádky a sloupce, kdežto výsledkem volání JPQL jsou entity nebo kolekce entit. Syntaxe JPQL je velice bohatá a umožňuje nám budovat i složité dotazy, nebo dotazy s parametry. 
+V naší aplikaci si většinou nevystačíme s pouhým ukládáním, mazáním a vyhledáváním pomocí klíče, ale často potřebujeme vyhledat data pomocí specifických kritérií. Zde přichází na řadu JPQL. JPQL do jisté míry vychází ze SQL s tím rozdílem, že výsledkem volání SQL jsou řádky a sloupce, kdežto výsledkem volání JPQL jsou entity nebo kolekce entit. Syntaxe JPQL je velice bohatá a umožňuje nám budovat i složité dotazy nebo dotazy s parametry. 
 
 V JPA 2.0 máme čtyři různé druhy dotazů, které můžeme volat:
 \begin{itemize}
@@ -830,7 +830,7 @@ V JPA 2.0 máme čtyři různé druhy dotazů, které můžeme volat:
   \item {\bf kritéria API} - zcela nový druh typovaných dotazu v JPA 2.0
 \end{itemize}
 
-Dotazy vytvořené pomocí kritéria API mají oproti JPQL několik zásadních výhod. Jsou typově zabezpečené, tudíž nám poskytují typovou kontrolu již v době kompilace kódu a nejsou tak náchylné k překlepům, jelikož lze využít doplňování kódu během tvorby našich dotazů, ovšem oproti JPQL je psaní těchto dotazů nepříjemně těžkopádné. Zatímco získání jmen všech produktů z databáze pomocí kritéria API vypadá následovně:
+Dotazy vytvořené pomocí kritéria API mají oproti JPQL několik zásadních výhod. Jsou typově zabezpečené, tudíž nám poskytují typovou kontrolu již v době kompilace kódu a nejsou náchylné k překlepům, jelikož lze využít doplňování kódu během tvorby našich dotazů, ovšem oproti JPQL je psaní těchto dotazů nepříjemně těžkopádné. Zatímco získání jmen všech produktů z databáze pomocí kritéria API vypadá následovně:
 
 \begin{lstlisting}
 Metamodel mm = em.getMetamodel();
@@ -876,7 +876,7 @@ V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí tříd
 \chapter{Aplikační vrstva}
 Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších~\cite{goncalves09}. 
 
-V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty, podporující přístup konvence nad konfigurací. Programátor se tak může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena, tak ji server poskytuje následující služby~\cite{wikiEJB}:
+V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty podporující přístup konvence nad konfigurací. Programátor se může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena,  server ji poskytuje následující služby~\cite{wikiEJB}:
 
 \begin{itemize}
   \item {\bf komunikace se vzdáleným klientem} - zjednodušuje komunikaci mezi klientem a aplikací
@@ -892,7 +892,7 @@ V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako ent
   \item {\bf asynchronní volání metod} 
 \end{itemize}
 
-Instanci EJB můžeme v aplikaci získat buď pomocí JNDI nebo pomocí injektování závislosti.
+Instanci EJB můžeme v aplikaci získat buď pomocí JNDI, nebo pomocí injektování závislosti.
 Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly použity v naší aplikaci.
 
 \vspace{5 mm}\noindent{\bf Bezstavové beany}
@@ -902,28 +902,28 @@ Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly p
 \\\indent Singletonem označujeme beanu, která je v celé aplikaci instanciována pouze jednou a má globálně sdílený stav mezi klienty (pracujeme-li v prostředí klastrů, má každý klastr svoji vlastní instanci singletonu).
 
 \vspace{5 mm}\noindent{\bf MDB (Message-Driven Beany)}
-\\\indent slouží k obsluze operací, které nevyžadují okamžitou odpověď tím, že asynchronně konzumují JMS zprávy. I když se chovají podobně jako bezstavové beany, klientské aplikace k nim nemohou přistupovat přímo, ale pouze zasíláním zpráv na adresu na které MDB naslouchá.
+\\\indent slouží k obsluze operací, které nevyžadují okamžitou odpověď tím, že asynchronně konzumují JMS zprávy. I když se chovají podobně jako bezstavové beany, klientské aplikace k nim nemohou přistupovat přímo, ale pouze zasíláním zpráv na adresu, na které MDB naslouchá.
 
 
 \section{Management transakcí}
 
 Management transakcí
-Transakce slouží k zajištění konzistence dat i při souběžném přístupu více aplikací. Transakce logicky sdružuje větší počet jednoduchých operací. Tyto operace mohou být prováděny jak sekvenčně, tak paralelně. Jakmile jedna část transakce selže (například vyhodí výjimku), tak je celá transakce zrušena a data jsou vrácena do původního stavu. Každá transakce musí mít následující vlastnosti:
+Transakce slouží k zajištění konzistence dat i při souběžném přístupu více aplikací. Transakce logicky sdružuje větší počet jednoduchých operací. Tyto operace mohou být prováděny sekvenčně i paralelně. Jakmile jedna část transakce selže (například vyhodí výjimku), je celá transakce zrušena a data jsou vrácena do původního stavu. Každá transakce musí mít následující vlastnosti:
 
 \begin{itemize}
   \item {\bf atomicita} - transakce je sice tvořena více operacemi, ale navenek se chová pouze jako jedna opera, která proběhne buď celá, nebo je celá zrušena
   \item {\bf konzistence} - po dokončení transakce musí být data v konzistentním stavu
   \item {\bf izolovanost} - externí aplikace nevidí vnitřní stav transakce
-  \item {\bf trvalost} - jakmile transakce úspěšně proběhne, tak jsou změny uložené v databázi viditelné i pro ostatní aplikace
+  \item {\bf trvalost} - jakmile transakce úspěšně proběhne, jsou změny uložené v databázi viditelné i pro ostatní aplikace
 \end{itemize}
 
 Stejně jako tomu bylo u JPA i zde se liší použití transakcí u aplikace, která běží na serveru od použití v aplikaci Java SE. Pokud používáme transakce spravované serverem, nemusíme se starat o vyznačování hranic transakce, ani explicitně rušit transakci při zachycení výjimky. Samozřejmě i zde máme možnost chování transakcí plně řídit pomocí anotací. Pokud nám standardní chování nevyhovuje, můžeme tak učinit pomocí anotace @TransactionalAttribetu. Této můžeme předat jednu z následujících hodnot:
 
 \begin{itemize}
-  \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Pokud je metoda zavolána klientem bez transakčního kontextu, tak je serverem vytvořen nový.
-  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena, na úkor nově vytvořené transakce. Poté, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
-  \item {\bf SUPPORTS} - Pokud je transakční kontext klienta k dispozici, tak je metodou použit, pokud ne, tak je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
-  \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Pokud klient tento kontext nemá, tak je vyhozena výjimka.
+  \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Pokud je metoda zavolána klientem bez transakčního kontextu, je serverem vytvořen nový.
+  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena na úkor nově vytvořené transakce. Poté, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
+  \item {\bf SUPPORTS} - Pokud je transakční kontext klienta k dispozici, je metodou použit, pokud ne, je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
+  \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Pokud klient tento kontext nemá, je vyhozena výjimka.
   \item {\bf NOT\_SUPPORTED} - Metoda nemůže být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je probíhající transakce pozastavena a je spuštěna opět po dokončení metody.
   \item {\bf NEVER} - Metoda nesmí být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je vyhozena výjimka.
 \end{itemize}
@@ -964,7 +964,7 @@ Druhá metoda zůstane nezměněna. Aplikace se nyní bude chovat podle očekáv
 
 
 \section{JMS}
-Běžná komunikace mezi komponentami probíhá synchronním způsobem. Jedna komponenta zavolá druhou a čeká než ta dokončí svůj běh před tím, než může pokračovat. Další podmínkou je, že jak volající, tak volaná komponenta musí být dostupné.
+Běžná komunikace mezi komponentami probíhá synchronním způsobem. Jedna komponenta zavolá druhou a čeká než ta dokončí svůj běh před tím, než může pokračovat. Další podmínkou je, že jak volající, tak volaná komponenta musí být dostupná.
 
 Pomocí JMS jsme schopni zajistit asynchronní komunikaci mezi heterogenními systémy. Producent zpráv nemá žádné informace o konzumentech ani o tom, jak s obdrženými zprávami nakládají. Konzument nemusí být v době odeslání zprávy k dispozici a může si zprávu vyzvednout později.
 
@@ -972,10 +972,10 @@ Ke konzumaci zpráv jsou určeny MDB. MDB jsou bezstavové, což znamená, že m
 JMS podporuje dva základní modely.
 
 \vspace{5 mm}\noindent{\bf Bod-k-bodu}
-\\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesilateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Pokud není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
+\\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesílateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Pokud není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
 
 \vspace{5 mm}\noindent{\bf Publikovat-odebírat}
-\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (z pravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, tak nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho pasivity zaslány (toto chování se dá ovšem změnit).
+\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (zpravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho pasivity zaslány (toto chování se dá změnit).
 
 Samotná zpráva se skládá z hlavičky, vlastností a těla. Hlavička obsahuje standardní informace pro identifikaci a směrování zprávy. Vlastnosti zprávy obsahují dvojice klíč-hodnota, které může aplikace nastavovat a číst. Tyto vlastnosti slouží spíše jako doplněk hlavičky, protože umožňují, aby se klient na základě vlastností rozhodl, zda zprávu příjme, nebo ne. Samotné tělo zprávy je nepovinné. Tělo zprávy se může skládat z mapy, textového řetězce, objektu a nebo proudu bytů.
 
@@ -1033,7 +1033,7 @@ Jakožto singleton je třída Controller zároveň ideálním kandidátem pro um
 
 
 \chapter{Prezentační vrstva}
-K tomu abychom umožnili uživateli pracovat s naší aplikací, je zapotřebí vytvořit nějaké uživatelské rozhraní. V naší aplikaci použijeme webové rozhraní, s kterým může uživatel komunikovat pomocí webového prohlížeče. Na tvorbu tohoto rozhraní využijeme specifikaci JSF (JavaServer Faces). 
+K tomu, abychom umožnili uživateli pracovat s naší aplikací, je zapotřebí vytvořit nějaké uživatelské rozhraní. V naší aplikaci použijeme webové rozhraní, s kterým může uživatel komunikovat pomocí webového prohlížeče. Na tvorbu tohoto rozhraní využijeme specifikaci JSF (JavaServer Faces). 
 
 JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycházející z návrhového vzoru model-pohled-řadič (MVC). Dává programátorům možnost tvořit webové rozhraní pomocí komponent, událostí, managed bean a vzájemné interakce mezi nimi, čímž usnadňuje a zrychluje vývoj celého rozhraní~\cite{goncalves09}. Pokud bychom si nevystačili se základní sadou komponent, kterou nám jádro JSF poskytuje, máme k dispozici mnoho knihoven, kterými můžeme tuto sadu rozšířit (PrimeFaces, RichFaces a jiné). JSF 2.0 přineslo ve své nové verzi mnoho novinek jako:
 
@@ -1048,13 +1048,13 @@ JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycháze
 \end{itemize}
 
 \section{Facelety}
-Facelety jsou alternativou a náhradou JSP. Poskytují nám možnost tvořit stránky v XML stylu pomocí XHTML dokumentů, což sebou přináší výhodu v podobě možnosti validace stránek použitím standardních nástrojů pro XML, definování vlastních značek a možnost využít objektový model dokumentu (DOM). Další z mnoha výhod, které nám facelety poskytují, je schopnost vytvořit společný vzhled pro více stránek pomocí šablon. 
+Facelety jsou alternativou a náhradou JSP. Poskytují nám možnost tvořit stránky v XML stylu, pomocí XHTML dokumentů, což sebou přináší výhodu v podobě možnosti validace stránek použitím standardních nástrojů pro XML, definování vlastních značek a možnost využít objektový model dokumentu (DOM). Další z mnoha výhod, které nám facelety poskytují, je schopnost vytvořit společný vzhled pro více stránek pomocí šablon. 
 
 \section{Jazyk výrazů}
 Pokud chceme na našich stránkách vypsat hodnotu nějaké proměnné nebo přistoupit k atributu určitého objektu, můžeme takto učinit pomocí jazyka výrazů. Základní syntaxí tohoto jazyka je \#\{výraz\} (u JSP bylo zvykem používat také \$\{výraz\}, který vyhodnotil výraz okamžitě, toto se ovšem nehodí do životního cyklu JSF stránek). Pomocí tečkové notace můžeme budovat složitější výrazy. Jazyk výrazů nám poskytuje aritmetické, relační a logické operátory, díky kterým můžeme tvořit složitější výrazy.
 
 \section{AJAX}
-AJAX (dříve asynchronní JavaScript a XML) je soubor technik, umožňujících nám vytvářet nenáročné, uživatelsky přívětivé a interaktivní webové aplikace. U tradičních webových aplikací musí prohlížeč požádat server o celý HTML dokument což způsobuje překreslení celé stránky i při akcích, které toto chování nevyžadují. Pokud je tato stránka netriviálně veliká, dochází ke zbytečnému plýtvání šířkou pásma a zpomalení celé aplikace. AJAX používá asynchronní přenos dat mezi prohlížečem a serverem k získání pouze potřebné části informace namísto celé stránky, tato část stránky je poté pomocí JavaScriptu překreslena, což činí aplikaci plynulejší a rychlejší. Toto chování je nám umožněno i díky objektovému modelu dokumentu, pomocí kterého můžeme dynamicky pracovat s daty.
+AJAX (dříve asynchronní JavaScript a XML) je soubor technik umožňujících nám vytvářet nenáročné, uživatelsky přívětivé a interaktivní webové aplikace. U tradičních webových aplikací musí prohlížeč požádat server o celý HTML dokument, což způsobuje překreslení celé stránky i při akcích, které toto chování nevyžadují. Pokud je tato stránka netriviálně veliká, dochází ke zbytečnému plýtvání šířkou pásma a zpomalení celé aplikace. AJAX používá asynchronní přenos dat mezi prohlížečem a serverem k získání pouze potřebné části informace namísto celé stránky, tato část stránky je poté pomocí JavaScriptu překreslena, což činí aplikaci plynulejší a rychlejší. Toto chování je nám umožněno i díky objektovému modelu dokumentu, pomocí kterého můžeme dynamicky pracovat s daty.
 
 \begin{lstlisting}
 <p:commandButton value="Remove" 
@@ -1073,7 +1073,7 @@ Výše uvedený kus kódu říká JSF, že chceme po stisknutí tlačítka přek
 \end{itemize}
 
 \section{Managed Beany} 
-Managed beany tvoří centrální bod webových aplikací. Managed beany mohou vykonávat aplikační logiku (nebo operace delegovat na EJB), obstarávat navigaci mezi stránkami, zajišťovat validaci a konvertování dat, ale také jejich přechovávání. K tomu, aby se ze třídy stala Managed beanou, je nutné aby byla:
+Managed beany tvoří centrální bod webových aplikací. Managed beany mohou vykonávat aplikační logiku (nebo operace delegovat na EJB), obstarávat navigaci mezi stránkami, zajišťovat validaci a konvertování dat, ale také jejich přechovávání. K tomu, aby se ze třídy stala Managed beanou, je nutné, aby:
 \begin{itemize}
   \item byla označena anotací @Named (díky této anotaci můžeme nyní k naší beaně přistupovat pomocí jazyka výrazů)
   \item měla definovaný rozsah\footnote[1]{jelikož mají managed beany většinou nastavený rozsah na požadavek, přináší nám CDI novou anotaci @Model, která v sobě zapouzdřuje anotace @Named a @RequestScoped}
@@ -1087,7 +1087,7 @@ Managed beany tvoří centrální bod webových aplikací. Managed beany mohou v
 \label{fig:frontend}
 \end{figure}
 
-Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně tak jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek \ref{fig:mdb})
+Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek \ref{fig:mdb})
 
 \begin{figure}[!ht]
 \centering
@@ -1096,7 +1096,7 @@ Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracov
 \label{fig:mdb}
 \end{figure}
 
-Metoda s anotací @PostConstruct je volána serverem okamžitě po vytvoření nové instance managed beany. Po zavolání této metody, je beana připravena obsluhovat požadavky uživatele. Před tím, než je beana odstraněna, z paměti tak je volána metoda @PreDestroy. Tyto metody mohou být použity, například na vytvoření a uvolnění externích zdrojů.
+Metoda s anotací @PostConstruct je volána serverem okamžitě po vytvoření nové instance managed beany. Po zavolání této metody, je beana připravena obsluhovat požadavky uživatele. Předtím, než je beana odstraněna z paměti, je volána metoda @PreDestroy. Tyto metody mohou být použity například na vytvoření a uvolnění externích zdrojů.
 
 \section{Zobrazování zpráv uživatelům}
 \label{jsfMessage}
@@ -1115,7 +1115,7 @@ K zobrazení zprávy na naší stránce můžeme využít například komponentu
 <p:growl id="messages" />
 \end{lstlisting}
 
-Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem můžeme vidět na obrázku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
+Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem, můžeme vidět na obrázku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
 
 \begin{figure}[!ht]
 \centering
@@ -1127,7 +1127,7 @@ Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným př
 \chapter{Webové služby a autentizace}
 \section{REST}
 \label{rest}
-Jako alternativu k webovému rozhraní, lze interagovat s aplikací také pomocí rozhraní REST. REST je koncept pro design distribuované architektury, kdy části programu běží na různých strojích a ke své komunikaci využívají síť. REST je, na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Webové služby definují vzdálené procedury a protokol pro jejich volání, REST určuje, jak se přistupuje k datům~\cite{maly09}. Základními principy RESTu jsou:
+Další alternativou k interakci s aplikací je použití rozhraní REST. REST je koncept pro design distribuované architektury, kdy části programu běží na různých strojích a ke své komunikaci využívají síť. REST je, na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Webové služby definují vzdálené procedury a protokol pro jejich volání, REST určuje, jak se přistupuje k datům~\cite{maly09}. Základními principy RESTu jsou:
 
 \begin{itemize}
   \item stav aplikace a chování je vyjádřen zdrojem
@@ -1136,12 +1136,12 @@ Jako alternativu k webovému rozhraní, lze interagovat s aplikací také pomoc�
   \item zdroj může mít různé reprezentace (XML, HTML, JSON, SVG, PDF)
 \end{itemize}
 
-REST definuje čtyři základní metody a to vytvoření dat, získání dat, změnu dat a smazání dat. Tyto metody jsou implementovány pomocí odpovídajících metod HTTP protokolu. Námi poskytované REST rozhraní by mělo splňovat několik zásad:
+REST definuje čtyři základní metody a to: vytvoření dat, získání dat, změnu dat a smazání dat. Tyto metody jsou implementovány pomocí odpovídajících metod HTTP protokolu. Námi poskytované REST rozhraní by mělo splňovat několik zásad:
 
 \begin{itemize}
   \item {\bf jednotnost rozhraní} - rozhraní by mělo být jednotvárné napříč celou aplikací
   \item {\bf adresovatelnost} - každá informace, která má nějakou hodnotu, by měla být zpřístupněna jako zdroj a měla by mít vlastní URI
-  \item {\bf souvislost} - pokud existuje nějaký vztah mezi dvěma různými zdroji, tak by na sebe tyto zdroje měly vzájemně odkazovat
+  \item {\bf souvislost} - pokud existuje nějaký vztah mezi dvěma různými zdroji, měly by na sebe tyto zdroje vzájemně odkazovat
   \item {\bf bezstavovost} - požadavky klientů by se neměly navzájem ovlivňovat 
 \end{itemize}
 
@@ -1178,7 +1178,7 @@ public Response createProduct(@PathParam("name") String name,
 }
 \end{lstlisting}
 
-K vytvoření klienta našeho webového rozhraní můžeme použít knihoven jako Jersey nebo RESTeasy, my si ovšem pro naši malou ukázku vystačíme s cURLem. CURL, což je konzolový nástroj pro přenos dat pomocí protokolů jako HTTP, FTP a jiných. Pomocí příkazu:
+K vytvoření klienta našeho webového rozhraní můžeme použít knihoven jako Jersey nebo RESTeasy, my si pro naši malou ukázku vystačíme s cURLem. CURL, což je konzolový nástroj pro přenos dat pomocí protokolů jako HTTP, FTP a jiných. Pomocí příkazu:
 
 \begin{lstlisting}
 curl -X POST 'http://localhost:8080/web/
@@ -1213,7 +1213,7 @@ Po zadání této adresy do prohlížeče nám bude serverem vrácena XML reprez
 </product>
 \end{lstlisting}
 
-RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám jak práci s objekty, generování náhodných objektů, tak konfiguraci aplikace samotné.
+RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám práci s objekty, generování náhodných objektů i konfiguraci aplikace samotné.
 
 \section{Autentizace}
 Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek \ref{fig:identity}).
@@ -1257,7 +1257,7 @@ požadavky:
   \item JDK (verze alespoň 1.6.0)
 \end{itemize}
 \section{Příprava aplikačního serveru}
-Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci naši aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná o server s otevřenými zdrojovými kódy, který je k dispozici volně ke staženi\footnote{v tomto návodu budeme dále předpokládat, že je použit server JBoss AS verze alespoň 7.1.1}. Server lze stáhnout buďto na adrese \href{http://www.jboss.org/jbossas/downloads/}{http://www.jboss.org/jbossas/downloads/} nebo si sestavit vlastní ze zdrojových kódů:
+Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci naši aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná se o server s otevřenými zdrojovými kódy, který je k dispozici volně ke staženi\footnote{v tomto návodu budeme dále předpokládat, že je použit server JBoss AS verze alespoň 7.1.1}. Server lze stáhnout buď na adrese \href{http://www.jboss.org/jbossas/downloads/}{http://www.jboss.org/jbossas/downloads/} nebo si sestavit vlastní ze zdrojových kódů:
 \begin{itemize}
   \item stáhneme si zdrojové kódy z repozitáře:
 \begin{lstlisting}
@@ -1273,10 +1273,10 @@ Naši novou instanci serveru můžeme nyní najít v adresáři:
 \begin{lstlisting}
 jboss-as/build/target/jboss-as-7.2.0.Alpha1-SNAPSHOT
 \end{lstlisting}
-Pro zjednodušení práce si vytvořme novou proměnnou prostředí \$JBOSS\_HOME, odkazující na tento adresář.
+Pro zjednodušení práce si vytvořme novou proměnnou prostředí \$JBOSS\_HOME odkazující na tento adresář.
 
 \subsection{Datový zdroj}
-K tomu, aby mohla naše aplikace mohla pracovat s databází, musíme serveru nastavit datový zdroj. V této ukázce použijeme databázi MySQL.
+K tomu, aby mohla naše aplikace pracovat s databází, musíme serveru nastavit datový zdroj. V této ukázce použijeme databázi MySQL.
 Nejprve musíme přidat nový modul\footnote{JBoss AS 7 poskytuje systém modulů, aby zajistil isolaci při načítání tříd do paměti~\cite{datasource}}
 \begin{lstlisting}
 $ cd $JBOSS_HOME
@@ -1353,7 +1353,7 @@ Jakmile server nastartuje, můžeme se přihlásit k CLI a frontu zaregistrovat:
 Nyní, když máme spuštěný server, nám už nic nebrání v nasazení aplikace. Nejprve si stáhneme zdrojové kódy aplikace z repozitáře, který lze najít na adrese \href{https://github.com/pkremens/muni-eshop}{https://github.com/pkremens/muni-eshop}:
 \begin{lstlisting}
 $ git clone git://github.com/pkremens/muni-eshop.git
-$ cd muni-eshop
+$ cd muni-eshop/Eshop
 \end{lstlisting}
 
 \subsection{Testovací sada aplikace}
@@ -1362,7 +1362,7 @@ Testovací sadu spustíme pomocí příkazu:
 \begin{lstlisting}
 $ mvn test
 \end{lstlisting}
-Pokud proběhli testy úspěšně, měli bychom na konzoli vidět následující výpis\footnote[1]{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
+Pokud proběhly testy úspěšně, měli bychom na konzoli vidět následující výpis\footnote[1]{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
 \begin{lstlisting}
 -------------------------------------------------------
  T E S T S
