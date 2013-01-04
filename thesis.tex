@@ -50,49 +50,54 @@ language=java
 \end{ThesisDeclaration}
 
 \begin{ThesisThanks}
-Léňa a mamča :p :)
+Na tomto místě bych rád poděkoval panu Ing. Pavlu Slavíčkovi za cenné rady a připomínky a panu Mgr. Jiřímu Kolářovi za odborné vedení práce.
+
+Dále děkuji své sestře Mgr. Lence Liškové a své matce Lence Křemenské za neocenitelnou pomoc při jazykové korektuře. 
 \end{ThesisThanks}
 
 \begin{ThesisAbstract}
-Abstract cesky
 \end{ThesisAbstract}
 
 \begin{ThesisAbstracten}
-Abstract en
+The main goal of the thesis is to study issues of performance testing, investigate the present solutions, identify and describe related (...? co tady dat za slovo? ..nebo nejak to preskladat - help) and use obtained knowledge to design and implement complex bechmark application for performance testing of application servers. Main features of the application will be ability to run for long period of time and ability to test each component in izolation. Application will be used to perform series of performance tests.
 \end{ThesisAbstracten}
 
 \begin{ThesisKeyWords}
-výkonnostní testování, aplikační server, benchmarking, Java EE 6, JPA, EJB, JSF, JMS, 
+výkonnostní testování, aplikační server, benchmarking, generování zátěže, Java EE 6, JPA, EJB, JSF, JMS, 
 \end{ThesisKeyWords}
 
 \MainMatter
 \tableofcontents
 
 \chapter*{Úvod}
+Úspěch podnikání velkých firem dnešní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě před tím, než je nasazena do produkčního prostředí.
 
-V moderním světě blabla úvod... (Businesses in today's world live and die by the performance of mission-critical software applications. Sadly, many applications are deployed without being adequately tested for scalability and performance. Effective performance testing identifies performance bottlenecks in a timely fashion and tells you where they are located in the application landscape.)
+Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují jéjí výkonnost zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
 
-“Zátěžové testy simulují práci velkého počtu uživatelů na testované aplikaci (systému) nebo generují velký počet operací v informačním systému. Součástí zátěžového testování je i monitoring aplikací a zařízení s cílem zjistit výkon systémů nebo odhalit výkonnostní problémy.” (CITACE: http://www.butteland.com/en/node/277)
+Aplikační servery jsou páteřní komponentou pro svět podnikových aplikací ... TODO
 
-Cílem zátěžových testů není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují výkon naší aplikace a zároveň určit počáteční výkonnost pro budoucí regresní testování. Testovaná aplikace by měla dostatečně stabilní blabla...
+Aplikace by měla java EE 6, moderní technologie, ... TODO
 
-Java Platform, Enterprise Edition (neboli Java EE, dříve označovaná jako Java 2 Enterprise Edition nebo J2EE) je součást platformy Java určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Java EE~\cite{wikiJavaEE}.
+V úvodní kapitole definujeme metriky měření výkonu a popíšeme si klíčové cíle výkonnosti společně s procesem, při kterém nabývají konkrétních hodnot. Ukážeme si, jakým způsobem lze identifikovat kritické scénáře aplikace, vysvětlíme si rozdíly mezi jednotlivými typy testů a řekneme si něco málo o nástrojích, které nám pomáhají s automatizací testů.
 
-V prvni kapitoile bla
+V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si základní typy serverů, ukážeme si rozdíly mezi nimi (které mezi nimi jsou?) a představíme si Java EE plný profil pro aplikační servery. Poté se budeme věnovat existujícím možnostem .... Závěr kapitoly bude věnován možnostem optimalizace aplikačního serveru.
 
-V druhe blabla
+Třetí kapitola je věnována popisu architektury aplikace a seznámení se se základními principy Java EE 6 platformy. Dále jsou podrobněji představeny některé specifikace, které jsou v aplikaci použity.
 
-a v treti blablabla
+V následujících čtyřech kapitolách projdeme všemi vrstvami aplikace od persistentní až po prezentační a seznámíme se s některými podpůrnými technologiemi. V každé kapitole budou popsány technologie, které byly v aplikaci použity společně s ukázkami kódu a některých řešení.
 
+Závěrečná kapitola je věnována několika testům aplikačního serveru. Nejprve jsou představeny nástroje, které budou k testům použity a poté jsou popsány jednotlivé testy.
+
+Príce obsahuje dvě přílohy z nichž první popisuje způsob, jakým je možné aplikaci nasadit na aplikační server a druhá nabízí seznam funkcí dostupných z webového rozhraní aplikace.
 
 \chapter{Výkonnostní testování}
 
-Kdy se tedy dá naše aplikace považovat za skutečně výkonnou? Z pohledu koncového uživatele je odpověď na tuto otázku překvapivě snadná. Dobře odladěná aplikace je taková, která dovolí uživateli vykonat požadovanou posloupnost akcí bez pocitu frustrace způsobeného pomalou odezvou aplikace nebo jejím nepředvídaným chováním. Avšak k tomu, abychom mohli měřit výkonnost aplikace, musíme být schopni definovat, čeho chceme dosáhnout~\cite{molyneaux09}.
+Kdy se dá naše aplikace považovat za skutečně výkonnou? Z pohledu uživatele je odpověď na tuto otázku překvapivě snadná. Dobře odladěná aplikace je taková, která nám dovolí vykonat požadovanou posloupnost akcí bez pocitu frustrace způsobeného pomalou odezvou aplikace nebo jejím nepředvídaným chováním. Avšak k tomu, abychom mohli měřit výkonnost aplikace, musíme být schopni definovat, čeho chceme dosáhnout~\cite{molyneaux09}.
 
 \section{Metriky měření výkonu}
-Před tím, než budou rozebrány jednotlivé požadavky a nároky, které můžeme klást na výkonnost naší aplikace, definujeme klíčové metriky, které se k měření výkonnosti aplikace běžně používají. Tyto metriky lze rozdělit na metriky orientované na službu a metriky orientované na výkonnost.
+Před tím, než budou rozebrány jednotlivé požadavky a nároky, které můžeme klást na výkonnost naší aplikace, definujme klíčové metriky, které se k měření výkonnosti aplikace běžně používají. Tyto metriky lze rozdělit na metriky orientované na službu a metriky orientované na výkonnost.
 \subsection{Metriky orientované na službu}
-U metrik orientovaných na službu nás zajímá, jak se alikace chová jako služba z pohledu klienta. Patří zde: 
+U metrik orientovaných na službu nás zajímá, jak se aplikace chová jako služba z pohledu klienta. Patří zde: 
 
 \vspace{5 mm}\noindent{\bf Čas odezvy}
 \\\indent Představuje čas, který trvá aplikaci odpovědět na požadavek klienta. Tuto metriku nelze obecně považovat za nejdůležitější, ale na straně klienta jsou jakékoliv nedostatky v této oblasti na naší aplikaci nejevidentnější. Pomalá odezva může působit neblaze na konkurenceschopnost aplikace. Klienti považují rychlou odezvu aplikace za samozřejmost, takže sebemenší opoždění na ně nechá silný negativní dojem. Platí, že hodnota vnímaná člověkem jako průměrná odezva, není skutečným průměrem, ale hodnotou, která je větší než 90 \% všech jednotlivých odezev~\cite{haines06}.
@@ -101,7 +106,7 @@ U metrik orientovaných na službu nás zajímá, jak se alikace chová jako slu
 \\\indent Představuje množství času, po který je aplikace klientovi k dispozici. Je důležité, aby zbytek aplikace dokázal reagovat po selhání některé z komponent. I nepatrné množství času, po který bude aplikace nedostupná, může pro velké firmy znamenat značné ztráty.
 
 \subsection{Metriky orientované na výkonnost}
-U metrik orientovaých na výkonnost nás zajímá, jakým způsobem aplikace využívá zdroje prostředí, ve kterém běží
+U metrik orientovaných na výkonnost nás zajímá, jakým způsobem aplikace využívá zdroje prostředí, ve kterém běží
 
 \vspace{5 mm}\noindent{\bf Propustonst}
 \\\indent Představuje počet akcí, které lze dokončit v určitém časovém okamžiku. Vysoká míra propustnosti odráží naši schopnost rychle a efektivně obsluhovat požadavky klientů, což se pozitivně projeví na celkové výkonnosti naší aplikace.
@@ -112,9 +117,9 @@ U metrik orientovaých na výkonnost nás zajímá, jakým způsobem aplikace vy
 \section{Klíčové cíle výkonnosti}
 Výkonnost počítačových aplikací je velmi komplexním tématem. Obecně platí, že celková výkonnost aplikace je rovna součtu výkonnosti jednotlivých částí. Je velmi důležité pochopit, že výkonnost naší aplikace se dá odladit jen do takové míry, do jaké se dají odladit jednotlivé části prostředí, ve kterém naše aplikace poběží. 
 
-Projděme si například strukturu Java EE (Enterprise Edition) aplikace, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
+Projděme si například strukturu Java EE aplikace\footnote{Java Enterprise Edition je součást platformy Java, určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Javu EE~\cite{wikiJavaEE}.}, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
 
-Jelikož je každá aplikace unikátní, jsou unikátní také požadavky na její výkonnost. Jsou situace, kdy lze za dobrou výkonnost považovat schopnost obsloužit vysoký počet klientů, kteří k aplikaci přistupují souběžně, ale také situace (počet klientů současně využívajících aplikaci není vysoký), kdy je jediné, co nás zajímá rychlost, s jakou dokáže naše aplikace požadavky jednotlivých klientů obsloužit.
+Jelikož je každá aplikace unikátní, jsou unikátní také požadavky na její výkonnost. Jsou situace, kdy lze za dobrou výkonnost považovat schopnost obsloužit vysoký počet klientů, kteří k aplikaci přistupují souběžně, ale také situace (počet klientů současně využívajících aplikaci není vysoký), kdy jediné, co nás zajímá, je rychlost, s jakou dokáže naše aplikace požadavky jednotlivých klientů obsloužit.
  
 Se znalostí základních metrik výkonnosti nyní můžeme definovat klíčové cíle výkonnosti (Key performance targets).
 
@@ -123,7 +128,7 @@ Se znalostí základních metrik výkonnosti nyní můžeme definovat klíčové
 Z pohledu výkonnostních testů nás zajímá dostupnost aplikace s rostoucí zátěží (počet klientů souběžně přistupujících k aplikaci, objem dat nutných ke zpracování). 
 
 \vspace{5 mm}\noindent{\bf Čas odezvy}
-\\\indent Čas odezvy se dá měřit více způsoby. Aby nedocházelo k nejednoznačnostem, mělo by být jasně definováno, jak měřit čas odezvy ještě před formulováním požadavků. U moderních webových aplikací se čas odezvy počítá jako součet času odezvy serveru, času který data putují sítí a času, který zabere klientovi zpracovat a zobrazit požadovaný obsah. Nicméně z pohledu výkonnostního testování je za čas odezvy považována častěji hodnota získaná vypuštěním doby na zpracování a zobrazení klientem. Toto je způsobeno tím, že nástroje na generování zátěže, které jsou při výkonnostních testech hojně používány, často tyto hodnoty ignorují~\cite{moorthy09}.
+\\\indent Čas odezvy se dá měřit více způsoby. Aby nedocházelo k nejednoznačnostem, mělo by být jasně definováno, jak měřit čas odezvy ještě před formulováním požadavků. U moderních webových aplikací se čas odezvy počítá jako součet času odezvy serveru, času, který data putují sítí, a času, který zabere klientovi zpracovat a zobrazit požadovaný obsah. Nicméně z pohledu výkonnostního testování je za čas odezvy považována častěji hodnota získaná vypuštěním doby na zpracování a zobrazení klientem. Toto je způsobeno tím, že nástroje na generování zátěže, které jsou při výkonnostních testech hojně používány, často tyto hodnoty ignorují~\cite{moorthy09}.
 V závislosti na povaze testu nás mohou zajímat:
 \begin{itemize}
   \item čas odezvy požadavku na zobrazení stránky
@@ -139,7 +144,7 @@ V závislosti na povaze testu nás mohou zajímat:
 \\\indent Z pohledu Java EE aplikace nás většinou zajímá počet požadavků (transakcí), které jsme schopni obsloužit za daný časový úsek. V typické aplikaci bude více klientů vykonávat různorodé akce souběžně, proto nás zajímá propustnost jak jednotlivých požadavků, tak různých skupin složitějších scénářů (simulace reálného vytížení aplikace). Cílem testů je monitorovat chování aplikace při zvyšujícím se počtu souběžných požadavků a nalézt bod saturace, tj. počet požadavků, při nichž dojde k zahlcení aplikace, což se projeví například náhlým zhoršením času odezvy aplikace. 
 
 \vspace{5 mm}\noindent{\bf Využití zdrojů}
-\\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientam a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten pokud možno nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
+\\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientem a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten pokud možno nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
 \begin{itemize}
   \item objem dat procházejících sítí
   \item datová propustnost - jedním z naších cílů může být dosáhnout určitého datového toku, který by měla být naše aplikace schopna zpracovat
@@ -154,20 +159,20 @@ V podobném smyslu bychom měli také definovat limity zdrojů serveru, které b
 \end{itemize}
 
 \section{SLA}
-V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Před tím než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikace srovnávat a tudíž dělat o její výkonnosti jakékoliv závěry.
+V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Před tím než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikaci srovnávat a tudíž dělat o její výkonnosti jakékoliv závěry.
 
-Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou tím zároveň splněny požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou potřeba k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Pokud by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
+Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou splněny také požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou nutné k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Pokud by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
 
-Efektivní SLA musí mít být specifické, flexibilní a realistické.
+Efektivní SLA musí být specifické, flexibilní a realistické.
 
 \vspace{5 mm}\noindent{\bf Specifické SLA}
-\\\indent Cíle určené v SLA by měli mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. Jak ABO tak ATO by se měli dohodnout na konkrétních hodnotách, to nám zaručí, že bude spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
+\\\indent Cíle určené v SLA by měly mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. Jak ABO tak ATO by se měli dohodnout na konkrétních hodnotách, to nám zaručí, že bude spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
 
 \vspace{5 mm}\noindent{\bf Flexibilní SLA}
 \\\indent Flexibility SLA lze dosáhnout určením míry požadovaného úspěchu a tím brát v potaz nesplnění podmínek v důsledku nepředvídatelných okolností. Pokud naše aplikace bude v jednom případě ze dvaceti požadavků odpovídat o něco pomaleji, dá se to většinou klientů akceptovat. Ani s flexibilitou se to však nesmí přehánět a to, o kolik pomaleji může naše aplikace v oněch pár případech odpovídat, musí být přesně definováno.
 
 \vspace{5 mm}\noindent{\bf Realistické SLA}
-\\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou jak ABO, tak ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Po té co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
+\\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou jak ABO, tak ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Poté, co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
 
 
 \section{Identifikace a příprava kritických scénářů}
@@ -175,7 +180,7 @@ V této části se budeme věnovat hledání co nejvěrnější simulace aplika�
 
 \subsection{Požadavky na aplikaci}
 
-Před tím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, a proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstraněním těchto nedostatků než testováním, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
+Před tím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, a proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (např. zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstranění těchto nedostatků než testování, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
 
 Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, ba dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Pokud je během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Pokud je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
 
@@ -185,13 +190,13 @@ Nyní již předpokládejme, že je naše aplikace připravena k testování. Ex
 
 Pokud se nejedná o první generaci aplikace, je průzkum historie používání předchozí verze aplikace nejsnadnější a nejefektivnější cestou, jak získat věrohodná data o zátěži, se kterou je nutné počítat.
 
-Pokud taková data nemáme, je možné je získat od konkurence, jedná-li se o podobný typ aplikace (společnosti se rády chlubí dosaženými výsledky, pokud jsou příznivé)
+Pokud taková data nemáme, je možné je získat od konkurence, jedná-li se o podobný typ aplikace (společnosti se rády chlubí dosaženými výsledky, pokud jsou příznivé).
 
 Pokud nemáme k dispozici ani jedno, tak nám nezbývá než zátěž odhadnout na základě marketingových předpokladů.
 
 Při provádění průzkumu dat, ať už historických nebo dat konkurence, by nás mělo zajímat hlavně:
-	\begin{itemize}
-  \item maximalní počet uživatelských sezení, která běžela souběžně
+\begin{itemize}
+  \item maximální počet uživatelských sezení, která běžela souběžně
   \item maximální počet prohlížených stránek souběžně
   \item průměrná délka trvání jednoho sezení
   \item průměrný počet stránek, které uživatel během jednoho sezení shlédne
@@ -208,17 +213,17 @@ Nyní když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba 
 \label{fig:tabulkaNavigace}
 \end{figure}
 
-Jedním z možných řešení je transakce rozdělit do následujících (né nutně disjunktních) skupin:
+Jedním z možných řešení je transakce rozdělit do následujících (ne nutně disjunktních) skupin:
 \begin{itemize}
   \item {\bf běžné}
   \item {\bf náročné} - zejména na zdroje
   \item {\bf kritické} - zásadní pro provoz
   \item {\bf právně vymahatelné} - SLA
-  \item {\bf zjevné} - uživatel si okamžitě všimne pokud je něco špatně
-  \item {\bf technicky riskantní} - místa která ráda selhávají
+  \item {\bf zjevné} - uživatel si okamžitě všimne, pokud je něco špatně
+  \item {\bf technicky riskantní} - místa, která ráda selhávají
 \end{itemize}
 
-Do každé skupiny vybereme nejvýše 5 transakcí (raději míň než víc, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezenovat buď pomocí tabulky (viz obrázek \ref{fig:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek \ref{fig:diagramNavigace}).
+Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezentovat buď pomocí tabulky (viz obrázek \ref{fig:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek \ref{fig:diagramNavigace}).
 
 \begin{figure}[!ht]
 \centering
@@ -228,27 +233,27 @@ Do každé skupiny vybereme nejvýše 5 transakcí (raději míň než víc, je 
 \end{figure}
 
 \section{Typy testů}
-Exituje několik typů testů, které se liší jak svým průběhem, tak účelem za kterým je provádíme. Představme si proto nejdůležitějšíé z nich~\cite{loadTest}.
+Existuje několik typů testů, které se liší jak svým průběhem, tak účelem za kterým je provádíme. Představme si proto nejdůležitější z nich~\cite{loadTest}.
 
 \vspace{5 mm}\noindent{\bf Základní test}
 \\\indent Slouží k ustanovení počátečních hodnot, které mohou být později použity pro porovnávání s výsledky ostatních testů. Test je běžně prováděn za použití jediného virtuálního uživatele pro předem určený počet akcí. Díky těmto hodnotám můžeme sledovat míru degradace výkonnosti aplikace v závislosti na měnících se metrikách testu (např. počet virtuálních uživatelů).
 
 \vspace{5 mm}\noindent{\bf Zátěžový test}
-\\\indent Slouží k určení výkonnosti aplikace při běhu s požadovanou zátěží, kterou získáváme jako odhad skutečného vytížení aplikace v reálných podmínkách. Test probíhá přibližně 5 minut, během nichž by měla být křivka zátěže na aplikaci konstantní. Cílem testu je rezhodnout, zda-li naše aplikace splňuje hodnoty určené v SLA a určit minimální požadavky na běhové prostředí.
+\\\indent Slouží k určení výkonnosti aplikace při běhu s požadovanou zátěží, kterou získáváme jako odhad skutečného vytížení aplikace v reálných podmínkách. Test probíhá přibližně 5 minut, během nichž by měla být křivka zátěže na aplikaci konstantní. Cílem testu je rozhodnout, zda-li naše aplikace splňuje hodnoty určené v SLA a určit minimální požadavky na běhové prostředí.
 
 \vspace{5 mm}\noindent{\bf Test hraniční zátěže}
-\\\indent Zátěž na aplikaci je postupně zvyšována, díky čemuž můžeme sledovat chování aplikace v momentech, kdy počet uživatelů neustále roste a systémové zdroje začínají docházet. Cílem tohoto testu je nalezení horní hranice zátěže (čas odezvy převýší akceptovatelné maximum, pád aplikace nebo části podpůrné infrastruktury, a jiných), kterou je aplikace schopna unést. Po dosažení horní hranice snižujeme zátěž, abychom zjistili, zda-li je aplikace schopna se opět vzpamatovat. Na rozdíl o zátěžových testů se nesnažime o simulaci reálné zátěže, ale aplikaci záměrně přetěžujeme.
+\\\indent Zátěž na aplikaci je postupně zvyšována, díky čemuž můžeme sledovat chování aplikace v momentech, kdy počet uživatelů neustále roste a systémové zdroje začínají docházet. Cílem tohoto testu je nalezení horní hranice zátěže (čas odezvy převýší akceptovatelné maximum, pád aplikace nebo části podpůrné infrastruktury, a jiných), kterou je aplikace schopna unést. Po dosažení horní hranice snižujeme zátěž, abychom zjistili, zda-li je aplikace schopna se opět vzpamatovat. Na rozdíl od zátěžových testů se nesnažíme o simulaci reálné zátěže, ale aplikaci záměrně přetěžujeme.
 
 \vspace{5 mm}\noindent{\bf Test odolnosti}
-\\\indent Test odolnosti je specifický svou délkou. Ta se běžne pohybuje v rozmezí dnů (testy odolnosti aplikací, na jejichž funkcionalitě závisí lidské životy mohou trvat i několik mesíců). Cílem je ujistit se, že se neobjeví nové problémy (chyby, paměťové úniky, limit počtu transakcí, a jiné) po delší době běhu aplikace, které se neprojevili u předchozích testů kvůli jejich relativně krátkým dobám běhu. Tyto defekty se projeví buď postupným zvýšením doby odezvy, nebo náhlou ztrátou dostupnosti aplikace (po dosažení určitého počtu transakcí).
+\\\indent Test odolnosti je specifický svou délkou. Ta se běžně pohybuje v rozmezí dnů (testy odolnosti aplikací, na jejichž funkcionalitě závisí lidské životy mohou trvat i několik měsíců). Cílem je ujistit se, že se neobjeví nové problémy (chyby, paměťové úniky, limit počtu transakcí, a jiné) po delší době běhu aplikace, které se neprojevily u předchozích testů kvůli jejich relativně krátkým dobám běhu. Tyto defekty se projeví buď postupným zvýšením doby odezvy, nebo náhlou ztrátou dostupnosti aplikace (po dosažení určitého počtu transakcí).
 
 \vspace{5 mm}\noindent{\bf Test selhání}
-\\\indent Během testu selhání zkoumáme chování reduntantních mechanismů při selhání jednoho z nich. Příkladem může být test webováho prostředí, které používá více serverů a jeden z nich náhle selže. Cílem testu je zjistit jak se s timto selháním vypořádají ostatní komponenty.
+\\\indent Během testu selhání zkoumáme chování redundantních mechanismů při selhání jednoho z nich. Příkladem může být test webového prostředí, které používá více serverů a jeden z nich náhle selže. Cílem testu je zjistit, jak se s tímto selháním vypořádají ostatní komponenty.
  
 \vspace{5 mm}\noindent{\bf Test výkonnosti}
-\\\indent Test výkonnosti probíha za relativně malé zátěže. Měl by předcházet ostatním tesům. Pomůže nám včas identifikovat vážné nedostatky na výkonnosti naší aplikace, ale také zásadní nedostatky na běhovém prostrědí.
+\\\indent Test výkonnosti probíhá za relativně malé zátěže. Měl by předcházet ostatním testům. Pomůže nám včas identifikovat vážné nedostatky na výkonnosti naší aplikace, ale také zásadní nedostatky na běhovém prostředí. Tyto testy jsou používány také pro porovnávání výkonu mezi jednotlivými verzemi produktu.
 
-\section{Způsoby budovani zateze}
+\section{Způsoby budování zátěže}
 
 Kromě počtu klientů, kteří budou k naší aplikací přistupovat souběžně, můžeme běh testu ovlivnit také způsobem, jakým budeme klienty do aplikace přidávat~\cite{molyneaux09}.
 
@@ -259,7 +264,7 @@ Kromě počtu klientů, kteří budou k naší aplikací přistupovat souběžn�
 \\\indent Začínáme s jedním klientem a další je přidán vždy po uplynutí definovaného časového intervalu. Tento postup je opakován, dokud není dosaženo požadované zátěže, je ovšem nutné zvolit vhodný interval mezi přidáním jednotlivých klientů, aby nebylo věnováno více času budování zátěže než samotnému testování.
 
 \vspace{5 mm}\noindent{\bf Postupné navyšování s mezikroky}
-\\\indent Tato varianta rozšiřuje tu předchozí o schopnost zachytit chování aplikace v určitých etapách budování zátěže. Příkladem by mohlo být postupné navyšování na 1000 klientů s tím, že v momentě, kdy jich bude k aplikaci souběžně přistupovat 300 (resp. 700), bude generování na nějaký čas pozastaveno, což nám umožní sledovat chování aplikace i těchto mezikrocích.
+\\\indent Tato varianta rozšiřuje tu předchozí o schopnost zachytit chování aplikace v určitých etapách budování zátěže. Příkladem by mohlo být postupné navyšování na 1000 klientů s tím, že v momentě, kdy jich bude k aplikaci souběžně přistupovat 300 (resp. 700), bude generování na nějaký čas pozastaveno, což nám umožní sledovat chování aplikace i v těchto mezikrocích.
 
 \vspace{5 mm}\noindent{\bf Postupné navyšování (s mezikroky), postupné snižování (s mezikroky)}
 \\\indent Po dosažení požadované hodnoty je zátěž na systém postupně snižována. Různé hodnoty naměřené v mezních hodnotách mohou indikovat paměťové úniky nebo jiné defekty na aplikaci.
@@ -277,7 +282,7 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 \\\indent Umožňuje vytvářet složitější scénáře, které jsou složeny z různých aktivit klientů. Pomocí generátorů zátěže jsou tyto scénáře využívány k vytváření zátěže na aplikaci.
 
 \vspace{5 mm}\noindent{\bf Modul na generování zátěže}
-\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže.
+\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže.
 
 \vspace{5 mm}\noindent{\bf Analytický modul}
 \\\indent Poskytuje nám schopnost sbírat a vyhodnocovat hodnoty naměřené v každém testu. Vyhodnocením se rozumí například vykreslení grafů, znázornění důležitých hodnot v tabulkách, a jiné.
@@ -294,10 +299,10 @@ Nyní zmíníme pár věcí, které nesmíme při používání těchto nástroj
 \vspace{5 mm}\noindent{\bf Čas na rozmyšlenou}
 \\\indent Pokud mají být podmínky při testování aplikace co nejvěrohodnější, je vhodné v testovacích scénářích simulovat čas, který uživatel strávil mezi jednotlivými obrazovkami. Pokud jsou na tvorbu testovaných scénářů použity automatizované nástroje, jsou nám hodnoty mezi jednotlivými požadavky známy. Tyto hodnoty je potřeba brát pouze jako ukázkové, protože koncovému uživateli bude vše trvat mnohem déle, proto by měly být ještě před použitím upraveny.
 
-Čas na rozmyšlenou se používá při provádění výkonnostních testů u hotové, funkční aplikace. Pokud jsou výsledkem testů obecná měření, tak se čas na rozmyšlenou nepoužívá. Příkladem může být porovnání výkonnosti různých programovacích technik. Po té, co najdeme nejefektivnější implementaci dané části, můžeme ji otestovat i s časem na rozmyšlenou.
+Čas na rozmyšlenou se používá při provádění výkonnostních testů u hotové, funkční aplikace. Pokud jsou výsledkem testů obecná měření, tak se čas na rozmyšlenou nepoužívá. Příkladem může být porovnání výkonnosti různých programovacích technik. Poté, co najdeme nejefektivnější implementaci dané části, můžeme ji otestovat i s časem na rozmyšlenou.
 
 \vspace{5 mm}\noindent{\bf Počet virtuálních uživatelů se nerovná počtu aktivních uživatelů}
-\\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Pokud se uživatel musí před použitím aplikace přihlásit a po použití zase odhlásit (pokud nemusí, je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, pokud máme za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašováni a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Toto se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
+\\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Pokud se uživatel musí před použitím aplikace přihlásit a po použití zase odhlásit (pokud nemusí, je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, pokud máme za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašování a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Toto se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
 
 \chapter{Benchmarknig}
 
@@ -321,7 +326,7 @@ Pokud hledáme specifický produkt, nelze vybírat pouze podle výsledků benchm
   \item omezení prostředí
   \begin{itemize}
     \item více výkonu znamená větší energetické nároky, což může být kritické například u mobilních zařízení
-    \item server, který zabírá příliš místa nemusí vyhovovat omezením datového centra
+    \item server, který zabírá příliš místa, nemusí vyhovovat omezením datového centra
   \end{itemize}
 \end{itemize}
 
@@ -334,20 +339,20 @@ Pod pojmem server rozumíme fyzický počítač, jehož výpočetní výkon je v
   \item {\bf souborový server} - poskytuje vzdálený přístup k souborům
   \item {\bf herní server} - poskytuje klientům počítačových her schopnost hrát po síti
   \item {\bf DNS server} - poskytuje službu převodu doménových jmen na IP adresy
-  \item {\bf webový server} - doručuje a odesilá odpovědi na požadavek klienta prostřednictvím HTTP protokolu
+  \item {\bf webový server} - doručuje a odesílá odpovědi na požadavek klienta prostřednictvím HTTP protokolu
 \end{itemize}
 
 V naší práci budeme dále pojem sever používat výhradně pro aplikační sever certifikovaný na Java EE plný profil. Dříve něž si vysvětlíme princip profilů v Java EE, podíváme se podrobněji na rozdíl mezi aplikačním a webovým serverem, jelikož jsou tyto dva pojmy často zaměňovány.
 
 \subsection{Webový server}
-Hlavní funkcí webového serveru je doručovat obsah klientům, kteří o nej požádali pomocí HTTP protokolu. Obsahem může být například: statická HTML stránka, obrázek nebo kaskádový styl. Odpovědí webového serverů může být také přesměrování požadavku na jinou adresu nebo generování dynamického obsahu pomocí technologií jako JSP, servletů, JSF, ASP, PHP, JavaScriptu a jiných. Požadavek klienta na určitou stránku je proveden kontaktováním webového serveru na specifické adrese (IP adresa). Po přijetí požadavku doručí webový server obsah klientovi, kterým je nejčastěji webový prohlížeč.
+Hlavní funkcí webového serveru je doručovat obsah klientům, kteří o něj požádali pomocí HTTP protokolu. Obsahem může být například: statická HTML stránka, obrázek nebo kaskádový styl. Odpovědí webového serverů může být také přesměrování požadavku na jinou adresu nebo generování dynamického obsahu pomocí technologií jako JSP, servletů, JSF, ASP, PHP, JavaScriptu a jiných. Požadavek klienta na určitou stránku je proveden kontaktováním webového serveru na specifické adrese (IP adresa). Po přijetí požadavku doručí webový server obsah klientovi, kterým je nejčastěji webový prohlížeč.
 
 Plná implementace HTTP protokolu poskytuje také funkcionalitu k příjímání obsahu od klientů. Této schopnosti je využito například při vyplňování webových formulářů nebo při nahrávání dat na server.
 
 Co do výkonnosti nás u webových serverů zajímá zejména:
 \begin{itemize}
   \item počet požadavků, které je server schopen obsloužit za určitý časový interval
-  \item čas potřebný k obsloužení jednolivých požadavků
+  \item čas potřebný k obsloužení jednotlivých požadavků
   \item datová propustnost
 \end{itemize}
 Mezi populární webové servery patří například:
@@ -361,17 +366,17 @@ Mezi populární webové servery patří například:
 \subsection{Aplikační server}
 Zatímco webový server se zabývá výhradně odesíláním HTML stránek zobrazovaných na webovém prohlížeči klienta, aplikační server navíc poskytuje klientským aplikacím přístup k aplikační logice pomocí různých protokolů včetně HTTP. Data putující mezi aplikačním serverem a klientem nejsou nijak omezena a mohou mít podobu programové logiky. Ve většině případů server využívá tuto logiku skrze aplikační rozhraní komponent~\cite{sintes02}.
 
-Aplikační server si spravuje své vlastní zdroje a nabízí služby jako například zabezpečení, zpracování transakcí, fondy zdrojů (vláken, připojení k databázi, a jiné) a JMS. Aplikační server by měl být zejména schopen obsloužit mnoho souběžně přistupujících klientů, zvládat transakce pomocí Enterprise Java Bean (EJB) v co nejkratšín čase a podporovat komplexní databázové operace.
+Aplikační server si spravuje své vlastní zdroje a nabízí služby jako například zabezpečení, zpracování transakcí, fondy zdrojů (vláken, připojení k databázi, a jiné) a JMS. Aplikační server by měl být zejména schopen obsloužit mnoho souběžně přistupujících klientů, zvládat transakce pomocí Enterprise Java Bean (EJB) v co nejkratším čase a podporovat komplexní databázové operace.
 
 
 \subsubsection{Java EE plný profil}
 \label{profily}
-Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem je redukovat velikost platformy tak, aby co nejlépe vyhovovala specifickým požadavkům vývojářů. Bez profilů nezáleželo jak komplexní aplikaci jsme vyvíjeli, ale museli jsme ji nasadit na server podporující všech 28 specifikací, což bylo terčem mnohé kritiky. Profil definuje podmnožinu (v budoucnu může být i nadmnožinou, jelikož každý profil se může vyvíjet nezávisle na EE specifikaci) celé java EE platformy. Ve verzi java EE 6 jsou specifikovány profily dva, webový profil a Java EE 6 plný profil. K tomu, aby byl server certifikovaný na webový profil, musí podporovat následující specifikace:
+Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem je redukovat velikost platformy tak, aby co nejlépe vyhovovala specifickým požadavkům vývojářů. Bez profilů nezáleželo jak komplexní aplikaci jsme vyvíjeli, ale museli jsme ji nasadit na server podporující všech 28 specifikací, což bylo terčem mnohé kritiky. Profil definuje podmnožinu (v budoucnu může být i nadmnožinou, jelikož každý profil se může vyvíjet nezávisle na EE specifikaci) celé Java EE platformy. Ve verzi Java EE 6 jsou specifikovány profily dva, webový profil a Java EE 6 plný profil. K tomu, aby byl server certifikovaný na webový profil, musí podporovat následující specifikace:
 \begin{itemize}
   \item Servlet 3.0
   \item JavaServer Pages (JSP) 2.2
   \item Expression Language (EL) 2.2
-  \item Podpora debugování pro ostatní jazyky (JSR-45)\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP tak v pracovních skupinách JSR poté pracují zástupci různých firem.~\cite{wikiJSR}} 1.0
+  \item Podpora debugování pro ostatní jazyky (JSR-45)\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP, tak v pracovních skupinách JSR poté pracují zástupci různých firem.~\cite{wikiJSR}} 1.0
   \item Standardní knihovna značek pro JSP (JSTL) 1.2
   \item JavaServer Faces (JSF) 2.0
   \item Běžné anotace Java platformy (JSR-250) 1.1
@@ -385,7 +390,7 @@ Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem j
   \item DI 1.0
 \end{itemize}
 
-K certifikaci na java EE 6 plný profil je potřeba, aby server podporoval kompletní java EE platformu.
+K certifikaci na Java EE 6 plný profil je potřeba, aby server podporoval kompletní Java EE platformu.
 Mezi populární aplikační servery patří:
 \begin{itemize}
   \item JBoss Enterprise Application Platform 6 (certifikace na webový i plný profil)
@@ -407,23 +412,23 @@ K dosažení smysluplných výsledků při benchmarkingu bychom měli postupovat
   \item vytvoření testů, které budou tuto funkcionalitu vytěžovat a simulovat běh v reálných podmínkách
   \item testovat produkt ve stabilních podmínkách tj. všechny testy by měly probíhat ve stejném prostředí
   \item měření a vyhodnocení definovaných metrik
-  \item prezentace výsledků ve odpovídájící formě (grafy, tabulky, a jiné)
+  \item prezentace výsledků ve odpovídající formě (grafy, tabulky, a jiné)
 \end{itemize}
 
 \subsection{Benchmarkning komerčních aplikačních serverů}
 K porovnání komerčních aplikačních serverů nám může  sloužit například sada benchmarkových testů vyvíjených organizací SPEC (Standard Performance Evaluation Corporation). Tato každého čtvrt roku na svých stránkách zveřejňuje výsledky testů mnoha typu produktů.
 
-SPEC si dává za cíl poskytnout trhu férovou metriku k porovnávání různých systémů. Nejnovější verze testů pro porovnávání aplikačních serverů má v době psaní práce název SPECJEnterprise2010. SPECJEnterprise2010 umožňuje srovnávání výkonnosti Java EE 5 serverů a jejich podpůrné infrastruktury. Tato benchmarková aplikace je tvořena Java třídami, Java servlety, JSP, EJB, JPA entitami a MDB. Jedná se již o třetí generaci testů vyvíjených organizací SPEC pro porovnávání aplikačních serverů. Výsledky testů lze zdarma prohlížet na stránkách SPEC organizace.
+SPEC si dává za cíl poskytnout trhu férovou metriku k porovnávání různých systémů. Nejnovější verze testů pro porovnávání aplikačních serverů má v době psaní práce název SPECJEnterprise2010. SPECJEnterprise2010, umožňuje srovnávání výkonnosti Java EE 5 serverů a jejich podpůrné infrastruktury. Tato benchmarková aplikace je tvořena Java třídami, Java servlety, JSP, EJB, JPA entitami a MDB. Jedná se již o třetí generaci testů vyvíjených organizací SPEC pro porovnávání aplikačních serverů. Výsledky testů lze zdarma prohlížet na stránkách SPEC organizace.
 
 Mezi výrobce aplikačních serverů, jichž výsledky jsou k dispozici patří:
 \begin{itemize}
   \item IBM se svým WebSphere Application Server
   \item Oracle se svým Weblogic Server
 \end{itemize}
-Bohužel, jelikož nejsou benchmarky organizace SPEC zdarma, nejsou k dispozici výsledky serverů s otevřeným zdrojovým kódem, což nám znemožňuje jakékoliv porovnání mezi s komerčními produkty.
+Bohužel, jelikož nejsou benchmarky organizace SPEC zdarma, nejsou k dispozici výsledky serverů s otevřeným zdrojovým kódem, což nám znemožňuje jakékoliv porovnání s komerčními produkty.
 
 \subsection{Benchmarkning aplikačních serverů s otevřeným zdrojovým kódem}
-Nejistá ekonomická situace posledních let a stále se zvyšující náklady na podnikání nutí mnoho společností opoustit prostředí drahých komerčních produktů a hledat náhradu v podobě aplikací s otevřeným zdrojovým kódem. Toto řešení zároveň snižuje počáteční kapitál, který je nutno investovat do začátku podnikání, což zvyšuje šance na přežití mnoha společnostem.
+Nejistá ekonomická situace posledních let a stále se zvyšující náklady na podnikání nutí mnoho společností opustit prostředí drahých komerčních produktů a hledat náhradu v podobě aplikací s otevřeným zdrojovým kódem. Toto řešení zároveň snižuje počáteční kapitál, který je nutno investovat do začátku podnikání, což zvyšuje šance na přežití mnoha společnostem.
 
 Základem našeho podnikání by proto měl být i kvalitní aplikační server, který poskytne našim aplikacím stabilní a výkonné běhové prostředí.
 
@@ -443,20 +448,20 @@ DayTrader, původně vyvinut firmou IBM, simuluje online burzu s akciemi. Uživa
 Jednou z předností DayTraderu je jeho konfigurovatelnost. DayTrader nám umožňuje vybrat si způsob, jakým bude aplikace přistupovat k databázi. K dispozici máme implementace tří různých návrhových vzorů~\cite{daytrader}.
 
 \vspace{5 mm}\noindent{\bf Servlet-JDBC}
-\\\indent Třída TradeDirect provádí CRUD (vytvoření, čtení, editaci a smazání) operace přímo za použití vlastního JDBC\footnote[1]{Java Database Connectivity - jednotné rozhraní pro přístup k relačním databázím} kódu. Připojení k databázi i potvrzení a rušení transakcí jsou spravovány manuálně.
+\\\indent Třída TradeDirect provádí CRUD operace (vytvoření, čtení, editaci a smazání) přímo za použití vlastního JDBC\footnote[1]{Java Database Connectivity - jednotné rozhraní pro přístup k relačním databázím} kódu. Připojení k databázi i potvrzení a rušení transakcí jsou spravovány manuálně.
 
 \vspace{5 mm}\noindent{\bf Servlet-SessionBean-JDBC}
-\\\indent TradeJDBC bezstavová session beana je použita jako obalová trída pro třídu TradeDirect.
+\\\indent TradeJDBC bezstavová session beana je použita jako obalová třída pro třídu TradeDirect.
 
 \vspace{5 mm}\noindent{\bf Servlet-SessionBean-EntityBean}
-\\\indent Bezstavová session beana TradeBean používá entity beany jako reprezentaci objektů. Stav těchto objektů je spravován EJB kontainerem aplikačního serveru.
+\\\indent Bezstavová session beana TradeBean používá entity beany jako reprezentaci objektů. Stav těchto objektů je spravován EJB kontejnerem aplikačního serveru.
 \newline
-\\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcii. Na výběr máme synchronní a asynchronní mód. Zatím co v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
+\\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcií. Na výběr máme synchronní a asynchronní mód. Zatím co v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
 
-Po té co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, ale pokud nás zajímá výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
+Poté, co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, ale pokud nás zajímá výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
 
 \section{Ladění serveru}
-Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a máme k dispozici také aplikační server, na kterém naše aplikace poběží, můžeme spustit testy, abychom zjistili, jak si naše aplikace stojí oproti požadavkům. Máme-li štěstí, dosáhneme požadovaných hodnot z SLA napoprvé a aplikace nepotřebuje žádné ladění. Ovšem to se zase tak často nestává. Jednou z možností jak zlepšit výkon naší aplikace je optimalizace serveru na kterém je naše aplikace nasazena. I přesto, že se většina expertů shodne na tom, že 75 \% výkonu aplikace závisí na tom, jak je aplikace implementována, špatně nakonfigurované běhové prostředí může negativně ovlivnit pocit uživatelů z práce s naší aplikací~\cite{performanceTuning}. 
+Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a máme k dispozici také aplikační server, na kterém naše aplikace poběží, můžeme spustit testy, abychom zjistili, jak si naše aplikace stojí oproti požadavkům. Máme-li štěstí, dosáhneme požadovaných hodnot z SLA napoprvé a aplikace nepotřebuje žádné ladění. Ovšem to se zase tak často nestává. Jednou z možností jak zlepšit výkon naší aplikace je optimalizace serveru, na kterém je naše aplikace nasazena. I přesto, že se většina expertů shodne na tom, že 75 \% výkonu aplikace závisí na tom, jak je aplikace implementována, špatně nakonfigurované běhové prostředí může negativně ovlivnit pocit uživatelů z práce s naší aplikací~\cite{performanceTuning}. 
 
 U serveru nás nejvíce zajímají následující parametry:
 
@@ -470,10 +475,10 @@ U serveru nás nejvíce zajímají následující parametry:
 \\\indent Většina aplikací používá jako datové úložiště databázi. Každý požadavek na přístup k databázi je před vykonáním uložen do fondu připojení (connection pool). Pokud nemá tento fond žádné volné připojení, musí požadavek čekat, což má negativní vliv na výkonnost aplikace.
 
 \vspace{5 mm}\noindent{\bf Cache}
-\\\indent K redukci počtu přístupů k databázi lze použít cache, protože poskytnout obsah vnitřní paměti bude vždy rychlejší než přistupovat k databázi. Ovšem je potřeba mít se na pozoru, protože enormní velikost cache může zabrat veškeré místo na haldě a způsobit selhání aplikace. Také správu cache nelze zanedbat. Při zaplnění cache a volání stale nových prvků se může stát, že aplikace stráví víc času řízením cache než poskytováním dat (thrashing). V tomto případě ztrácí cache veškeré své výhody. Je proto potřeba zvážit využití cache paměti v závislosti na povaze konkrétní aplikace. 
+\\\indent K redukci počtu přístupů k databázi lze použít cache, protože poskytnout obsah vnitřní paměti bude vždy rychlejší než přistupovat k databázi. Ovšem je potřeba mít se na pozoru, protože enormní velikost cache může zabrat veškeré místo na haldě a způsobit selhání aplikace. Také správu cache nelze zanedbat. Při zaplnění cache a volání stále nových prvků se může stát, že aplikace stráví víc času řízením cache než poskytováním dat (thrashing). V tomto případě ztrácí cache veškeré své výhody. Je proto potřeba zvážit využití cache paměti v závislosti na povaze konkrétní aplikace. 
 
 \vspace{5 mm}\noindent{\bf Fondy pro bezstavové komponenty}
-\\\indent Veškeré bezstavové komponenty jsou uloženy ve fondu. Jakmile proces potřebuje zdroj, tak je mu poskytnut a následně vrácen do fondu. Bezstavovost nám umožňuje poskytnout procesu pokaždé jiný zdroj. Správně nastavená velikost fondu by měla zaručovat dostatek zdrojů pro všechny procesy, ovšem velikost fondu by němela být zbytečně veliká z důvodu paměťových nákladů na údržbu.
+\\\indent Veškeré bezstavové komponenty jsou uloženy ve fondu. Jakmile proces potřebuje zdroj, tak je mu poskytnut a následně vrácen do fondu. Bezstavovost nám umožňuje poskytnout procesu pokaždé jiný zdroj. Správně nastavená velikost fondu by měla zaručovat dostatek zdrojů pro všechny procesy, ovšem velikost fondu by neměla být zbytečně veliká z důvodu paměťových nákladů na údržbu.
 
 \vspace{5 mm}\noindent{\bf JMS fond}
 \\\indent K dosažení asynchronního zpracování používají aplikace zprávy (messaging). Tyto zprávy jsou na straně serveru zachycovány JMS fondem. JMS fond může mít (v závislosti na implementaci) nastaven maximální počet zpráv (bytů), který je schopen příjmat. Je-li JMS fond plný a pokusí se přijímat novou zprávu, tak může dojít k totálnímu selhání služby.
@@ -491,10 +496,10 @@ U serveru nás nejvíce zajímají následující parametry:
 
 
 \chapter{Architektura aplikace}
-V této kapitole se zaměříme na architekturu aplikace a společně s ukázkami si blíže představíme některé specifikace Java EE platformy, které byly při implementaci použity. Nejprve si krátce představíme novinky v Java EE 6 platformě a směr, kterým se celá platforma ubírá. Jednotné vrstvy aplikace budeme poté postupně procházet v kapitolách 4 - 6.
+V této kapitole se zaměříme na architekturu aplikace a společně s ukázkami si blíže představíme některé specifikace Java EE platformy, které byly při implementaci použity. Nejprve si krátce představíme novinky v Java EE 6 platformě a směr, kterým se celá platforma ubírá. Jednotné vrstvy aplikace budeme postupně procházet v kapitolách 4 - 6.
 
 \section{Třívrstvý model}
-V současné době je běžné, že kromě webových prohlížečů, je k aplikaci přistupováno také pomocí řady jiných klientských zařízení jako jsou PDA a mobilní telefony. Webová aplikace, běžící v prohlížeči nebo v mobilním zařízení, zobrazuje uživatelské rozhraní (formuláře, tlačítka, tabulky) za pomoci technologií jako JSP, JSF nebo Java sevletů. Typické akce uživatele (zadání vyhledávacích kritérií, přidání položky do košíku a jiné) jsou obsluhovány pomocí volání metod session bean, které běží v EJB konteineru. Po té co je session beana zavolána, zpracuje požadavek a vrátí ho webové aplikaci. Ta dá požadavku patřičný formát s pošle ho zpět na klientské zřízení.
+V současné době je běžné, že kromě webových prohlížečů, je k aplikaci přistupováno také pomocí řady jiných klientských zařízení jako jsou PDA a mobilní telefony. Webová aplikace, běžící v prohlížeči nebo v mobilním zařízení, zobrazuje uživatelské rozhraní (formuláře, tlačítka, tabulky) za pomoci technologií jako JSP, JSF nebo Java sevletů. Typické akce uživatele (zadání vyhledávacích kritérií, přidání položky do košíku a jiné) jsou obsluhovány pomocí volání metod session bean, které běží v EJB kontejneru. Poté, co je session beana zavolána, zpracuje požadavek a vrátí ho webové aplikaci. Ta dá požadavku patřičný formát s pošle ho zpět na klientské zřízení.
 
 \begin{figure}[!ht]
 \centering
@@ -503,7 +508,7 @@ V současné době je běžné, že kromě webových prohlížečů, je k aplika
 \label{fig:tier}
 \end{figure}
 
-V třívrstvé architektuře mohou klientské aplikace (běžící ve webovém konteineru) a session beany (běžící v EJB konteineru) sdílet stejné prostředí (aplikační server), mohou ovšem také běžet na separátních strojích.
+V třívrstvé architektuře mohou klientské aplikace (běžící ve webovém kontejneru) a session beany (běžící v EJB kontejneru) sdílet stejné prostředí (aplikační server), mohou ovšem také běžet na separátních strojích.
 
 Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Pro snadnější dodržování architektury je aplikace tvořena 2 moduly, které spolu vzájemně spolupracují: Web modul a EJB modul (viz Obrázek \ref{fig:overview}).
 
@@ -524,14 +529,14 @@ Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednoduš
 \end{itemize}
 
 \section{Java EE 6 platforma}
-Jedním ze základních požadavků na aplikaci bylo, aby běžela na platformě Java EE 6, díky čemuž se zajistí její přenositelnost na všechny ostatní servery s certifikací na tuto platformu. Java EE 6 pokračuje v rozvíjení trendů zavedených v předchozí verzi a to jsou zejména odlehčení a zjednodušení celého modelu. V současné době musí aplikační server podporovat 28 různých specifikací, aby mohl být certifikovaný jako Java EE 6 server, aby nedocházelo k dalšímu nárůstu je velikost platformy redukována pomocí profilů (viz \ref{profily}) a prořezávání. 
+Jedním ze základních požadavků na aplikaci bylo, aby běžela na platformě Java EE 6, díky čemuž se zajistí její přenositelnost na všechny ostatní servery s certifikací na tuto platformu. Java EE 6 pokračuje v rozvíjení trendů zavedených v předchozí verzi a to jsou zejména odlehčení a zjednodušení celého modelu. V současné době musí aplikační server podporovat 28 různých specifikací, aby mohl být certifikovaný jako Java EE 6 server. Aby nedocházelo k dalšímu nárůstu, je velikost platformy redukována pomocí profilů (viz \ref{profily}) a prořezávání. 
 \subsection{Prořezávání}
 \label{pruning}
-Proces prořezávání se používá již od roku 1999. Se stále rostoucím počtem specifikací, které byly do Java EE platformy přidávány, rostla také její velikost. Postupem času se začaly objevovat specifikace, které nezaznamenaly takový úspěch jaký se od nich očekávalo a nebo se staly technicky zastaralými, proto bylo rozhodnuto o jejich odstranění. Odstraněním se myslí buď jejich nahrazení novější specifikací a nebo prosté vypuštění z celé platformy (specifikace se poté může dál samostatně vyvíjet i mimo platformu).
+Proces prořezávání se používá již od roku 1999. Se stále rostoucím počtem specifikací, které byly do Java EE platformy přidávány, rostla také její velikost. Postupem času se začaly objevovat specifikace, které nezaznamenaly takový úspěch, jaký se od nich očekávalo, a nebo se staly technicky zastaralými, proto bylo rozhodnuto o jejich odstranění. Odstraněním se myslí buď jejich nahrazení novější specifikací a nebo prosté vypuštění z celé platformy (specifikace se poté může dál samostatně vyvíjet i mimo platformu).
 
-Mezi specifikace, které budou v přítí verzy Java EE platformy vypuštěny patří:
+Mezi specifikace, které budou v příští verzi Java EE platformy vypuštěny, patří:
 \begin{itemize}
-  \item {\bf EJB 2.x Entity Beany (částí JSR 318)} - komplexní a težkopádné komponenty pro persistenci dat, již dnes jsou nahrazeny JPA
+  \item {\bf EJB 2.x Entity Beany (částí JSR 318)} - komplexní a těžkopádné komponenty pro persistenci dat, již dnes jsou nahrazeny JPA
   \item {\bf JAX-RPC (JSR 101)} - první pokus o modelování SOAP webových služeb jako volání RPC, nahrazeno JAX-WS
   \item {\bf JAXR (JSR 93)} - aplikační rozhraní pro komunikaci s UDDI registry. Pro nevalný úspěch bude odstraněno. Stejný osud potká i Java EE Application Deployment (JSR 88) a Java EE Management (JSR 77)
 \end{itemize}
@@ -547,19 +552,19 @@ Další z komponent, které prošly významnou změnou jsou EJB. EJB jsou kompon
   \item {\bf Bezstavová beana} - klient může použít jakoukoliv instanci beze změny výsledku
   \item {\bf Stavová beana} - uchovává si stav napříč celým sezením konkrétního klienta
   \item {\bf Singleton} - jediná instance, která je sdílená napříč aplikací
-  \item {\bf Message driven beana} - použity pro integraci s externími systémi pomocí JMS
+  \item {\bf Message driven beana} - použity pro integraci s externími systémy pomocí JMS
   \item {\bf Entity beana} -  používány pro persistenci dat (označeny k prořezání, viz \ref{pruning})
 \end{itemize}
 
-Bezstavová beany, stavové beany a Singleon sborně nazýváme Session beanami.
+Bezstavové beany, stavové beany a Singleton sborně nazýváme Session beanami.
 
-Jelikož v předchozí verzi specifikace jasně nedefinovala konvence pro tvorbu JNDI\footnote[2]{Java Naming and Directory Interface - rozhraní které umožňuje klientům hledat objekty pomocí jména} jmen, bylo běžné, že různé aplikační servery přiřazovali EJB různá jména. Proto bylo potřeba měnit kód v závislosti na tom, který server právě používali. Tento problém je již minulostí, jelikož v Java EE 6 jsou konvence pro tvorbu JNDI jmen objektů přímou součástí specifikace.
+Jelikož v předchozí verzi specifikace jasně nedefinovala konvence pro tvorbu JNDI\footnote[2]{Java Naming and Directory Interface - rozhraní, které umožňuje klientům hledat objekty pomocí jména} jmen, bylo běžné, že různé aplikační servery přiřazovaly EJB různá jména. Proto bylo potřeba měnit kód v závislosti na tom, který server jsme právě používali. Tento problém je již minulostí, jelikož v Java EE 6 jsou konvence pro tvorbu JNDI jmen objektů přímou součástí specifikace.
 
 \subsection{CDI}
 Je specifikace popisující správu životního cyklu kontextu a injektování závislostí, která přebírá to nejlepší z nástaveb jako Spring, Seam nebo Guice. Tato specifikace definuje sadu komplementárních služeb, které zlepšují strukturu aplikačního kódu. Od Java EE 6 se stala součástí platformy, tudíž musí být podporována všemi servery. CDI nám umožňuje:
 
 \begin{itemize}
-  \item typově bezpečný přístup k injektování závisloti
+  \item typově bezpečný přístup k injektování závislosti
   \item interakci objektů pomocí událostí
   \item vylepšení životního cyklu stavových objektů
   \item volání bean na JSF stránkách pomocí sjednoceného jazyka výrazů (EL)
@@ -581,7 +586,7 @@ CDI definuje čtyři vestavěné rozsahy:
   \item{\bf @ConversationScoped} - speciální verze @SessionScoped
 \end{itemize}
 
-Pro libovolné vlákno v aplikaci využívající CDI může existovat kontext, který je pro toto vlákno unikátní (má-li beana nastavený rozsah na požadavek), nebo může být sdílený s určitou skupinou vláken (má-li beana nastavený rozsah na sezení) a nebo může být sdílený všemi vlákny (má-li beana nastavený rozsah na aplikaci). CDI nám umožňuje za běhu aplikace změnit jednu beanu za jinou implementující stejné rozhraní avšak s různým životním cyklem (rozsahem)~\cite{weld}.
+Pro libovolné vlákno v aplikaci využívající CDI může existovat kontext, který je pro toto vlákno unikátní (má-li beana nastavený rozsah na požadavek), nebo může být sdílený s určitou skupinou vláken (má-li beana nastavený rozsah na sezení) a nebo může být sdílený všemi vlákny (má-li beana nastavený rozsah na aplikaci). CDI nám umožňuje za běhu aplikace změnit jednu beanu za jinou implementující stejné rozhraní, avšak s různým životním cyklem (rozsahem)~\cite{weld}.
 
 CDI se výborně hodí pro práci se zdroji aplikačního serveru. Anotace @Produces nám umožňuje definovat zdroje na jednom místě. Pomocí CDI máme možnost k těmto zdrojům přistupovat napříč celou aplikací uniformním způsobem.
 
@@ -595,7 +600,7 @@ public class Resources {
 }
 \end{lstlisting}
 
-Pomocí anotace @Inject získáme nejenom instanci třídy Logger, ale tato instance bude rovnou serverem naplněna patřicnými parametry, které server získá z bodu injektace.
+Pomocí anotace @Inject získáme nejenom instanci třídy Logger, ale tato instance bude rovnou serverem naplněna patřičnými parametry, které server získá z bodu injektace.
 
 Anotace @Produces nám dále umožňuje použít návratovou hodnotu metody přímo v našich JSF stránkách. Mějme metodu s touto anotací vracející seznam všech zákazníků:
 
@@ -620,7 +625,7 @@ Vypsání zákazníku na našich stránkách provedeme prostým:
 Aby bylo možné v naší aplikaci používat CDI, je nutné aby byl přítomen soubor beans.xml. Tento soubor může být prázdný, ale musí existovat. U webových aplikací musí být přítomen v adresáři WEB-INF, u EJB modulů a Java archívů potom v adresář META-INF.
 
 \subsection{Validace Bean}
-Je další z řady novinek v Java EE 6. Poskytuje nám jednotný směr k definování omezení na objektový model, čímž dokážem zajistit integritu dat v databázi\footnote[1]{podobný princip validace umožňuje také JSF, kdy jsou dava validována na prezentační vrstvou}. Omezení definujeme uvnitř entit pomocí anotací například následujícím způsobem:
+Je další z řady novinek v Java EE 6. Poskytuje nám jednotný směr k definování omezení na objektový model, čímž dokážeme zajistit integritu dat v databázi\footnote[1]{podobný princip validace umožňuje také JSF, kdy jsou data validována na prezentační vrstvou}. Omezení definujeme uvnitř entit pomocí anotací například následujícím způsobem:
 
 \begin{lstlisting}
 @Entity
@@ -635,7 +640,7 @@ public class Product implements Serializable {
 }
 \end{lstlisting}
 
-Takto definovaná omezení jsou použita naším poskytovatelem JPA při ukládání nebo změně dat v databázi. Pokud by transakce jakékoliv z omezení porušila, došlo by k jejímu zrušení a vrácení do původního stavu (rollback). Takto definovaná omezení se ovšem dají využít i na ostatních vrstvách aplikace. V naší aplikace je použit k validaci dat následující generický validátor, který umožní validovat všechny entity které se v aplikaci vyskytují. Tento validátor může být následně použit na všech vrstvách aplikace.
+Takto definovaná omezení jsou použita naším poskytovatelem JPA při ukládání nebo změně dat v databázi. Pokud by transakce jakékoliv z omezení porušila, došlo by k jejímu zrušení a vrácení do původního stavu (rollback). Těchto omezení se však dá využít i na ostatních vrstvách aplikace. V naší aplikace je použit k validaci dat následující generický validátor, který umožní validovat všechny entity, které se v aplikaci vyskytují. Tento validátor může být následně použit na všech vrstvách aplikace.
 
 \begin{lstlisting}
 public class EntityValidator<T> {
@@ -743,7 +748,7 @@ Hibernate.initialize(order.getOrderItems());
 \end{lstlisting}
 	můžeme pracovat i s jednotlivými instancemi položek objednávky.
 
-Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky, na které není odkazováno z žádné jiné tabulky. Pokud bychom například smazali z databáze zákazníka, seznam jeho objednávek by pro nás ztratil význam. Pomocí atributu orphanRemoval upozorníme JPA, aby po smazání zákazníka smazalo také všechny jeho ojednávky.
+Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky, na které není odkazováno z žádné jiné tabulky. Pokud bychom například smazali z databáze zákazníka, seznam jeho objednávek by pro nás ztratil význam. Pomocí atributu orphanRemoval upozorníme JPA, aby po smazání zákazníka smazalo také všechny jeho objednávky.
 \begin{lstlisting}
 ...
 	@OneToMany(mappedBy = "customer", orphanRemoval = true)
@@ -847,7 +852,7 @@ return query.getResultList();
 Z důvodu typové bezpečnosti bylo v aplikaci použito výhradně nového kriteria API.
 
 \section{Datový model aplikace}
-Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovanáho u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek \ref{fig:class}).
+Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovaného u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním obsahů tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek \ref{fig:class}).
 
 \begin{figure}[!ht]
 \centering
@@ -867,7 +872,7 @@ V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí tříd
 
 
 \chapter{Aplikační vrstva}
-Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších. 
+Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších~\cite{goncalves09}. 
 
 V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty, podporující přístup konvence nad konfigurací. Programátor se tak může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena, tak ji server poskytuje následující služby~\cite{wikiEJB}:
 
@@ -914,7 +919,7 @@ Stejně jako tomu bylo u JPA i zde se liší použití transakcí u aplikace, kt
 
 \begin{itemize}
   \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Pokud je metoda zavolána klientem bez transakčního kontextu, tak je serverem vytvořen nový.
-  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena, na úkor nově vytvořené transakce. Po té, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
+  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena, na úkor nově vytvořené transakce. Poté, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
   \item {\bf SUPPORTS} - Pokud je transakční kontext klienta k dispozici, tak je metodou použit, pokud ne, tak je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
   \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Pokud klient tento kontext nemá, tak je vyhozena výjimka.
   \item {\bf NOT\_SUPPORTED} - Metoda nemůže být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je probíhající transakce pozastavena a je spuštěna opět po dokončení metody.
@@ -968,7 +973,7 @@ JMS podporuje dva základní modely.
 \\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesilateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Pokud není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
 
 \vspace{5 mm}\noindent{\bf Publikovat-odebírat}
-\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (z pravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, tak nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho neaktivity zaslány (toto chování se dá ovšem změnit).
+\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (z pravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, tak nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho pasivity zaslány (toto chování se dá ovšem změnit).
 
 Samotná zpráva se skládá z hlavičky, vlastností a těla. Hlavička obsahuje standardní informace pro identifikaci a směrování zprávy. Vlastnosti zprávy obsahují dvojice klíč-hodnota, které může aplikace nastavovat a číst. Tyto vlastnosti slouží spíše jako doplněk hlavičky, protože umožňují, aby se klient na základě vlastností rozhodl, zda zprávu příjme, nebo ne. Samotné tělo zprávy je nepovinné. Tělo zprávy se může skládat z mapy, textového řetězce, objektu a nebo proudu bytů.
 
@@ -1028,7 +1033,7 @@ Jakožto singleton je třída Controller zároveň ideálním kandidátem pro um
 \chapter{Prezentační vrstva}
 K tomu abychom umožnili uživateli pracovat s naší aplikací, je zapotřebí vytvořit nějaké uživatelské rozhraní. V naší aplikaci použijeme webové rozhraní, s kterým může uživatel komunikovat pomocí webového prohlížeče. Na tvorbu tohoto rozhraní využijeme specifikaci JSF (JavaServer Faces). 
 
-JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycházející z návrhového vzoru model-pohled-řadič (MVC). Dává programátorům možnost tvořit webové rozhraní pomocí komponent, událostí, managed bean a vzájemné interakce mezi nimi, čímž usnadňuje a zrychluje vývoj celého rozhraní. Pokud bychom si nevystačili se základní sadou komponent, kterou nám jádro JSF poskytuje, máme k dispozici mnoho knihoven, kterými můžeme tuto sadu rozšířit (PrimeFaces, RichFaces a jiné). JSF 2.0 přineslo ve své nové verzi mnoho novinek jako:
+JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycházející z návrhového vzoru model-pohled-řadič (MVC). Dává programátorům možnost tvořit webové rozhraní pomocí komponent, událostí, managed bean a vzájemné interakce mezi nimi, čímž usnadňuje a zrychluje vývoj celého rozhraní~\cite{goncalves09}. Pokud bychom si nevystačili se základní sadou komponent, kterou nám jádro JSF poskytuje, máme k dispozici mnoho knihoven, kterými můžeme tuto sadu rozšířit (PrimeFaces, RichFaces a jiné). JSF 2.0 přineslo ve své nové verzi mnoho novinek jako:
 
 \begin{itemize}
   \item využití faceletů namísto JSP jako hlavní technologie na tvorbu stránek
@@ -1057,7 +1062,7 @@ update="@form" />
 
 Výše uvedený kus kódu říká JSF, že chceme po stisknutí tlačítka překreslit pouze formulář, ve kterém se tato komponenta vyskytuje. Pro přesnou specifikaci komponent, které mají být akcí ovlivněny, můžeme použít:
 \begin{itemize}
-  \item {\bf @all} - překleslí všechny komponenty na dané stránce 
+  \item {\bf @all} - překreslí všechny komponenty na dané stránce 
   \item {\bf @none} - žádná komponenta nebude překreslena
   \item {\bf @this} - překreslí pouze tu komponentu, která vyvolala požadavek
   \item {\bf @form} - překreslí všechny komponenty z formuláře, ve kterém se komponenta, která vyvolala požadavek, nachází
@@ -1108,7 +1113,7 @@ K zobrazení zprávy na naší stránce můžeme využít například komponentu
 <p:growl id="messages" />
 \end{lstlisting}
 
-Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem můžeme videt na obráku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
+Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem můžeme vidět na obrázku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
 
 \begin{figure}[!ht]
 \centering
@@ -1120,7 +1125,7 @@ Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným př
 \chapter{Webové služby a autentizace}
 \section{REST}
 \label{rest}
-Jako alternativu k webovému rozhraní, lze interagovat s alipkací také pomocí rozhraní REST. REST je koncept pro design distribuované architektury, kdy části programu běží na různých strojích a ke své komunikaci využívají síť. REST je, na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Webové služby definují vzdálené procedury a protokol pro jejich volání, REST určuje, jak se přistupuje k datům~\cite{maly09}. Základními principy RESTu jsou:
+Jako alternativu k webovému rozhraní, lze interagovat s aplikací také pomocí rozhraní REST. REST je koncept pro design distribuované architektury, kdy části programu běží na různých strojích a ke své komunikaci využívají síť. REST je, na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Webové služby definují vzdálené procedury a protokol pro jejich volání, REST určuje, jak se přistupuje k datům~\cite{maly09}. Základními principy RESTu jsou:
 
 \begin{itemize}
   \item stav aplikace a chování je vyjádřen zdrojem
@@ -1218,8 +1223,24 @@ Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus 
 \label{fig:identity}
 \end{figure}
 
-Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je zapouzdřed ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
+Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
 
+\chapter{P}
+\section{Nástroje}
+\subsection{Apache JMeter}
+\subsection{Monitorování}
+\subsection{JBoss AS}
+\section{Testování}
+\subsection{Baseline}
+\subsection{Neco s restem}
+\subsection{JVM}
+\subsection{Velikost haldy a treba nejake pooly}
+
+\chapter*{Závěr}
+
+Nedostatek výsledků ke srovnání komerčních serverů, žádná možnost srovnání 
+
+Problém s transakcema, a spatnou architekturou (smazano)
 
 \appendix
 
@@ -1227,13 +1248,13 @@ Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným n
 požadavky:
 \begin{itemize}
   \item Git
-  \item Apache Maven (verze alesoň 3.0)
+  \item Apache Maven (verze alespoň 3.0)
   \item JDK (verze alespoň 1.6.0)
 \end{itemize}
 \section{Příprava aplikačního serveru}
 Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci naši aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná o server s otevřenými zdrojovými kódy, který je k dispozici volně ke staženi\footnote{v tomto návodu budeme dále předpokládat, že je použit server JBoss AS verze alespoň 7.1.1}. Server lze stáhnout buďto na adrese \href{http://www.jboss.org/jbossas/downloads/}{http://www.jboss.org/jbossas/downloads/} nebo si sestavit vlastní ze zdrojových kódů:
 \begin{itemize}
-  \item stahneme si zdrojove kódy z repozitáře:
+  \item stáhneme si zdrojové kódy z repozitáře:
 \begin{lstlisting}
 $ git clone git://github.com/jbossas/jboss-as.git
 \end{lstlisting}
@@ -1250,14 +1271,14 @@ jboss-as/build/target/jboss-as-7.2.0.Alpha1-SNAPSHOT
 Pro zjednodušení práce si vytvořme novou proměnnou prostředí \$JBOSS\_HOME, odkazující na tento adresář.
 
 \subsection{Datový zdroj}
-K tomu, aby mohla naše aplikace mohla pracovat s databází, musíme serveru nastavit datový zdroj. V této ukázce použijeme databázy MySQL.
-Nejprve musíme přidat nový modul\footnote{JBoss AS 7 poskytuje system modulu, aby zajistil isolaci pri načítání tříd do paměti~\cite{datasource}}
+K tomu, aby mohla naše aplikace mohla pracovat s databází, musíme serveru nastavit datový zdroj. V této ukázce použijeme databázi MySQL.
+Nejprve musíme přidat nový modul\footnote{JBoss AS 7 poskytuje systém modulů, aby zajistil isolaci při načítání tříd do paměti~\cite{datasource}}
 \begin{lstlisting}
 $ cd $JBOSS_HOME
 $ mkdir -p modules/com/mysql/main
 $ cd modules/com/mysql/main
 \end{lstlisting}
-Knihovnu s ovladačem k databázi zkopírujem na tuto lokaci a vytvoříme nový soubor module.xml, s následujícím obsahem\footnote[1]{verzi knihovny upravíme tak, aby seděla s tou, kterou se chystáme použít}:
+Knihovnu s ovladačem k databázi zkopírujeme na tuto lokaci a vytvoříme nový soubor module.xml, s následujícím obsahem\footnote[1]{verzi knihovny upravíme tak, aby seděla s tou, kterou se chystáme použít}:
 \begin{lstlisting}
 <?xml version="1.0" encoding="UTF-8"?>
 	<resources>
@@ -1268,7 +1289,7 @@ Knihovnu s ovladačem k databázi zkopírujem na tuto lokaci a vytvoříme nový
 	</dependencies>
 </module>
 \end{lstlisting}
-Nyní když máme vytvořený modul, musíme na něj udělat odkaz v hlavním konfigarčním souboru serveru:
+Nyní, když máme vytvořený modul, musíme na něj udělat odkaz v hlavním konfiguračním souboru serveru:
 \begin{lstlisting}
 	$ cd $JBOSS_HOME/standalone/configuration
 	$ vim standalone-full.xml
@@ -1283,7 +1304,7 @@ Do sekce s ovladači přidáme:
     </driver>
 </drivers>
 \end{lstlisting}
-Ve stejném souboru musíme také nastavit datový zdroj:
+Ve stejném souboru musíme nastavit také datový zdroj:
 \begin{lstlisting}
 <datasource
         jndi-name="java:/mydb" pool-name="my_pool"
@@ -1311,29 +1332,159 @@ Ve stejném souboru musíme také nastavit datový zdroj:
 </datasource>
 \end{lstlisting}
 \subsection{JMS}
-K využití služeb naší MDB musíme nastavit frontu, které bude uchovávat zprávy vyprodukované naší aplikací. Ke konfiguraci JMS fronty využijeme CLI (Command Line Interface), což je jedno z rozhraní na spravování serveru, které JBoss AS nabízí. Nejprve spustíme server:
+K využití služeb naší MDB musíme nastavit frontu, která bude uchovávat zprávy vyprodukované naší aplikací. Ke konfiguraci JMS fronty využijeme CLI (Command Line Interface), což je jedno z rozhraní na spravování serveru, které JBoss AS 7 nabízí. Nejprve spustíme server:
 \begin{lstlisting}
 $ cd $JBOSS_HOME/bin
 ./standalone.sh -c standalone-full.xml
 \end{lstlisting}
-Jakmile server nastartuje můžeme se přihlásit k CLI a frontu zaregistrovat:
+Jakmile server nastartuje, můžeme se přihlásit k CLI a frontu zaregistrovat:
 \begin{lstlisting}
 ./jboss-cli.sh -c
 [standalone@localhost:9999 /] jms-queue add --queue-address=testQueue\
 > --entries=queue/test,java:jboss/exported/jms/queue/test
 \end{lstlisting}
 
-\section{Nasazení aplikace}
-Nyní když máme spuštěný server nám již nebrání nic k nasazení aplikace. Použijeme pluginy install a jboss-as nástroje Maven, které vykonají veškerou práci za nás:
+\section{Spuštění aplikace}
+Nyní, když máme spuštěný server, nám už nic nebrání v nasazení aplikace. Nejprve si stáhneme zdrojové kódy aplikace z repozitáře, který lze najít na adrese \href{https://github.com/pkremens/muni-eshop}{https://github.com/pkremens/muni-eshop}:
 \begin{lstlisting}
 $ git clone git://github.com/pkremens/muni-eshop.git
-$ mvn install jboss-as:deploy
+$ cd muni-eshop
+\end{lstlisting}
+
+\subsection{Testovací sada aplikace}
+Aplikace obsahuje sadu jednoduchých testů, které ověřují základní funkcionalitu a zároveň nám zaručí, že je naše běhové prostředí připraveno na její nasazení. 
+Testovací sadu spustíme pomocí příkazu:
+\begin{lstlisting}
+$ mvn test
+\end{lstlisting}
+Pokud proběhli testy úspěšně, měli bychom na konzoli vidět následující výpis\footnote[1]{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
+\begin{lstlisting}
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+...
+Results :
+
+Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2:22.193s
+[INFO] Finished at: Fri Jan 04 03:21:53 CET 2013
+[INFO] Final Memory: 13M/207M
+[INFO] ------------------------------------------------------------------------
+\end{lstlisting}
+
+\subsection{Nasazení aplikace}
+K nasazení aplikace použijeme nástroj Maven a jeho pluginy, které vykonají veškerou práci za nás:
+\begin{lstlisting}
+$ mvn install jboss-as:deploy -DskipTests=true
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Eshop: ............................................ SUCCESS [0.726s]
+[INFO] Eshop: EJB Module ................................. SUCCESS [4.202s]
+[INFO] Eshop: Web Module ................................. SUCCESS [2.344s]
+[INFO] Eshop: Application Module ......................... SUCCESS [12.369s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 20.168s
+[INFO] Finished at: Thu Jan 03 20:17:36 CET 2013
+[INFO] Final Memory: 42M/462M
+[INFO] ------------------------------------------------------------------------
 \end{lstlisting}
 S webovým rozhraním aplikace můžeme pracovat na adrese:
 \begin{lstlisting}
-http://localhost:8080/web/index.html.
+http://localhost:8080/web/index.html
 \end{lstlisting}
-Máme-li k dispozici nejaký nástroj na generování zátěže, můžeme ke generování použít servlet na adrese .... TODO  d
+Máme-li k dispozici nějaký nástroj na generování zátěže, můžeme ke generování použít servlet na adrese:
+\begin{lstlisting}
+http://localhost:8080/web/ShoppingServlet
+\end{lstlisting}
+
+\chapter{Seznam funkcí dostupných z webového rozhraní}
+Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webového rozhraní aplikace.\\
+
+\noindent{\bf index.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item smazat obsah tabulek
+  \item vytvořit $n$ náhodných zákazníků 
+  \item vytvořit $n$ náhodných produktů
+  \item vytvořit $n$ náhodných objednávek
+  \item TODO
+\end{itemize}
+{\bf template.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item přihlásit se 
+  \item odhlásit se
+\end{itemize}
+{\bf customers.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item vytvořit zákazníka
+  \item vytvořit a přihlásit zákazníka
+  \item vytvořit náhodného zákazníka
+  \item procházet seznam zákazníků
+  \item smazat zákazníka
+  \item smazat všechny zákazníky
+  \item získat XML reprezentaci zákazníka (REST)
+  \item získat XML reprezentaci všech zákazníků (REST)
+\end{itemize}
+{\bf products.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item vytvořit produkt
+  \item vytvořit náhodný produkt
+  \item procházet seznam produktů
+  \item smazat produkt
+  \item smazat všechny produkty
+  \item získat XML reprezentaci produktu (REST)
+  \item získat XML reprezentaci všech produktů (REST)
+  \item přidat produkt do košíku
+\end{itemize}
+{\bf basket.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item odebrat produkt z košíku
+  \item přidat a odebrat jeden kus konkrétního produktu
+  \item přidat a odebrat pět kusů konkrétního produktu
+  \item vyprázdnit košík
+  \item dokončit objednávku
+\end{itemize}
+{\bf orders.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item vytvořit náhodnou objednávku
+  \item fakturovat objednávku
+  \item procházet seznam objednávek
+  \item smazat všechny objednávky
+  \item získat XML reprezentaci objednávky (REST)
+  \item získat XML reprezentaci všech objednávek (REST)
+\end{itemize}
+{\bf invoice.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item procházet seznamem faktur
+  \item získat XML reprezentaci faktury (REST)
+  \item získat XML reprezentaci všech faktur (REST)
+  \item smazat všechny faktury
+\end{itemize}
+{\bf history.xhtml}:
+\begin{itemize}  \itemsep0em
+  \item procházet historii objednávek přihlášeného zákazníka 
+  \item zobrazit detail objednávky (viz obrázek \ref{img:orderDetail})
+  \item skrýt detail objednávky
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{orderDetail}
+\caption{Zobrazeni detailu objednávky}
+\label{img:orderDetail}
+\end{figure}
+
+
+%\ttfamily
+%\texttt{adsadsad} \\
+%\normalfont
 
 
 
