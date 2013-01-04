@@ -71,7 +71,7 @@ výkonnostní testování, aplikační server, benchmarking, generování zátě
 \tableofcontents
 
 \chapter*{Úvod}
-Úspěch podnikání velkých firem dnešní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě před tím, než je nasazena do produkčního prostředí.
+Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě před tím, než je nasazena do produkčního prostředí.
 
 Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují jéjí výkonnost zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
 
@@ -89,7 +89,7 @@ V následujících čtyřech kapitolách projdeme všemi vrstvami aplikace od pe
 
 Závěrečná kapitola je věnována několika testům aplikačního serveru. Nejprve jsou představeny nástroje, které budou k testům použity a poté jsou popsány jednotlivé testy.
 
-Príce obsahuje dvě přílohy z nichž první popisuje způsob, jakým je možné aplikaci nasadit na aplikační server a druhá nabízí seznam funkcí dostupných z webového rozhraní aplikace.
+Práce obsahuje dvě přílohy, z nichž první popisuje způsob, jakým je možné aplikaci nasadit na aplikační server a druhá nabízí seznam funkcí dostupných z webového rozhraní aplikace.
 
 \chapter{Výkonnostní testování}
 
@@ -571,7 +571,7 @@ Je specifikace popisující správu životního cyklu kontextu a injektování z
   \item volání bean na JSF stránkách pomocí sjednoceného jazyka výrazů (EL)
 \end{itemize}
 
-Každý klient vidí beanu v jiném stavu, závisí pouze na tom, na kterou instanci má právě odkaz. Nicméně pro bezstavové beany a singletony platí, že klient nemá žádnou kontrolu nad jejich životním cyklem. Každá beana má definovaný rozsah, který určuje:
+Každý klient vidí beanu v jiném stavu, což závisí pouze na tom, na kterou instanci má právě odkaz. Nicméně pro bezstavové beany a singletony platí, že klient nemá žádnou kontrolu nad jejich životním cyklem. Každá beana má definovaný rozsah, který určuje:
 
 \begin{itemize}
   \item životní cyklus každé instance dané beany 
@@ -835,7 +835,8 @@ Dotazy vytvořené pomocí kritéria API mají oproti JPQL několik zásadních 
 \begin{lstlisting}
 Metamodel mm = em.getMetamodel();
 EntityType<Product> mproduct = mm.entity(Product.class);
-SingularAttribute<Product, String> name = mproduct.getDeclaredSingularAttribute("name", String.class);
+SingularAttribute<Product, String> name = mproduct
+	.getDeclaredSingularAttribute("name", String.class);
 CriteriaBuilder cb = em.getCriteriaBuilder();
 CriteriaQuery<String> criteria = cb.createQuery(String.class);
 Root<Product> product = criteria.from(Product.class);
@@ -1236,12 +1237,15 @@ Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným n
 \subsection{Neco s restem}
 \subsection{JVM}
 \subsection{Velikost haldy a treba nejake pooly}
+\subsection{Rozdil mezi JMS a direct}
 
 \chapter*{Závěr}
 
 Nedostatek výsledků ke srovnání komerčních serverů, žádná možnost srovnání 
 
 Problém s transakcema, a spatnou architekturou (smazano)
+
+testovat na vice stojich (as na jednom, db na druhem..)
 
 \appendix
 
