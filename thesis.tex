@@ -118,7 +118,7 @@ U metrik orientovaných na výkonnost nás zajímá, jakým způsobem aplikace v
 \section{Klíčové cíle výkonnosti}
 Výkonnost počítačových aplikací je velmi komplexním tématem. Obecně platí, že celková výkonnost aplikace je rovna součtu výkonnosti jednotlivých částí. Je velmi důležité pochopit, že výkonnost naší aplikace se dá odladit jen do takové míry, do jaké se dají odladit jednotlivé části prostředí, ve kterém naše aplikace poběží. 
 
-Projděme si například strukturu Java EE aplikace\footnote{Java Enterprise Edition je součást platformy Java, určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Javu EE~\cite{wikiJavaEE}.}, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
+Projděme si například strukturu Java EE aplikace~\footnote{Java Enterprise Edition je součást platformy Java, určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Javu EE~\cite{wikiJavaEE}.}, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
 
 Jelikož je každá aplikace unikátní, jsou unikátní také požadavky na její výkonnost. Jsou situace, kdy lze za dobrou výkonnost považovat schopnost obsloužit vysoký počet klientů, kteří k aplikaci přistupují souběžně, ale také situace (počet klientů současně využívajících aplikaci není vysoký), kdy jediné, co nás zajímá, je rychlost, s jakou dokáže naše aplikace požadavky jednotlivých klientů obsloužit.
  
@@ -224,7 +224,7 @@ Jedním z možných řešení je transakce rozdělit do následujících (ne nut
   \item {\bf technicky riskantní} - místa, která ráda selhávají
 \end{itemize}
 
-Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezentovat buď pomocí tabulky (viz obrázek \ref{img:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek \ref{img:diagramNavigace}).
+Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezentovat buď pomocí tabulky (viz obrázek~\ref{img:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek~\ref{img:diagramNavigace}).
 
 \begin{figure}[!ht]
 \centering
@@ -283,7 +283,7 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 \\\indent Umožňuje vytvářet složitější scénáře, které jsou složeny z různých aktivit klientů. Pomocí generátorů zátěže jsou tyto scénáře využívány k vytváření zátěže na aplikaci.
 
 \vspace{5 mm}\noindent{\bf Modul na generování zátěže}
-\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže (viz Obrázek \ref{img:jmeter}).
+\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže (viz Obrázek~\ref{img:jmeter}).
 
 \begin{figure}[!ht]
 \centering
@@ -384,7 +384,7 @@ Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem j
   \item Servlet 3.0
   \item JavaServer Pages (JSP) 2.2
   \item Expression Language (EL) 2.2
-  \item Podpora debugování pro ostatní jazyky (JSR-45)\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP, tak v pracovních skupinách JSR poté pracují zástupci různých firem.~\cite{wikiJSR}} 1.0
+  \item Podpora debugování pro ostatní jazyky (JSR-45)~\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP, tak v pracovních skupinách JSR poté pracují zástupci různých firem~\cite{wikiJSR}.} 1.0
   \item Standardní knihovna značek pro JSP (JSTL) 1.2
   \item JavaServer Faces (JSF) 2.0
   \item Běžné anotace Java platformy (JSR-250) 1.1
@@ -456,7 +456,7 @@ DayTrader, původně vyvinut firmou IBM, simuluje online burzu s akciemi. Uživa
 Jednou z předností DayTraderu je jeho konfigurovatelnost. DayTrader nám umožňuje vybrat si způsob, jakým bude aplikace přistupovat k databázi. K dispozici máme implementace tří různých návrhových vzorů~\cite{daytrader}.
 
 \vspace{5 mm}\noindent{\bf Servlet-JDBC}
-\\\indent Třída TradeDirect provádí CRUD operace (vytvoření, čtení, editaci a smazání) přímo za použití vlastního JDBC\footnote[1]{Java Database Connectivity - jednotné rozhraní pro přístup k relačním databázím} kódu. Připojení k databázi i potvrzení a rušení transakcí jsou spravovány manuálně.
+\\\indent Třída TradeDirect provádí CRUD operace (vytvoření, čtení, editaci a smazání) přímo za použití vlastního JDBC~\footnote{Java Database Connectivity - jednotné rozhraní pro přístup k relačním databázím} kódu. Připojení k databázi i potvrzení a rušení transakcí jsou spravovány manuálně.
 
 \vspace{5 mm}\noindent{\bf Servlet-SessionBean-JDBC}
 \\\indent TradeJDBC bezstavová session beana je použita jako obalová třída pro třídu TradeDirect.
@@ -474,7 +474,7 @@ Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a m�
 U serveru nás nejvíce zajímají následující parametry:
 
 \vspace{5 mm}\noindent{\bf Vytížení JVM}
-\\\indent Stejně tak jako každá aplikace, tak i aplikační server běží na JVM. Optimalizace JVM v zásadě znamená nastavení správné velikosti haldy a vybrání vhodného algoritmu pro Garbage collector\footnote[1]{mechanismus, pomocí kterého jsou odstraňovány z paměti JVM objekty, na které již neexistují žádné reference}.
+\\\indent Stejně tak jako každá aplikace, tak i aplikační server běží na JVM. Optimalizace JVM v zásadě znamená nastavení správné velikosti haldy a vybrání vhodného algoritmu pro Garbage collector~\footnote{mechanismus, pomocí kterého jsou odstraňovány z paměti JVM objekty, na které již neexistují žádné reference}.
 
 \vspace{5 mm}\noindent{\bf Fond vláken}
 \\\indent Každý nový požadavek na aplikaci je nejprve vložen do fronty. Tato fronta je obsluhována fondem vláken, které požadavek vyjme a zpracuje. Pokud je fond vláken příliš veliký, dochází ke zbytečnému zabírání systémových zdrojů, které mohly být použity jinde, ba dokonce může dojít k degradaci výkonu v důsledku častého přepínání kontextu. Je-li naopak počet vláken příliš malý, trpí tím propustnost aplikace, protože žádná volná vlákna jsou ekvivalentem žádné práce navíc.
@@ -512,13 +512,13 @@ V současné době je běžné, že kromě webových prohlížečů, je k aplika
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{tier}
-\caption{Model třívrstvé architektury ~\cite{kodali06}}
+\caption{Model třívrstvé architektury~\cite{kodali06}}
 \label{img:tier}
 \end{figure}
 
 V třívrstvé architektuře mohou klientské aplikace (běžící ve webovém kontejneru) a session beany (běžící v EJB kontejneru) sdílet stejné prostředí (aplikační server), mohou ovšem také běžet na separátních strojích.
 
-Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Pro snadnější dodržování architektury je aplikace tvořena 2 moduly, které spolu vzájemně spolupracují: Web modul a EJB modul (viz Obrázek \ref{img:overview}).
+Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Pro snadnější dodržování architektury je aplikace tvořena 2 moduly, které spolu vzájemně spolupracují: Web modul a EJB modul (viz Obrázek~\ref{img:overview}).
 
 \begin{figure}[!ht]
 \centering
@@ -537,7 +537,7 @@ Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednoduš
 \end{itemize}
 
 \section{Java EE 6 platforma}
-Jedním ze základních požadavků na aplikaci bylo, aby běžela na platformě Java EE 6, díky čemuž se zajistí její přenositelnost na všechny ostatní servery s certifikací na tuto platformu. Java EE 6 pokračuje v rozvíjení trendů zavedených v předchozí verzi a to jsou zejména odlehčení a zjednodušení celého modelu. V současné době musí aplikační server podporovat 28 různých specifikací, aby mohl být certifikovaný jako Java EE 6 server. Aby nedocházelo k dalšímu nárůstu, je velikost platformy redukována pomocí profilů (viz \ref{profily}) a prořezávání. 
+Jedním ze základních požadavků na aplikaci bylo, aby běžela na platformě Java EE 6, díky čemuž se zajistí její přenositelnost na všechny ostatní servery s certifikací na tuto platformu. Java EE 6 pokračuje v rozvíjení trendů zavedených v předchozí verzi a to jsou zejména odlehčení a zjednodušení celého modelu. V současné době musí aplikační server podporovat 28 různých specifikací, aby mohl být certifikovaný jako Java EE 6 server. Aby nedocházelo k dalšímu nárůstu, je velikost platformy redukována pomocí profilů (viz~\ref{profily}) a prořezávání. 
 \subsection{Prořezávání}
 \label{pruning}
 Proces prořezávání se používá již od roku 1999. Se stále rostoucím počtem specifikací, které byly do Java EE platformy přidávány, rostla také její velikost. Postupem času se začaly objevovat specifikace, které nezaznamenaly takový úspěch, jaký se od nich očekávalo, a nebo se staly technicky zastaralými, proto bylo rozhodnuto o jejich odstranění. Odstraněním se myslí buď jejich nahrazení novější specifikací a nebo prosté vypuštění z celé platformy (specifikace se poté může dál samostatně vyvíjet i mimo platformu).
@@ -554,19 +554,19 @@ Ke zjednodušení přispělo představení anotací v Java EE 5, které poskytuj
 
 
 \subsection{EJB}
-Další z komponent, které prošly významnou změnou jsou EJB. EJB jsou komponenty na straně serveru, které zastřešují aplikační logiku a starají se o transakce, zabezpečení, plánování, vzdálený přístup, webové služby a jiné. Tyto již nemusí implementovat žádné rozhraní, ale stačí obyčejná třída s anotací označující typ beany. Ve verzi Java EE 6 máme na výběr z těchto typů\footnote[1]{EJB mohou být také použity jako koncové body webových služeb jako REST a SOAP}
+Další z komponent, které prošly významnou změnou jsou EJB. EJB jsou komponenty na straně serveru, které zastřešují aplikační logiku a starají se o transakce, zabezpečení, plánování, vzdálený přístup, webové služby a jiné. Tyto již nemusí implementovat žádné rozhraní, ale stačí obyčejná třída s anotací označující typ beany. Ve verzi Java EE 6 máme na výběr z těchto typů~\footnote{EJB mohou být také použity jako koncové body webových služeb jako REST a SOAP}
 
 \begin{itemize}
   \item {\bf Bezstavová beana} - klient může použít jakoukoliv instanci beze změny výsledku
   \item {\bf Stavová beana} - uchovává si stav napříč celým sezením konkrétního klienta
   \item {\bf Singleton} - jediná instance, která je sdílená napříč aplikací
   \item {\bf Message driven beana} - použity pro integraci s externími systémy pomocí JMS
-  \item {\bf Entity beana} -  používány pro persistenci dat (označeny k prořezání, viz \ref{pruning})
+  \item {\bf Entity beana} -  používány pro persistenci dat (označeny k prořezání, viz~\ref{pruning})
 \end{itemize}
 
 Bezstavové beany, stavové beany a Singleton sborně nazýváme Session beanami.
 
-Jelikož v předchozí verzi specifikace jasně nedefinovala konvence pro tvorbu JNDI\footnote[2]{Java Naming and Directory Interface - rozhraní, které umožňuje klientům hledat objekty pomocí jména} jmen, bylo běžné, že různé aplikační servery přiřazovaly EJB různá jména. Proto bylo potřeba měnit kód v závislosti na tom, který server jsme právě používali. Tento problém je již minulostí, jelikož v Java EE 6 jsou konvence pro tvorbu JNDI jmen objektů přímou součástí specifikace.
+Jelikož v předchozí verzi specifikace jasně nedefinovala konvence pro tvorbu JNDI~\footnote{Java Naming and Directory Interface - rozhraní, které umožňuje klientům hledat objekty pomocí jména} jmen, bylo běžné, že různé aplikační servery přiřazovaly EJB různá jména. Proto bylo potřeba měnit kód v závislosti na tom, který server jsme právě používali. Tento problém je již minulostí, jelikož v Java EE 6 jsou konvence pro tvorbu JNDI jmen objektů přímou součástí specifikace.
 
 \subsection{CDI}
 Je specifikace popisující správu životního cyklu kontextu a injektování závislostí, která přebírá to nejlepší z nástaveb jako Spring, Seam nebo Guice. Tato specifikace definuje sadu komplementárních služeb, které zlepšují strukturu aplikačního kódu. Od Java EE 6 se stala součástí platformy, tudíž musí být podporována všemi servery. CDI nám umožňuje:
@@ -633,7 +633,7 @@ Vypsání zákazníku na našich stránkách provedeme prostým:
 Aby bylo možné v naší aplikaci používat CDI, je nutné aby byl přítomen soubor beans.xml. Tento soubor může být prázdný, ale musí existovat. U webových aplikací musí být přítomen v adresáři WEB-INF, u EJB modulů a Java archívů potom v adresář META-INF.
 
 \subsection{Validace Bean}
-Je další z řady novinek v Java EE 6. Poskytuje nám jednotný směr k definování omezení na objektový model, čímž dokážeme zajistit integritu dat v databázi\footnote[1]{podobný princip validace umožňuje také JSF, kdy jsou data validována na prezentační vrstvou}. Omezení definujeme uvnitř entit pomocí anotací například následujícím způsobem:
+Je další z řady novinek v Java EE 6. Poskytuje nám jednotný směr k definování omezení na objektový model, čímž dokážeme zajistit integritu dat v databázi~\footnote{podobný princip validace umožňuje také JSF, kdy jsou data validována na prezentační vrstvou}. Omezení definujeme uvnitř entit pomocí anotací například následujícím způsobem:
 
 \begin{lstlisting}
 @Entity
@@ -661,10 +661,10 @@ public class EntityValidator<T> {
 }
 \end{lstlisting}
 
-Díky tomuto jsme schopni validovat data například již při čtení z formuláře a zamezit tak zbytečnému přístupu k databázi. Zprávy popisující omezení, která jsme porušili můžeme rovnou použít jako výstup pro uživatele (viz \ref{jsfMessage})
+Díky tomuto jsme schopni validovat data například již při čtení z formuláře a zamezit tak zbytečnému přístupu k databázi. Zprávy popisující omezení, která jsme porušili můžeme rovnou použít jako výstup pro uživatele (viz~\ref{jsfMessage})
 
 \subsection{REST}
-S rostoucí popularitou webových služeb na přístupu REST\footnote[2]{Representational state transfer - architektura založená na webových standardech a HTTP protokolu (viz \ref{rest})} byla do Java EE 6 přidána specifikace JAX-RS. Stačí jednoduchá třída se speciální anotací, která umožní komunikovat s naší aplikací pomocí HTTP protokolu.
+S rostoucí popularitou webových služeb na přístupu REST~\footnote{Representational state transfer - architektura založená na webových standardech a HTTP protokolu (viz~\ref{rest})} byla do Java EE 6 přidána specifikace JAX-RS. Stačí jednoduchá třída se speciální anotací, která umožní komunikovat s naší aplikací pomocí HTTP protokolu.
 
 \chapter{Persistentní vrstva}
 Existuje více způsobů, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí, pokud bude třída, jejíž instanci chceme serializovat, implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
@@ -708,7 +708,7 @@ public class Product {
 }
 \end{lstlisting}
 
-Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku \ref{img:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
+Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku~\ref{img:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
 
 \begin{figure}[!ht]
 \centering
@@ -804,7 +804,7 @@ public class OrderRoot {
 
 \section{Manažer entit}
 
-JPA nám neposkytuje pouze možnost entity mapovat, ale také s nimi pracovat a dotazovat se na ně. K tomuto účelu v JPA slouží manažer entit, který nám poskytuje rozhraní pro ukládání, vyhledávání, mazání a synchronizaci objektů s databází. Dovoluje nám dotazovat se na databázi pomocí JPQL\footnote[1]{Java Persisten Query Language - jazyk pro práci s databází objektově orientovaným způsobem}. JPQL nemá ponětí o struktuře dat uložených v databázi ani o řádcích a sloupcích, místo toho nám dovoluje přistupovat k datům jako k objektům s atributy pomocí standardní tečkové notace. Manažer entit je centrálním bodem v JPA. Má na starosti životní cykly entit, vyhledávání entit pomocí klíče, může zamykat přístup k entitám, aby zajistil konzistenci dat při sdíleném přístupu, a nebo nám vracet hodnoty JPQL dotazů.
+JPA nám neposkytuje pouze možnost entity mapovat, ale také s nimi pracovat a dotazovat se na ně. K tomuto účelu v JPA slouží manažer entit, který nám poskytuje rozhraní pro ukládání, vyhledávání, mazání a synchronizaci objektů s databází. Dovoluje nám dotazovat se na databázi pomocí JPQL~\footnote{Java Persisten Query Language - jazyk pro práci s databází objektově orientovaným způsobem}. JPQL nemá ponětí o struktuře dat uložených v databázi ani o řádcích a sloupcích, místo toho nám dovoluje přistupovat k datům jako k objektům s atributy pomocí standardní tečkové notace. Manažer entit je centrálním bodem v JPA. Má na starosti životní cykly entit, vyhledávání entit pomocí klíče, může zamykat přístup k entitám, aby zajistil konzistenci dat při sdíleném přístupu, a nebo nám vracet hodnoty JPQL dotazů.
 
 Použití manažeru entit se zásadně liší podle toho, jestli se jedná o aplikaci běžící na serveru (transakce, životní cykly entit a jiné jsou spravovány serverem) nebo Java SE aplikaci, kde se musí o vše postarat aplikace sama.
 
@@ -861,7 +861,7 @@ return query.getResultList();
 Z důvodu typové bezpečnosti bylo v aplikaci použito výhradně nového kriteria API.
 
 \section{Datový model aplikace}
-Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovaného u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním obsahů tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek \ref{img:class}).
+Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovaného u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním obsahů tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek~\ref{img:class}).
 
 \begin{figure}[!ht]
 \centering
@@ -870,7 +870,7 @@ Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemov
 \label{img:class}
 \end{figure}
 
-V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí třídy Order a Invoice. Na ERD diagramu (viz obrázek \ref{img:erd}) můžeme vidět, jakým způsobem jsou atributy definované v mapované supertřídě přeneseny do jejich potomků
+V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí třídy Order a Invoice. Na ERD diagramu (viz obrázek~\ref{img:erd}) můžeme vidět, jakým způsobem jsou atributy definované v mapované supertřídě přeneseny do jejich potomků
 
 \begin{figure}[!ht]
 \centering
@@ -891,7 +891,7 @@ V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako ent
   \item {\bf řízení stavu} - kontejner udržuje v paměti stavy jednotlivých stavových bean a tím i vzdálený stav u klienta, kterému se jeví stav jakoby uložen lokálně
   \item {\bf poskytování fondů} - vytváření fondů instancí pro bezstavové beany a message-driven beany (MDB)
   \item {\bf řízení životního cyklu} - stará se o vytváření, inicializaci a destrukci instancí bean
-  \item {\bf messaging} - umožňuje MDB poslouchat na JMS\footnote[1]{Java Messiging Service - rozhraní umožňující aplikacím asynchronně vytvářet, číst, posílat a příjímat zprávy} destinacích a konzumovat zprávy
+  \item {\bf messaging} - umožňuje MDB poslouchat na JMS~\footnote{Java Messiging Service - rozhraní umožňující aplikacím asynchronně vytvářet, číst, posílat a příjímat zprávy} destinacích a konzumovat zprávy
   \item {\bf management transakcí} - beany deklarují transakční vlastnosti metod, kontejner řeší potvrzení a zrušení transakce
   \item {\bf bezpečnost} - deklarace přístupů na úrovni tříd a metod
   \item {\bf podpora souběžného zpracování} - vývojář nemusí řešit problémy synchronizace souběžných přístupů ke sdíleným datům
@@ -1083,7 +1083,7 @@ Výše uvedený kus kódu říká JSF, že chceme po stisknutí tlačítka přek
 Managed beany tvoří centrální bod webových aplikací. Managed beany mohou vykonávat aplikační logiku (nebo operace delegovat na EJB), obstarávat navigaci mezi stránkami, zajišťovat validaci a konvertování dat, ale také jejich přechovávání. K tomu, aby se ze třídy stala Managed beanou, je nutné, aby:
 \begin{itemize}
   \item byla označena anotací @Named (díky této anotaci můžeme nyní k naší beaně přistupovat pomocí jazyka výrazů)
-  \item měla definovaný rozsah\footnote[1]{jelikož mají managed beany většinou nastavený rozsah na požadavek, přináší nám CDI novou anotaci @Model, která v sobě zapouzdřuje anotace @Named a @RequestScoped}
+  \item měla definovaný rozsah~\footnote{jelikož mají managed beany většinou nastavený rozsah na požadavek, přináší nám CDI novou anotaci @Model, která v sobě zapouzdřuje anotace @Named a @RequestScoped}
   \item byla deklarována jako veřejná
 \end{itemize}
 
@@ -1094,7 +1094,7 @@ Managed beany tvoří centrální bod webových aplikací. Managed beany mohou v
 \label{img:frontend}
 \end{figure}
 
-Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek \ref{img:mdb})
+Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek~\ref{img:mdb})
 
 \begin{figure}[!ht]
 \centering
@@ -1122,7 +1122,7 @@ K zobrazení zprávy na naší stránce můžeme využít například komponentu
 <p:growl id="messages" />
 \end{lstlisting}
 
-Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem, můžeme vidět na obrázku \ref{img:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
+Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem, můžeme vidět na obrázku~\ref{img:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
 
 \begin{figure}[!ht]
 \centering
@@ -1223,7 +1223,7 @@ Po zadání této adresy do prohlížeče nám bude serverem vrácena XML reprez
 RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám práci s objekty, generování náhodných objektů i konfiguraci aplikace samotné.
 
 \section{Autentizace}
-Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek \ref{img:identity}).
+Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek~\ref{img:identity}).
 
 \begin{figure}[!ht]
 \centering
@@ -1232,7 +1232,7 @@ Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus 
 \label{img:identity}
 \end{figure}
 
-Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
+Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)~\footnote{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
 
 \chapter{P}
 \section{Nástroje}
@@ -1270,7 +1270,7 @@ požadavky:
   \item JDK (verze alespoň 1.6.0)
 \end{itemize}
 \section{Příprava aplikačního serveru}
-Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci naši aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná se o server s otevřenými zdrojovými kódy, který je k dispozici volně ke staženi\footnote{v tomto návodu budeme dále předpokládat, že je použit server JBoss AS verze alespoň 7.1.1}. Server lze stáhnout buď na adrese \href{http://www.jboss.org/jbossas/downloads/}{http://www.jboss.org/jbossas/downloads/} nebo si sestavit vlastní ze zdrojových kódů:
+Ke spuštění aplikace nejprve potřebujeme aplikační server, na který budeme moci naši aplikaci nasadit. Tento server musí být certifikován na Java EE plný profil, aby bylo možné využívat služeb JMS. Aplikace byla vyvíjena za použití aplikačního serveru JBoss AS 7.2.0 Alpha. Jedná se o server s otevřenými zdrojovými kódy, který je k dispozici volně ke staženi~\footnote{v tomto návodu budeme dále předpokládat, že je použit server JBoss AS verze alespoň 7.1.1}. Server lze stáhnout buď na adrese \href{http://www.jboss.org/jbossas/downloads/}{http://www.jboss.org/jbossas/downloads/} nebo si sestavit vlastní ze zdrojových kódů:
 \begin{itemize}
   \item stáhneme si zdrojové kódy z repozitáře:
 \begin{lstlisting}
@@ -1290,13 +1290,13 @@ Pro zjednodušení práce si vytvořme novou proměnnou prostředí \$JBOSS\_HOM
 
 \subsection{Datový zdroj}
 K tomu, aby mohla naše aplikace pracovat s databází, musíme serveru nastavit datový zdroj. V této ukázce použijeme databázi MySQL.
-Nejprve musíme přidat nový modul\footnote{JBoss AS 7 poskytuje systém modulů, aby zajistil isolaci při načítání tříd do paměti~\cite{datasource}}
+Nejprve musíme přidat nový modul~\footnote{JBoss AS 7 poskytuje systém modulů, aby zajistil isolaci při načítání tříd do paměti~\cite{datasource}}
 \begin{lstlisting}
 $ cd $JBOSS_HOME
 $ mkdir -p modules/com/mysql/main
 $ cd modules/com/mysql/main
 \end{lstlisting}
-Knihovnu s ovladačem k databázi zkopírujeme na tuto lokaci a vytvoříme nový soubor module.xml, s následujícím obsahem\footnote[1]{verzi knihovny upravíme tak, aby seděla s tou, kterou se chystáme použít}:
+Knihovnu s ovladačem k databázi zkopírujeme na tuto lokaci a vytvoříme nový soubor module.xml, s následujícím obsahem~\footnote{verzi knihovny upravíme tak, aby seděla s tou, kterou se chystáme použít}:
 \begin{lstlisting}
 <?xml version="1.0" encoding="UTF-8"?>
 	<resources>
@@ -1376,7 +1376,7 @@ Testovací sadu spustíme pomocí příkazu:
 \begin{lstlisting}
 $ mvn test
 \end{lstlisting}
-Pokud proběhly testy úspěšně, měli bychom na konzoli vidět následující výpis\footnote[1]{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
+Pokud proběhly testy úspěšně, měli bychom na konzoli vidět následující výpis~\footnote{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
 \begin{lstlisting}
 -------------------------------------------------------
  T E S T S
@@ -1396,7 +1396,7 @@ Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
 \end{lstlisting}
 
 \subsection{Nasazení aplikace}
-K nasazení aplikace použijeme nástroj Maven a jeho pluginy, které vykonají veškerou práci za nás:
+K nasazení aplikace použijeme nástroj Maven a jeho pluginy, které za nás vykonají veškerou:
 \begin{lstlisting}
 $ mvn install jboss-as:deploy -DskipTests=true
 ...
@@ -1424,16 +1424,27 @@ Máme-li k dispozici nějaký nástroj na generování zátěže, můžeme ke ge
 http://localhost:8080/web/ShoppingServlet
 \end{lstlisting}
 
+\subsection{OpenShift}
+Odlehčená verze aplikace~\footnote{aplikace byla zabalena jako webový archiv, není použito JMS a aplikace používa odlehčenou H2 databázi} byla nasazena na platformě OpenShift společnosti Red Hat a je možné s ní pracovat na adrese:
+\begin{lstlisting}
+http://opensh-pkremens.rhcloud.com/
+\end{lstlisting}
+
 \chapter{Seznam funkcí dostupných z webového rozhraní}
 Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webového rozhraní aplikace.\\
 
 \noindent{\bf index.xhtml}:
 \begin{itemize}  \itemsep0em
   \item smazat obsah tabulek
-  \item vytvořit $n$ náhodných zákazníků 
-  \item vytvořit $n$ náhodných produktů
-  \item vytvořit $n$ náhodných objednávek
-  \item TODO
+  \item smazat tabulky objednávek a faktur
+  \item zobrazit přehled o naplnění tabulek
+  \item zapnout nebo vypnout službu automatického mazání objednávek a faktur
+  \item zapnout nebo vypnout službu automatické fakturace objednávek
+  \item zapnout nebo vypnout službu automatické fakturace objednávek pomocí JMS
+  \item vygenerovat $n$ náhodných zákazníků 
+  \item smazat tabulku zákazníků
+  \item vygenerovat $n$ náhodných produktů
+  \item smazat tabulku produktů
 \end{itemize}
 {\bf template.xhtml}:
 \begin{itemize}  \itemsep0em
@@ -1444,7 +1455,7 @@ Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webovéh
 \begin{itemize}  \itemsep0em
   \item vytvořit zákazníka
   \item vytvořit a přihlásit zákazníka
-  \item vytvořit náhodného zákazníka
+  \item vygenerovat náhodného zákazníka
   \item procházet seznam zákazníků
   \item smazat zákazníka
   \item smazat všechny zákazníky
@@ -1454,7 +1465,7 @@ Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webovéh
 {\bf products.xhtml}:
 \begin{itemize}  \itemsep0em
   \item vytvořit produkt
-  \item vytvořit náhodný produkt
+  \item vygenerovat náhodný produkt
   \item procházet seznam produktů
   \item smazat produkt
   \item smazat všechny produkty
@@ -1472,7 +1483,7 @@ Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webovéh
 \end{itemize}
 {\bf orders.xhtml}:
 \begin{itemize}  \itemsep0em
-  \item vytvořit náhodnou objednávku
+  \item vygenerovat náhodnou objednávku
   \item fakturovat objednávku
   \item procházet seznam objednávek
   \item smazat všechny objednávky
@@ -1489,7 +1500,7 @@ Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webovéh
 {\bf history.xhtml}:
 \begin{itemize}  \itemsep0em
   \item procházet historii objednávek přihlášeného zákazníka 
-  \item zobrazit detail objednávky (viz obrázek \ref{img:orderDetail})
+  \item zobrazit detail objednávky (viz obrázek~\ref{img:orderDetail})
   \item skrýt detail objednávky
 \end{itemize}
 
