@@ -211,7 +211,7 @@ Nyní když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba 
 \centering
 \includegraphics[width=1.0\textwidth]{tabulkanavigace}
 \caption{Vybrané scénáře prezentovány pomocí tabulky~\cite{molyneaux09}}
-\label{fig:tabulkaNavigace}
+\label{img:tabulkaNavigace}
 \end{figure}
 
 Jedním z možných řešení je transakce rozdělit do následujících (ne nutně disjunktních) skupin:
@@ -224,13 +224,13 @@ Jedním z možných řešení je transakce rozdělit do následujících (ne nut
   \item {\bf technicky riskantní} - místa, která ráda selhávají
 \end{itemize}
 
-Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezentovat buď pomocí tabulky (viz obrázek \ref{fig:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek \ref{fig:diagramNavigace}).
+Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, je nutné opět zopakovat, že se nejedná o testy funkcionality, není proto nutné testovat úplně všechny transakce, které jsou k dispozici), čímž bychom měli získat odpovídající množinu kritických scénářů pro naše testy. Výsledné scénáře lze prezentovat buď pomocí tabulky (viz obrázek \ref{img:tabulkaNavigace}), nebo pomocí diagramu (viz obrázek \ref{img:diagramNavigace}).
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{diagramnavigace}
 \caption{Vybrané scénáře prezentovány pomocí diagramu}
-\label{fig:diagramNavigace}
+\label{img:diagramNavigace}
 \end{figure}
 
 \section{Typy testů}
@@ -283,7 +283,14 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 \\\indent Umožňuje vytvářet složitější scénáře, které jsou složeny z různých aktivit klientů. Pomocí generátorů zátěže jsou tyto scénáře využívány k vytváření zátěže na aplikaci.
 
 \vspace{5 mm}\noindent{\bf Modul na generování zátěže}
-\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže.
+\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže (viz Obrázek \ref{img:jmeter}).
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{jmeter}
+\caption{Modul na generování zátěže nástroje Apache JMeter}
+\label{img:jmeter}
+\end{figure}
 
 \vspace{5 mm}\noindent{\bf Analytický modul}
 \\\indent Poskytuje nám schopnost sbírat a vyhodnocovat hodnoty naměřené v každém testu. Vyhodnocením se rozumí například vykreslení grafů, znázornění důležitých hodnot v tabulkách, a jiné.
@@ -506,18 +513,18 @@ V současné době je běžné, že kromě webových prohlížečů, je k aplika
 \centering
 \includegraphics[width=0.8\textwidth]{tier}
 \caption{Model třívrstvé architektury ~\cite{kodali06}}
-\label{fig:tier}
+\label{img:tier}
 \end{figure}
 
 V třívrstvé architektuře mohou klientské aplikace (běžící ve webovém kontejneru) a session beany (běžící v EJB kontejneru) sdílet stejné prostředí (aplikační server), mohou ovšem také běžet na separátních strojích.
 
-Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Pro snadnější dodržování architektury je aplikace tvořena 2 moduly, které spolu vzájemně spolupracují: Web modul a EJB modul (viz Obrázek \ref{fig:overview}).
+Jako vhodný typ aplikace pro výkonnostní testování byla vybrána zjednodušená verze internetového obchodu. Základní scénář pro generování zátěže je následující. Zákazník se přihlásí do aplikace pod svým uživatelským jménem, vybrané produkty z katalogu umístí do košíku a jakmile je se svým výběrem spokojen, tak objednávku dokončí. Při dokončení objednávky je zboží vybrané zákazníkem zarezervováno na skladě. Nyní přichází na řadu skladník, který sebere objednávku, odečte objednané kusy zboží ze skladu a vystaví fakturu. Skladník se stará také o to, abychom měli na skladě neustále dostatek zboží. Pro snadnější dodržování architektury je aplikace tvořena 2 moduly, které spolu vzájemně spolupracují: Web modul a EJB modul (viz Obrázek \ref{img:overview}).
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{overview}
 \caption{Vysokoúrovňový přehled architektury aplikace}
-\label{fig:overview}
+\label{img:overview}
 \end{figure}
 
 \begin{itemize}
@@ -701,13 +708,13 @@ public class Product {
 }
 \end{lstlisting}
 
-Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku \ref{fig:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
+Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku \ref{img:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.7\textwidth]{EntityToTableMapping}
 \caption{ORM v praxi}
-\label{fig:orm}
+\label{img:orm}
 \end{figure}
 
 \subsection{Konfigurovatelnost pomocí anotací}
@@ -771,7 +778,7 @@ JPA podporuje tři různé strategie při mapování dědičnosti entit. Tato st
 Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že entity nemusí nutně dědit zase jenom z entit. Existují tři další typy tříd, od kterých mohou entity dědit:
 
 \vspace{5 mm}\noindent{\bf Abstraktní entita}
-\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována jako žádná jiná abstraktní třída v jazyce Java.
+\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována (stejne tak jako žádná jiná abstraktní třída v jazyce Java).
 
 \vspace{5 mm}\noindent{\bf Neentita}
 \\\indent Pokud entita dědí z neentity, jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
@@ -854,22 +861,22 @@ return query.getResultList();
 Z důvodu typové bezpečnosti bylo v aplikaci použito výhradně nového kriteria API.
 
 \section{Datový model aplikace}
-Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovaného u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním obsahů tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek \ref{fig:class}).
+Základ aplikace tvoří entity Customer a Product. Pomocí atributu orphanRemoval specifikovaného u jednotlivých vazeb s těmito entitami jsme schopni smazat všechna data aplikace pouhým smazáním obsahů tabulek zákazníků a produktů, čehož později využijeme k získání konzistentních podmínek při opakování testů. Vztahy mezi třídami jsou patrné z následujícího diagramu tříd (viz obrázek \ref{img:class}).
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.7\textwidth]{class}
 \caption{Diagram tříd}
-\label{fig:class}
+\label{img:class}
 \end{figure}
 
-V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí třídy Order a Invoice. Na ERD diagramu (viz obrázek \ref{fig:erd}) můžeme vidět, jakým způsobem jsou atributy definované v mapované supertřídě přeneseny do jejich potomků
+V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí třídy Order a Invoice. Na ERD diagramu (viz obrázek \ref{img:erd}) můžeme vidět, jakým způsobem jsou atributy definované v mapované supertřídě přeneseny do jejich potomků
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{erd_diagram}
 \caption{Entitně relační diagram}
-\label{fig:erd}
+\label{img:erd}
 \end{figure}
 
 
@@ -1084,16 +1091,16 @@ Managed beany tvoří centrální bod webových aplikací. Managed beany mohou v
 \centering
 \includegraphics[width=0.35\textwidth]{frontendmodel}
 \caption{Model prezentační vrstvy vytvořené za pomoci JSF}
-\label{fig:frontend}
+\label{img:frontend}
 \end{figure}
 
-Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek \ref{fig:mdb})
+Kromě volání metod managed beany, jsme schopni pomocí jazyka výrazů pracovat také s jejími atributy. Ke zpřístupnění těchto atributů je zapotřebí, aby byly definovány metody get a set, které jsou implicitně volány. K atributům managed beany přistupujeme standardní tečkovou notací. Stejně jako každá jiná komponenta v Java EE 6 má i managed beana definovaný životní cyklus. K dispozici jsou nám anotace @PostConstruct a @PreDestroy (viz obrázek \ref{img:mdb})
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.5\textwidth]{lifeManaged}
 \caption{Model životního cyklu MDB}
-\label{fig:mdb}
+\label{img:mdb}
 \end{figure}
 
 Metoda s anotací @PostConstruct je volána serverem okamžitě po vytvoření nové instance managed beany. Po zavolání této metody, je beana připravena obsluhovat požadavky uživatele. Předtím, než je beana odstraněna z paměti, je volána metoda @PreDestroy. Tyto metody mohou být použity například na vytvoření a uvolnění externích zdrojů.
@@ -1115,13 +1122,13 @@ K zobrazení zprávy na naší stránce můžeme využít například komponentu
 <p:growl id="messages" />
 \end{lstlisting}
 
-Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem, můžeme vidět na obrázku \ref{fig:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
+Jak bude vypadat odezva uživateli při pokusu o přihlášení s prázdným přihlašovacím formulářem, můžeme vidět na obrázku \ref{img:messages}. Vypsané zprávy jsou ty samé, které jsme definovali u našich entit jako omezení na datovém modelu.  
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.7\textwidth]{messages}
 \caption{Zobrazení zpráv uživateli}
-\label{fig:messages}
+\label{img:messages}
 \end{figure}
 
 \chapter{Webové služby a autentizace}
@@ -1216,13 +1223,13 @@ Po zadání této adresy do prohlížeče nám bude serverem vrácena XML reprez
 RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám práci s objekty, generování náhodných objektů i konfiguraci aplikace samotné.
 
 \section{Autentizace}
-Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek \ref{fig:identity}).
+Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek \ref{img:identity}).
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.65\textwidth]{loggingmedol}
 \caption{Model autentizace zákazníka a práce s jeho identitou}
-\label{fig:identity}
+\label{img:identity}
 \end{figure}
 
 Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)\footnote[1]{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
@@ -1246,6 +1253,12 @@ Nedostatek výsledků ke srovnání komerčních serverů, žádná možnost sro
 Problém s transakcema, a spatnou architekturou (smazano)
 
 testovat na vice stojich (as na jednom, db na druhem..)
+
+K tomu aby bylo dodrzen pristu, ze vykonostni testy nejsou testy funcionality lblblo byla poslouzila sada jendotkovych testu ktera poskytla urcitou miru jistoty ze funkcionalita je ok i . Kolikrat me az samotneho zarazilo, jak dokaze mala zmena na jednom miste ovlivnit uplne jinou cast aplikace nastesti diky testum se tyto bla podarili vcas najit aj kdyz najit chybu kolikrat bylo dost frustrujici dokazu si predstavit, ze bez testu by bylo jeste frustrujicim.
+
+Muzeme si zaplatit a pouzit SPEC nebo Day trader. Day trader sice pouziva veci jako entity beany a JSP, ale jelikoz vychazi jako ukazkova aplikace apache Geronimo ktery je (???) certifikovany EE, bude day trader updatovat aby vzdy podporoval nejnovejsi specifikace obsazene ve vzdy posledni verzy Java EE platf.
+
+Zanorovani JSF komponent
 
 \appendix
 
@@ -1302,11 +1315,12 @@ Nyní, když máme vytvořený modul, musíme na něj udělat odkaz v hlavním k
 Do sekce s ovladači přidáme:
 \begin{lstlisting}
 <drivers>
-    <driver name="mysql" module="com.mysql"/>
+	<driver name="mysql" module="com.mysql"/>
+	<driver name="h2" module="com.h2database.h2">
         <xa-datasource-class>
-            org.h2.jdbcx.JdbcDataSource
+		org.h2.jdbcx.JdbcDataSource
         </xa-datasource-class>
-    </driver>
+	</driver>
 </drivers>
 \end{lstlisting}
 Ve stejném souboru musíme nastavit také datový zdroj:
