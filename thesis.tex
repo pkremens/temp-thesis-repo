@@ -50,7 +50,7 @@ language=java
 \end{ThesisDeclaration}
 
 \begin{ThesisThanks}
-Na tomto místě bych rád poděkoval panu Ing. Pavlu Slavíčkovi za cenné rady a připomínky a panu Mgr. Jiřímu Kolářovi za odborné vedení práce.
+Na tomto místě bych rád poděkoval panu Ing. Pavlu Slavíčkovi za cenné rady a připomínky, panu Mgr. Jiřímu Kolářovi za odborné vedení práce a kolegovi Bc. Janu Martiškovi za poskytnutí inspirace při tvorbě skriptů na měření paměti serverů.
 
 Dále děkuji své sestře Mgr. Lence Liškové a své matce Lence Křemenské za neocenitelnou pomoc při jazykové korektuře. 
 \end{ThesisThanks}
@@ -75,7 +75,7 @@ výkonnostní testování, aplikační server, benchmarking, generování zátě
 
 Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují její výkonnost a zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
 
-Aplikační servery jsou páteřní komponentou pro chod mnoha(o) společností. Umožnují rychlé a spolehlivé sdílení dat, centralizovanou distribuci software, jednoduchou modernizaci, vysokou míru zabezpečení a zvyšují efektivitu všech firemních procesů. K tomu, aby aplikační servery sprvávě plnily svou funkci, je (potřeba?)zapotřebí, aby i ony byly podrobovány testům.
+Aplikační servery jsou páteřní komponentou pro chod mnoha společností. Umožnují rychlé a spolehlivé sdílení dat, centralizovanou distribuci software, jednoduchou modernizaci, vysokou míru zabezpečení a zvyšují efektivitu všech firemních procesů. K tomu, aby aplikační servery sprvávě plnily svou funkci, je zapotřebí, aby i ony byly podrobovány testům.
 
 Aplikace by měla java EE 6, moderní technologie, ... TODO
 
@@ -85,9 +85,9 @@ V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si zák
 
 Třetí kapitola je věnována popisu architektury aplikace a seznámení se se základními principy Java EE 6 platformy. Dále jsou podrobněji představeny některé specifikace, které jsou v aplikaci použity.
 
-V následujících čtyřech kapitolách projdeme všemi vrstvami aplikace od persistentní až po prezentační a seznámíme se s některými podpůrnými technologiemi. V každé kapitole budou popsány technologie, které byly v aplikaci použity společně s ukázkami kódu a některých řešení.
+V následujících čtyřech kapitolách projdeme všemi vrstvami aplikace od persistentní až po prezentační a seznámíme se s některými podpůrnými technologiemi. V každé kapitole budou popsány technologie, které byly v aplikaci použity společně s ukázkami kódu a některými řešeními.
 
-Závěrečná kapitola je věnována několika testům aplikačního serveru. Nejprve jsou představeny nástroje, které budou k testům použity a poté jsou popsány jednotlivé testy.
+Závěrečná kapitola je věnována několika testům aplikačního serveru. Nejprve jsou představeny nástroje, které budou k testům použity, a poté jsou popsány jednotlivé testy.
 
 Práce obsahuje dvě přílohy, z nichž první popisuje způsob, jakým je možné aplikaci nasadit na aplikační server a druhá nabízí seznam funkcí dostupných z webového rozhraní aplikace.
 
@@ -145,7 +145,7 @@ V závislosti na povaze testu nás mohou zajímat:
 \\\indent Z pohledu Java EE aplikace nás většinou zajímá počet požadavků (transakcí), které jsme schopni obsloužit za daný časový úsek. V typické aplikaci bude více klientů vykonávat různorodé akce souběžně, proto nás zajímá propustnost jednotlivých požadavků i různých skupin složitějších scénářů (simulace reálného vytížení aplikace). Cílem testů je monitorovat chování aplikace při zvyšujícím se počtu souběžných požadavků a nalézt bod saturace, tj. počet požadavků, při nichž dojde k zahlcení aplikace, což se projeví například náhlým zhoršením času odezvy aplikace. 
 
 \vspace{5 mm}\noindent{\bf Využití zdrojů}
-\\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientem a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten pokud možno nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
+\\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientem a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
 \begin{itemize}
   \item objem dat procházejících sítí
   \item datová propustnost - jedním z naších cílů může být dosáhnutí určitého datového toku, který by měla být naše aplikace schopna zpracovat
@@ -162,7 +162,7 @@ V podobném smyslu bychom měli také definovat limity zdrojů serveru, které b
 \section{SLA}
 V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Předtím, než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikaci srovnávat, a tudíž dělat o její výkonnosti jakékoliv závěry.
 
-Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou splněny také požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou nutné k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Pokud by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
+Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou splněny také požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou nutné k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Jestliže by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
 
 Efektivní SLA musí být specifické, flexibilní a realistické.
 
@@ -170,7 +170,7 @@ Efektivní SLA musí být specifické, flexibilní a realistické.
 \\\indent Cíle určené v SLA by měly mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. ABO i ATO by se měli dohodnout na konkrétních hodnotách, což nám zaručí spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
 
 \vspace{5 mm}\noindent{\bf Flexibilní SLA}
-\\\indent Flexibility SLA lze dosáhnout určením míry požadovaného úspěchu a tím brát v potaz nesplnění podmínek v důsledku nepředvídatelných okolností. Pokud naše aplikace bude v jednom případě ze dvaceti požadavků odpovídat o něco pomaleji, dá se to většinou klientů akceptovat. Ani s flexibilitou se to však nesmí přehánět a to, o kolik pomaleji může naše aplikace v oněch pár případech odpovídat, musí být přesně definováno.
+\\\indent Flexibility SLA lze dosáhnout určením míry požadovaného úspěchu a tím brát v potaz nesplnění podmínek v důsledku nepředvídatelných okolností. Bude-li naše aplikace v jednom případě ze dvaceti požadavků odpovídat o něco pomaleji, dá se to většinou klientů akceptovat. Ani s flexibilitou se to však nesmí přehánět a to, o kolik pomaleji může naše aplikace v oněch pár případech odpovídat, musí být přesně definováno.
 
 \vspace{5 mm}\noindent{\bf Realistické SLA}
 \\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou ABO i ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Poté, co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
@@ -181,19 +181,19 @@ V této části se budeme věnovat hledání co nejvěrnější simulace aplika�
 
 \subsection{Požadavky na aplikaci}
 
-Předtím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (např. zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstranění těchto nedostatků než testování, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
+Předtím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pracuje-li podle očekávání. Jsou-li známy nějaké významnější funkční nedostatky ještě před testováním (např. zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstranění těchto nedostatků než testování, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
 
-Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Pokud je během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Pokud je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
+Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Je-li během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Jestliže je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
 
 \subsection{Určení cílové zátěže}
 
 Nyní již předpokládejme, že je naše aplikace připravena k testování. Existuje několik způsobů, jakými lze postupovat při vybírání vhodné zátěže~\cite{barber11}.
 
-Pokud se nejedná o první generaci aplikace, je průzkum historie používání předchozí verze aplikace nejsnadnější a nejefektivnější cestou, jak získat věrohodná data o zátěži, se kterou je nutné počítat.
+Nejedná-li o první generaci aplikace, je průzkum historie používání předchozí verze aplikace nejsnadnější a nejefektivnější cestou, jak získat věrohodná data o zátěži, se kterou je nutné počítat.
 
-Pokud taková data nemáme, je možné je získat od konkurence, jedná-li se o podobný typ aplikace (společnosti se rády chlubí dosaženými výsledky, pokud jsou příznivé).
+Jestliže taková data nemáme, je možné je získat od konkurence, jedná-li se o podobný typ aplikace (společnosti se rády chlubí dosaženými výsledky, jsou-li příznivé).
 
-Pokud nemáme k dispozici ani jedno, tak nám nezbývá než zátěž odhadnout na základě marketingových předpokladů.
+Nemáme-li k dispozici ani jedno, tak nám nezbývá než zátěž odhadnout na základě marketingových předpokladů.
 
 Při provádění průzkumu dat, ať už historických nebo dat konkurence, by nás mělo zajímat hlavně:
 \begin{itemize}
@@ -205,7 +205,7 @@ Při provádění průzkumu dat, ať už historických nebo dat konkurence, by n
 
 \subsection{Distribuce zátěže mezi jednotlivé funkce}
 
-Nyní, když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba ji vhodně distribuovat mezi jednotlivé transakce, které naše aplikace nabízí. Termínem transakce se v tomto případě myslí jakákoliv operace, kterou může uživatel s naší aplikací vykonat. I v tomto případě je nejlepší cestou využít historii předchozí verze aplikace, je-li k dispozici, pokud není, nezbývá než rozložení zátěže mezi transakce opět odhadnout. 
+Nyní, když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba ji vhodně distribuovat mezi jednotlivé transakce, které naše aplikace nabízí. Termínem transakce se v tomto případě myslí jakákoliv operace, kterou může uživatel s naší aplikací vykonat. I v tomto případě je nejlepší cestou využít historii předchozí verze aplikace, je-li k dispozici, v opačném případě nezbývá než rozložení zátěže mezi transakce opět odhadnout. 
 
 \begin{figure}[!ht]
 \centering
@@ -329,7 +329,7 @@ Hledáme-li specifický produkt, nelze vybírat pouze podle výsledků benchmark
   \end{itemize}
   \item celkovou cenu vzhledem k dosaženému výkonu 
   \begin{itemize}
-    \item  výrobci sice musí udávat vedle naměřeného skóre také poměr ceny a výkonu spočítaný podle speciálního vzorce, ale je známo, že v těchto měřeních jsou použity konfigurace speciálně navržené pouze pro benchmarking. Pokud bychom chtěli těchto hodnot dosáhnout i my, museli bychom si připlatit.
+    \item  výrobci sice musí udávat vedle naměřeného skóre také poměr ceny a výkonu spočítaný podle speciálního vzorce, ale je známo, že v těchto měřeních jsou použity konfigurace speciálně navržené pouze pro benchmarking. V případě, že bychom chtěli těchto hodnot dosáhnout i my, museli bychom si připlatit.
   \end{itemize}
   \item omezení prostředí
   \begin{itemize}
@@ -466,7 +466,7 @@ Jednou z předností DayTraderu je jeho konfigurovatelnost. DayTrader nám umož
 \newline
 \\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcií. Na výběr máme synchronní a asynchronní mód. Zatímco v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
 
-Poté, co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, ale pokud nás zajímá výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
+Poté, co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, zajímá-li nás ale výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
 
 \section{Ladění serveru}
 Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a máme k dispozici také aplikační server, na kterém naše aplikace poběží, můžeme spustit testy, abychom zjistili, jak si naše aplikace stojí oproti požadavkům. Máme-li štěstí, dosáhneme požadovaných hodnot z SLA napoprvé a aplikace nepotřebuje žádné ladění. Ovšem to se zase tak často nestává. Jednou z možností jak zlepšit výkon naší aplikace je optimalizace serveru, na kterém je naše aplikace nasazena. I přesto, že se většina expertů shodne na tom, že 75 \% výkonu aplikace závisí na tom, jak je aplikace implementována, špatně nakonfigurované běhové prostředí může negativně ovlivnit pocit uživatelů z práce s naší aplikací~\cite{performanceTuning}. 
@@ -667,7 +667,7 @@ Díky tomuto jsme schopni validovat data například již při čtení z formul�
 S rostoucí popularitou webových služeb na přístupu REST~\footnote{Representational state transfer - architektura založená na webových standardech a HTTP protokolu (viz~\ref{rest})} byla do Java EE 6 přidána specifikace JAX-RS. Stačí jednoduchá třída se speciální anotací, která umožní komunikovat s naší aplikací pomocí HTTP protokolu.
 
 \chapter{Persistentní vrstva}
-Existuje více způsobů, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí, pokud bude třída, jejíž instanci chceme serializovat, implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
+Existuje více způsobů, kterými můžeme v jazyce Java ukládat stav objektů. Můžeme například použít mechanismus serializace (převedení objektů na sekvenci bitů). Objekt může být takto uložen na disk, nebo poslán pomocí internetu a použit na jiném stroji. Serializované objekty si samozřejmě zachovávají platformovou nezávislost. Java poskytuje jednoduchý a transparentní mechanismus na serializaci objektů. Stačí, bude-li třída, jejíž instanci chceme serializovat, implementovat rozhraní java.io.Serializable. Jelikož se jedná o velice jednoduchý mechanismu, není k dispozici žádný dotazovací jazyk ani infrastruktura, která by podporovala sdílený přístup k datům~\cite{goncalves09}.
 
 Dalším způsobem, kterým můžeme data ukládat je za použití JDBC, které je součástí Java platformy už od verze 1.1. JDBC nám umožní připojit se k databázi a dotazovat se na ni pomocí SQL. Ačkoliv je tento přístup stále široce používán, je čím dál více zastíněn objektově relačním mapováním (ORM). U ORM jsou Java třídy mapovány na tabulky relační databáze, čímž vzniká dojem, že nepracujeme s relační databází, ale databází objektů.
 JPA 2.0
@@ -690,7 +690,7 @@ Jak tedy proměnit třídu v třídu entit? Aby se z obyčejné třídy stala en
   \item anotace @Id musí být použita k určení primárního klíče
   \item třída musí mít bezparametrický konstruktor s veřejným nebo chráněným modifikátorem přístupu (mimo to může mít i další konstruktory)
   \item výčtová třída nebo rozhraní nemůže být entitní třídou
-  \item pokud bude k této třídě přistupováno pomocí vzdáleného rozhraní, tak musí implementovat rozhraní Serializable
+  \item bude-li k této třídě přistupováno pomocí vzdáleného rozhraní, tak musí implementovat rozhraní Serializable
   \item entitní třída ani žádné její atributy nesmějí být deklarovány jako finální
 \end{itemize}
 
@@ -708,7 +708,7 @@ public class Product {
 }
 \end{lstlisting}
 
-Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že pokud nedefinujeme jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Pokud ponecháme třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku~\ref{img:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
+Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Product nyní považovat za entitní třídu. V JPA se stejně tak jako v ostatních specifikacích Java EE razí přístup konvence nad konfigurací, což znamená, že nedefinujeme-li jinak, tak mají být použity standardní hodnoty. Toto nám umožňuje psát minimum kódu navíc, jelikož se můžeme spolehnout na standardy. Ponecháme-li třídu Product beze změny, bude namapována například způsobem, který můžeme vidět na obrázku~\ref{img:orm} (hodnoty se mohou měnit v závislosti na použité databázi).
 
 \begin{figure}[!ht]
 \centering
@@ -718,7 +718,7 @@ Jelikož jsou splněna všechna výše uvedená pravidla, můžeme třídu Produ
 \end{figure}
 
 \subsection{Konfigurovatelnost pomocí anotací}
-Pokud dojde k situaci, že se název tabulky nebo sloupce shoduje s některým z klíčových slov SQL (například Order), nebo chceme z nějakého důvodu způsob mapování změnit (například budujeme aplikaci nad existující databází), máme možnost takto učinit pomocí anotací (případně pomocí XML dokumentu). Stačí prostudovat aplikační rozhraní dané anotace a upravit si mapovaní dle vlastních představ. Na ukázce vidíme aplikační rozhraní anotace @Column, kterou lze použít pro úpravu způsobu mapování jednotlivých atributů na sloupce.
+Jestliže dojde k situaci, že se název tabulky nebo sloupce shoduje s některým z klíčových slov SQL (například Order), nebo chceme z nějakého důvodu způsob mapování změnit (například budujeme aplikaci nad existující databází), máme možnost takto učinit pomocí anotací (případně pomocí XML dokumentu). Stačí prostudovat aplikační rozhraní dané anotace a upravit si mapovaní dle vlastních představ. Na ukázce vidíme aplikační rozhraní anotace @Column, kterou lze použít pro úpravu způsobu mapování jednotlivých atributů na sloupce.
 
 \begin{lstlisting}
 @Target({METHOD, FIELD}) @Retention(RUNTIME)
@@ -739,24 +739,24 @@ int scale() default 0;
 Dalšími z užitečných anotací v JPA jsou například:
 
 \begin{itemize}
-  \item{\bf @Transient} - jakmile označíme třídu anotací @Entity, tak jsou všechny atributy automaticky mapovány do tabulky. Pokud chceme nějaký atribut vyloučit, můžeme použít anotaci @Transient
+  \item{\bf @Transient} - jakmile označíme třídu anotací @Entity, tak jsou všechny atributy automaticky mapovány do tabulky. Chceme-li nějaký atribut vyloučit, můžeme použít anotaci @Transient
   \item{\bf @Temporal} - v Javě můžeme použít pro uložení časových dat třídy java.util.Date a java.util.Calendar. Pro použití těchto tříd v ORM slouží anotace @Temporal
-  \item{\bf @Enumerated} - pokud chceme použít jako atribut výčtovou třídu
+  \item{\bf @Enumerated} - chceme-li použít jako atribut výčtovou třídu
 \end{itemize}
 
 \subsection{Vazby mezi entitami}
 
-Mezi jednotlivými třídami můžeme definovat několik typů vazeb, které nám určují vztahy mezi nimi. Každá vazba definuje směr. Může být buď jednosměrná (můžeme se z jednoho objektu dostat na druhý, ale ne naopak), nebo obousměrná (objekty se vidí navzájem). Další vlastností vazeb je jejich kardinalita, která určuje, kolik objektů je ve vazbě zahrnuto. Každý vztah má vlastníka, pokud je vazba jednosměrná, je vlastník implicitně daný, je-li vazba obousměrná, musí být explicitně určen. 
+Mezi jednotlivými třídami můžeme definovat několik typů vazeb, které nám určují vztahy mezi nimi. Každá vazba definuje směr. Může být buď jednosměrná (můžeme se z jednoho objektu dostat na druhý, ale ne naopak), nebo obousměrná (objekty se vidí navzájem). Další vlastností vazeb je jejich kardinalita, která určuje, kolik objektů je ve vazbě zahrnuto. Každý vztah má vlastníka, v případě, že je vazba jednosměrná, je vlastník implicitně daný, je-li vazba obousměrná, musí být explicitně určen. 
 
 V JPA jsme schopni upravovat vztahy mezi entitami pomocí anotací @OneToOne, @OneToMany, @ManyToOne a @ManyToMany. Pomocí těchto anotací jsme schopni definovat směr vazby i způsob uložení dat v tabulkách (má-li být použit sloupec s cizím klíčem nebo sjednocená tabulka).
 
-Pomocí atributu fetch můžeme u každé z těchto vazeb nastavit způsob načítání dat z tabulky, ten může být buď líný, nebo horlivý. Mějme například entitu zákazníka. Každý zákazník může mít historii svých objednávek. Každá objednávka se může skládat z několika položek s různými produkty. Pokud bychom měli nastavené horlivé načítání u všech entit, načetly by se do paměti při vyhledání zákazníka v databázi také všechny jeho objednávky a všechny produkty a to i v případě, kdy nás zajímalo pouze zákazníkovo jméno. Takové chování by u aplikace znamenalo značnou degradaci její výkonnosti. Anotace @OneToOne a @ManyToMany používají standardně horlivé načítání, anotace @OneToMany a @ManyToMany líné. K tomu, abychom donutili JPA líně načíst data, můžeme použít metodu initialize, kterou nabízí náš JPA poskytovatel Hibernate. Po zavolání:
+Pomocí atributu fetch můžeme u každé z těchto vazeb nastavit způsob načítání dat z tabulky, ten může být buď líný, nebo horlivý. Mějme například entitu zákazníka. Každý zákazník může mít historii svých objednávek. Každá objednávka se může skládat z několika položek s různými produkty. Za podmínky, že bychom měli nastavené horlivé načítání u všech entit, načetly by se do paměti při vyhledání zákazníka v databázi také všechny jeho objednávky a všechny produkty a to i v případě, kdy nás zajímalo pouze zákazníkovo jméno. Takové chování by u aplikace znamenalo značnou degradaci její výkonnosti. Anotace @OneToOne a @ManyToMany používají standardně horlivé načítání, anotace @OneToMany a @ManyToMany líné. K tomu, abychom donutili JPA líně načíst data, můžeme použít metodu initialize, kterou nabízí náš JPA poskytovatel Hibernate. Po zavolání:
 \begin{lstlisting}
 Hibernate.initialize(order.getOrderItems());
 \end{lstlisting}
 	můžeme pracovat i s jednotlivými instancemi položek objednávky.
 
-Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky, na které není odkazováno z žádné jiné tabulky. Pokud bychom například smazali z databáze zákazníka, seznam jeho objednávek by pro nás ztratil význam. Pomocí atributu orphanRemoval upozorníme JPA, aby po smazání zákazníka smazalo také všechny jeho objednávky.
+Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky, na které není odkazováno z žádné jiné tabulky. V případě, že bychom například smazali z databáze zákazníka, seznam jeho objednávek by pro nás ztratil význam. Pomocí atributu orphanRemoval upozorníme JPA, aby po smazání zákazníka smazalo také všechny jeho objednávky.
 \begin{lstlisting}
 ...
 	@OneToMany(mappedBy = "customer", orphanRemoval = true)
@@ -767,13 +767,13 @@ Aby zůstala naše data konzistentní, je vhodné odstraňovat z tabulek řádky
 JPA podporuje tři různé strategie při mapování dědičnosti entit. Tato strategie je vždy definována ve třídě s nejvyšší hierarchií pomocí anotace @Inheritance.
 
 \vspace{5 mm}\noindent{\bf Strategie jedné tabulky}
-\\\indent Pokud anotace @Inheritance chybí, je vždy použita tato strategie. Všechny entity, nehledě na postavení v hierarchii, jsou ukládány do jedné tabulky. Ačkoli je tato strategie nejjednodušší, má několik nevýhod. V tabulce vznikají prázdná místa, protože různé třídy mají různé atributy, a ani přidání nové entity do hierarchie se neobejde bez problémů, protože je potřeba přidat nové sloupce do tabulky. Navíc je potřeba, aby atributy všech entit kromě rodičovské měly povoleny prázdné hodnoty, jinak nebude možné do tabulky vkládat.
+\\\indent V případě, že anotace @Inheritance chybí, je vždy použita tato strategie. Všechny entity, nehledě na postavení v hierarchii, jsou ukládány do jedné tabulky. Ačkoli je tato strategie nejjednodušší, má několik nevýhod. V tabulce vznikají prázdná místa, protože různé třídy mají různé atributy, a ani přidání nové entity do hierarchie se neobejde bez problémů, protože je potřeba přidat nové sloupce do tabulky. Navíc je potřeba, aby atributy všech entit kromě rodičovské měly povoleny prázdné hodnoty, jinak nebude možné do tabulky vkládat.
 
 \vspace{5 mm}\noindent{\bf Strategie sjednocené tabulky}
 \\\indent Každá entita má vlastní tabulku, ale společné atributy entit jsou uloženy pouze do rodičovské tabulky. Ta obsahuje extra sloupec označující entitu, které daný řádek patří. Ani tato strategie není zrovna ideální, protože musíme často spojovat tabulky, abychom dostali úplný stav entity.
 
 \vspace{5 mm}\noindent{\bf Strategie jedné tabulky pro každou třídu}
-\\\indent Podobně jako u strategie sjednocené tabulky i zde má každá entita vlastní tabulku s tím rozdílem, že všechny atributy rodiče budou mapovány také v tabulce potomka. Při použití této strategie nenajdeme žádné sjednocené sloupce ani hodnoty. Nevýhodnou se tato strategie stává, pokud chceme najít všechny záznamy rodiče i všech synů, protože v tomto případě se musí provést sjednocení výsledků z tabulek všech entit.
+\\\indent Podobně jako u strategie sjednocené tabulky i zde má každá entita vlastní tabulku s tím rozdílem, že všechny atributy rodiče budou mapovány také v tabulce potomka. Při použití této strategie nenajdeme žádné sjednocené sloupce ani hodnoty. Nevýhodnou se tato strategie stává, chceme-li najít všechny záznamy rodiče i všech synů, protože v tomto případě se musí provést sjednocení výsledků z tabulek všech entit.
 
 Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že entity nemusí nutně dědit zase jenom z entit. Existují tři další typy tříd, od kterých mohou entity dědit:
 
@@ -781,7 +781,7 @@ Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že en
 \\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována (stejne tak jako žádná jiná abstraktní třída v jazyce Java).
 
 \vspace{5 mm}\noindent{\bf Neentita}
-\\\indent Pokud entita dědí z neentity, jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
+\\\indent Dědí-li entita z neentity, jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
 
 \vspace{5 mm}\noindent{\bf Mapovaná supertřída}
 \\\indent Tento speciální druh třídy se používá nejen pro sdílení stavu a chování, ale také pro sdílení informací o mapování pro entity, které od této třídy dědí. Tyto třídy nejsou nijak spravovány JPA poskytovatelem ani nemají vlastní tabulku. Ve vyvíjené aplikaci je použita mapovaná supertřída OrderRoot, která sdružuje společné vlastnosti tříd Order a Invoice, které z této třídy dědí.
@@ -881,7 +881,7 @@ V modelu byla využita mapovaná supertřída OrderRoot, ze které dědí tříd
 
 
 \chapter{Aplikační vrstva}
-Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní. Pokud by naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších~\cite{goncalves09}. 
+Entity by měly sloužit pouze jako datový model aplikace a neměly by zahrnovat žádnou složitější aplikační logiku. Stejně tak bychom neměli míchat aplikační logiku do uživatelského rozhraní.  Kdyby naše aplikace poskytovala více uživatelských rozhraní (web, přenosná zařízení a jiné), museli bychom psát veškerou funkcionalitu pro každé z nich zvlášť. K rozdělení těchto dvou vrstev nám slouží aplikační vrstva. Aplikační vrstva nám poskytuje funkcionalitu aplikace a modeluje akce. Aplikační vrstva slouží jako vstupní bod pro klientská rozhraní, zajišťuje zabezpečení aplikace, správu transakcí, komunikaci s externími webovými službami, zasílání asynchronních zpráv pomocí JMS a mnoho dalších~\cite{goncalves09}. 
 
 V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako entity tvořeny obyčejnými třídami doplněnými anotacemi. S verzí 3.1 se z EJB staly odlehčené komponenty podporující přístup konvence nad konfigurací. Programátor se může soustředit výhradně na tvorbu funkcionality. Jakmile je EJB nasazena,  server ji poskytuje následující služby~\cite{wikiEJB}:
 
@@ -903,7 +903,7 @@ Instanci EJB můžeme v aplikaci získat buď pomocí JNDI, nebo pomocí injekto
 Existuje několik typů EJB, ale my se budeme věnovat pouze těm, které byly použity v naší aplikaci.
 
 \vspace{5 mm}\noindent{\bf Bezstavové beany}
-\\\indent Jsou ideální pro implementaci úkolů, které mohou být dokončeny voláním pouze jedné metody. Jsou sdružovány ve fondech, ze kterých jsou odebírány a po obsloužení požadavku zase vráceny zpět. Neuchovávají si žádný stav relevantní pro klienta mezi obsluhou jeho jednotlivých požadavků. Jsou přirozeně vláknově bezpečné. Server nezaručuje, že stejný klient vždy dostane stejnou instanci beany. Pokud chceme ze třídy udělat bezstavovou EJB, musíme jí označit anotací @Stateless. V naší aplikaci jsou bezstavové beany použity jako základní stavební kámen pro veškerou aplikační logiku.
+\\\indent Jsou ideální pro implementaci úkolů, které mohou být dokončeny voláním pouze jedné metody. Jsou sdružovány ve fondech, ze kterých jsou odebírány a po obsloužení požadavku zase vráceny zpět. Neuchovávají si žádný stav relevantní pro klienta mezi obsluhou jeho jednotlivých požadavků. Jsou přirozeně vláknově bezpečné. Server nezaručuje, že stejný klient vždy dostane stejnou instanci beany. Chceme-li ze třídy udělat bezstavovou EJB, musíme jí označit anotací @Stateless. V naší aplikaci jsou bezstavové beany použity jako základní stavební kámen pro veškerou aplikační logiku.
 
 \vspace{5 mm}\noindent{\bf Singleton}
 \\\indent Singletonem označujeme beanu, která je v celé aplikaci instanciována pouze jednou a má globálně sdílený stav mezi klienty (pracujeme-li v prostředí klastrů, má každý klastr svoji vlastní instanci singletonu).
@@ -924,15 +924,15 @@ Transakce slouží k zajištění konzistence dat i při souběžném přístupu
   \item {\bf trvalost} - jakmile transakce úspěšně proběhne, jsou změny uložené v databázi viditelné i pro ostatní aplikace
 \end{itemize}
 
-Stejně jako tomu bylo u JPA i zde se liší použití transakcí u aplikace, která běží na serveru od použití v aplikaci Java SE. Pokud používáme transakce spravované serverem, nemusíme se starat o vyznačování hranic transakce, ani explicitně rušit transakci při zachycení výjimky. Samozřejmě i zde máme možnost chování transakcí plně řídit pomocí anotací. Pokud nám standardní chování nevyhovuje, můžeme tak učinit pomocí anotace @TransactionalAttribetu. Této můžeme předat jednu z následujících hodnot:
+Stejně jako tomu bylo u JPA i zde se liší použití transakcí u aplikace, která běží na serveru od použití v aplikaci Java SE. Používáme-li transakce spravované serverem, nemusíme se starat o vyznačování hranic transakce, ani explicitně rušit transakci při zachycení výjimky. Samozřejmě i zde máme možnost chování transakcí plně řídit pomocí anotací. V případě, že nám standardní chování nevyhovuje, můžeme tak učinit pomocí anotace @TransactionalAttribetu. Této můžeme předat jednu z následujících hodnot:
 
 \begin{itemize}
-  \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Pokud je metoda zavolána klientem bez transakčního kontextu, je serverem vytvořen nový.
-  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. Pokud je metoda volána v probíhající transakci, je tato transakce pozastavena na úkor nově vytvořené transakce. Poté, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
-  \item {\bf SUPPORTS} - Pokud je transakční kontext klienta k dispozici, je metodou použit, pokud ne, je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
-  \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Pokud klient tento kontext nemá, je vyhozena výjimka.
-  \item {\bf NOT\_SUPPORTED} - Metoda nemůže být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je probíhající transakce pozastavena a je spuštěna opět po dokončení metody.
-  \item {\bf NEVER} - Metoda nesmí být zavolána uvnitř transakčního kontextu klienta. Pokud klient nějaký kontext vlastní, je vyhozena výjimka.
+  \item {\bf REQUIRED} - Použito implicitně. Metoda musí být vždy zavolána uvnitř transakce. Je-li metoda zavolána klientem bez transakčního kontextu, je serverem vytvořen nový.
+  \item {\bf REQUIRES\_NEW} - Server vždy vytvoří novou transakci. V případě, že je metoda volána v probíhající transakci, je tato transakce pozastavena na úkor nově vytvořené transakce. Poté, co nová transakce skončí, pokračuje původní transakce. Úspěch nebo neúspěch nové transakce nemá vliv na dokončení transakce původní.
+  \item {\bf SUPPORTS} - Je-li transakční kontext klienta k dispozici, je metodou použit, v opačném případě je metoda zavolána bez transakčního kontextu. Vhodné pro přístup k datům určeným pouze pro čtení.
+  \item {\bf MANDATORY} - Metoda vyžaduje aby byla spuštěna klientem s transakčním kontextem. Za podmínky, že klient tento kontext nemá, je vyhozena výjimka.
+  \item {\bf NOT\_SUPPORTED} - Metoda nemůže být zavolána uvnitř transakčního kontextu klienta. Jestliže klient nějaký kontext vlastní, je probíhající transakce pozastavena a je spuštěna opět po dokončení metody.
+  \item {\bf NEVER} - Metoda nesmí být zavolána uvnitř transakčního kontextu klienta. V případě, že klient nějaký kontext vlastní, je vyhozena výjimka.
 \end{itemize}
 Jedna z věcí, na kterou si musíme dát při konfiguraci transakcí pozor, je volání metod uvnitř jedné třídy. Mějme dvě metody uvnitř třídy OrderManager.
 
@@ -979,10 +979,10 @@ Ke konzumaci zpráv jsou určeny MDB. MDB jsou bezstavové, což znamená, že m
 JMS podporuje dva základní modely.
 
 \vspace{5 mm}\noindent{\bf Bod-k-bodu}
-\\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesílateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Pokud není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
+\\\indent V tomto modelu mluvíme o producentovi a konzumentovi zpráv jako o odesílateli a příjemci. Zprávy odeslané odesilatelem jsou přechovávány ve frontě, dokud nejsou zkonzumovány nějakým příjemcem nebo dokud nevyprší jejich platnost. Za podmínky, že není žádný příjemce k dispozici, zůstává zpráva uchována ve frontě. Jakmile je příjemce vytvořen, může přijmout všechny čekající zprávy. Fronta může mít i více příjemců, ale každá zpráva může být zkonzumována pouze jednou.
 
 \vspace{5 mm}\noindent{\bf Publikovat-odebírat}
-\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (zpravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. Pokud se konzument přihlásí nově k tématu, nemá přístup k dříve odeslaným zprávám, a pokud se stane po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho pasivity zaslány (toto chování se dá změnit).
+\\\indent U tohoto modelu hovoříme o producentovi jako o publicistovi a o konzumentech (zpravidla je jich více) jako o odběratelích. Aby mohl odběratel konzumovat zprávy produkované publicistou, musí se přihlásit na téma, na které publicista zprávy zasílá. Téma zachovává zprávy, dokud nejsou distribuovány všem odběratelům. V případě, že se konzument přihlásí nově k tématu, nemá přístup k dříve odeslaným zprávám, a stane-li po nějakou dobu neaktivním, nedostane se ke zprávám, které byly producentem během jeho pasivity zaslány (toto chování se dá změnit).
 
 Samotná zpráva se skládá z hlavičky, vlastností a těla. Hlavička obsahuje standardní informace pro identifikaci a směrování zprávy. Vlastnosti zprávy obsahují dvojice klíč-hodnota, které může aplikace nastavovat a číst. Tyto vlastnosti slouží spíše jako doplněk hlavičky, protože umožňují, aby se klient na základě vlastností rozhodl, zda zprávu příjme, nebo ne. Samotné tělo zprávy je nepovinné. Tělo zprávy se může skládat z mapy, textového řetězce, objektu a nebo proudu bytů.
 
@@ -1058,10 +1058,10 @@ JSF představuje nový model pro tvorbu dynamických stránek v Java EE vycháze
 Facelety jsou alternativou a náhradou JSP. Poskytují nám možnost tvořit stránky v XML stylu, pomocí XHTML dokumentů, což sebou přináší výhodu v podobě možnosti validace stránek použitím standardních nástrojů pro XML, definování vlastních značek a možnost využít objektový model dokumentu (DOM). Další z mnoha výhod, které nám facelety poskytují, je schopnost vytvořit společný vzhled pro více stránek pomocí šablon. 
 
 \section{Jazyk výrazů}
-Pokud chceme na našich stránkách vypsat hodnotu nějaké proměnné nebo přistoupit k atributu určitého objektu, můžeme takto učinit pomocí jazyka výrazů. Základní syntaxí tohoto jazyka je \#\{výraz\} (u JSP bylo zvykem používat také \$\{výraz\}, který vyhodnotil výraz okamžitě, toto se ovšem nehodí do životního cyklu JSF stránek). Pomocí tečkové notace můžeme budovat složitější výrazy. Jazyk výrazů nám poskytuje aritmetické, relační a logické operátory, díky kterým můžeme tvořit složitější výrazy.
+Chceme-li na našich stránkách vypsat hodnotu nějaké proměnné nebo přistoupit k atributu určitého objektu, můžeme takto učinit pomocí jazyka výrazů. Základní syntaxí tohoto jazyka je \#\{výraz\} (u JSP bylo zvykem používat také \$\{výraz\}, který vyhodnotil výraz okamžitě, toto se ovšem nehodí do životního cyklu JSF stránek). Pomocí tečkové notace můžeme budovat složitější výrazy. Jazyk výrazů nám poskytuje aritmetické, relační a logické operátory, díky kterým můžeme tvořit složitější výrazy.
 
 \section{AJAX}
-AJAX (dříve asynchronní JavaScript a XML) je soubor technik umožňujících nám vytvářet nenáročné, uživatelsky přívětivé a interaktivní webové aplikace. U tradičních webových aplikací musí prohlížeč požádat server o celý HTML dokument, což způsobuje překreslení celé stránky i při akcích, které toto chování nevyžadují. Pokud je tato stránka netriviálně veliká, dochází ke zbytečnému plýtvání šířkou pásma a zpomalení celé aplikace. AJAX používá asynchronní přenos dat mezi prohlížečem a serverem k získání pouze potřebné části informace namísto celé stránky, tato část stránky je poté pomocí JavaScriptu překreslena, což činí aplikaci plynulejší a rychlejší. Toto chování je nám umožněno i díky objektovému modelu dokumentu, pomocí kterého můžeme dynamicky pracovat s daty.
+AJAX (dříve asynchronní JavaScript a XML) je soubor technik umožňujících nám vytvářet nenáročné, uživatelsky přívětivé a interaktivní webové aplikace. U tradičních webových aplikací musí prohlížeč požádat server o celý HTML dokument, což způsobuje překreslení celé stránky i při akcích, které toto chování nevyžadují. Za podmínky, že je tato stránka netriviálně veliká, dochází ke zbytečnému plýtvání šířkou pásma a zpomalení celé aplikace. AJAX používá asynchronní přenos dat mezi prohlížečem a serverem k získání pouze potřebné části informace namísto celé stránky, tato část stránky je poté pomocí JavaScriptu překreslena, což činí aplikaci plynulejší a rychlejší. Toto chování je nám umožněno i díky objektovému modelu dokumentu, pomocí kterého můžeme dynamicky pracovat s daty.
 
 \begin{lstlisting}
 <p:commandButton value="Remove" 
@@ -1107,7 +1107,7 @@ Metoda s anotací @PostConstruct je volána serverem okamžitě po vytvoření n
 
 \section{Zobrazování zpráv uživatelům}
 \label{jsfMessage}
-Pokud má být naše aplikace robustní, měla by umět reagovat na nečekané události. Součástí reakce je poskytnutí adekvátních informací uživateli. Neočekávanými událostmi mohou být: chyba v aplikaci (selhání aplikační logiky, selhání sítě, selhání databáze) a nebo chyba uživatele při práci s aplikací (zadání nepovolených hodnot do formuláře). V prvním případě je vhodné přesměrovat uživatele na stránku s požadavkem o zopakování dotazu později. V druhém případě je vhodné uživatele upozornit na místo, ve kterém udělal chybu. K vyprodukování zprávy nám stačí použít v naší třídě následující metodu:
+Má-li být naše aplikace robustní, měla by umět reagovat na nečekané události. Součástí reakce je poskytnutí adekvátních informací uživateli. Neočekávanými událostmi mohou být: chyba v aplikaci (selhání aplikační logiky, selhání sítě, selhání databáze) a nebo chyba uživatele při práci s aplikací (zadání nepovolených hodnot do formuláře). V prvním případě je vhodné přesměrovat uživatele na stránku s požadavkem o zopakování dotazu později. V druhém případě je vhodné uživatele upozornit na místo, ve kterém udělal chybu. K vyprodukování zprávy nám stačí použít v naší třídě následující metodu:
 
 \begin{lstlisting}
 private void addMessage(String summary) {
@@ -1148,7 +1148,7 @@ REST definuje čtyři základní metody a to: vytvoření dat, získání dat, z
 \begin{itemize}
   \item {\bf jednotnost rozhraní} - rozhraní by mělo být jednotvárné napříč celou aplikací
   \item {\bf adresovatelnost} - každá informace, která má nějakou hodnotu, by měla být zpřístupněna jako zdroj a měla by mít vlastní URI
-  \item {\bf souvislost} - pokud existuje nějaký vztah mezi dvěma různými zdroji, měly by na sebe tyto zdroje vzájemně odkazovat
+  \item {\bf souvislost} - existuje-li nějaký vztah mezi dvěma různými zdroji, měly by na sebe tyto zdroje vzájemně odkazovat
   \item {\bf bezstavovost} - požadavky klientů by se neměly navzájem ovlivňovat 
 \end{itemize}
 
@@ -1223,7 +1223,7 @@ Po zadání této adresy do prohlížeče nám bude serverem vrácena XML reprez
 RESTové rozhraní naší aplikace poskytuje téměř shodnou funkcionalitu s webovým. Dovoluje nám práci s objekty, generování náhodných objektů i konfiguraci aplikace samotné.
 
 \section{Autentizace}
-Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Pokud by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek~\ref{img:identity}).
+Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus autentizace. Jestliže by byla náhodně vygenerovaná hesla ukládána ve formě hashe, nemohli bychom s aplikací pracovat v reálném čase. Hesla jsou proto zobrazena ve formě holého textu. Nyní si popíšeme celý koncept přihlašování se do aplikace (viz obrázek~\ref{img:identity}).
 
 \begin{figure}[!ht]
 \centering
@@ -1237,14 +1237,20 @@ Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným n
 \chapter{P}
 \section{Nástroje}
 \subsection{Apache JMeter}
-\subsection{Monitorování}
-\subsection{JBoss AS}
+umoznuje nam odstrelit ve skriptovacim modulu obrazky
+\subsection{Monitorování Honze merak pameti a modul Jmeteru}
+GC rozdeleni pameti, co tam vlastne merim, pustim to vzdycky pred testem a okamzite po testu
+\subsection{JBoss AS a glass fish}
+
 \section{Testování}
 \subsection{Baseline}
-\subsection{Neco s restem}
+nejaky minutovy chod
 \subsection{JVM}
+1.6 / 1.7
 \subsection{Velikost haldy a treba nejake pooly}
-\subsection{Rozdil mezi JMS a direct}
+\subsection{Rozdil mezi JMS a direct u JBossu}
+\subsection{Rozdil mezi glassfishem a jbossem direct}
+\subsection{Rozdil bez s logem na info na konzoli a logem na fine na konzoli}
 
 \chapter*{Závěr}
 
@@ -1259,6 +1265,16 @@ K tomu aby bylo dodrzen pristu, ze vykonostni testy nejsou testy funcionality lb
 Muzeme si zaplatit a pouzit SPEC nebo Day trader. Day trader sice pouziva veci jako entity beany a JSP, ale jelikoz vychazi jako ukazkova aplikace apache Geronimo ktery je (???) certifikovany EE, bude day trader updatovat aby vzdy podporoval nejnovejsi specifikace obsazene ve vzdy posledni verzy Java EE platf.
 
 Zanorovani JSF komponent
+
+Testovani: Rozdily mezi servery, neni to jen tak vzit archiv a nahrat ho na jiny server, je potreba sjednotit i veci jako hibernate a eclipse link
+uprava na transient v Identity bean co to je proc to je
+hashe, nevim kdy a proc ale jelikos sem pouzival jen seznamy tak se volalo asi jen equals protoze sem mel celou dobu cykly v hash code a na JBossu to nevadilo ani jednou
+
+ruzne chovani, eclips linkem me to nejelo.
+
+do budoucna:
+mozna nejake prepinace na druh zateze treba mezi rezimem kdy budu jenom zapisovat a rezimem kdy budu jen cist
+vytvorit kompletni sadu testovacich skriptu pomoci Jmeteru aby clovek nemusel nic delat i s merenim, melo by to jit pouzet z cmd : Jelikoz je aplikace plne interaktivni, nemelo by byt tvoreni skriptu vetsim problemem (napr pomoci skriptovaciho modulu JMeteru) a nasledne to upravit a treba pomoci nejakych souboru nebo promennych s tim neco uz delat. Jmeter urcite nebude nejkomplexnejsim testvacim nastrojem, vybral sem si ho hlavne pro jeho jednoduchost tudiz mozna to sou daleko lepsi nastroje este.
 
 \appendix
 
@@ -1376,7 +1392,7 @@ Testovací sadu spustíme pomocí příkazu:
 \begin{lstlisting}
 $ mvn test
 \end{lstlisting}
-Pokud proběhly testy úspěšně, měli bychom na konzoli vidět následující výpis~\footnote{aplikaci se můžeme pokusit nasadit i pokud by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
+V případě, že testy proběhly úspěšně, měli bychom na konzoli vidět následující výpis~\footnote{aplikaci se můžeme pokusit nasadit i za podmínky, že by některý z testů selhal díky argumentu -DskipTest=true, ale je doporučeno pokusit se zjistit příčinu chyb a tuto příčinu odstranit}:
 \begin{lstlisting}
 -------------------------------------------------------
  T E S T S
