@@ -6,7 +6,7 @@
 \usepackage{hyperref} % url ref
 \usepackage{float} % H u obrazku                             
 \usepackage{enumitem} % mezery mezi Item
-\usepackage[czech]{babel}
+\usepackage[czech]{babel}                                      
 \usepackage[T1]{fontenc}
 %\usepackage[cp1250]{inputenc}
 \textwidth 6.2in % see http://faculty.uoit.ca/bohun/latex/margins.html
@@ -71,11 +71,11 @@ výkonnostní testování, aplikační server, benchmarking, generování zátě
 \tableofcontents
 
 \chapter*{Úvod}
-Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho těchto aplikací je používáno,(?) aniž by byla adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě předtím, než je nasazena do produkčního prostředí.
+Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho aplikací je používáno, aniž je adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě předtím, než je nasazena do produkčního prostředí.
 
-Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují její výkonnost, zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
+Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují její výkonnost a zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
 
-Aplikační servery jsou páteřní komponentou pro svět podnikových aplikací ... TODO
+Aplikační servery jsou páteřní komponentou pro chod mnoha(o) společností. Umožnují rychlé a spolehlivé sdílení dat, centralizovanou distribuci software, jednoduchou modernizaci, vysokou míru zabezpečení a zvyšují efektivitu všech firemních procesů. K tomu, aby aplikační servery sprvávě plnily svou funkci, je (potřeba?)zapotřebí, aby i ony byly podrobovány testům.
 
 Aplikace by měla java EE 6, moderní technologie, ... TODO
 
@@ -96,12 +96,12 @@ Práce obsahuje dvě přílohy, z nichž první popisuje způsob, jakým je mož
 Kdy se dá naše aplikace považovat za skutečně výkonnou? Z pohledu uživatele je odpověď na tuto otázku překvapivě snadná. Dobře odladěná aplikace je taková, která nám dovolí vykonat požadovanou posloupnost akcí bez pocitu frustrace způsobeného pomalou odezvou aplikace nebo jejím nepředvídaným chováním. Avšak k tomu, abychom mohli měřit výkonnost aplikace, musíme být schopni definovat, čeho chceme dosáhnout~\cite{molyneaux09}.
 
 \section{Metriky měření výkonu}
-Před tím, než budou rozebrány jednotlivé požadavky a nároky, které můžeme klást na výkonnost naší aplikace, definujme klíčové metriky, které se k měření výkonnosti aplikace běžně používají. Tyto metriky lze rozdělit na metriky orientované na službu a metriky orientované na výkonnost.
+Předtím, než budou rozebrány jednotlivé požadavky a nároky, které můžeme klást na výkonnost naší aplikace, definujme klíčové metriky, které se k měření výkonnosti aplikace běžně používají. Tyto metriky lze rozdělit na metriky orientované na službu a metriky orientované na výkonnost.
 \subsection{Metriky orientované na službu}
 U metrik orientovaných na službu nás zajímá, jak se aplikace chová jako služba z pohledu klienta. Patří zde: 
 
 \vspace{5 mm}\noindent{\bf Čas odezvy}
-\\\indent Představuje čas, který trvá aplikaci odpovědět na požadavek klienta. Tuto metriku nelze obecně považovat za nejdůležitější, ale na straně klienta jsou jakékoliv nedostatky v této oblasti na naší aplikaci nejevidentnější. Pomalá odezva může působit neblaze na konkurenceschopnost aplikace. Klienti považují rychlou odezvu aplikace za samozřejmost, takže sebemenší opoždění na ně nechá silný negativní dojem. Platí, že hodnota vnímaná člověkem jako průměrná odezva, není skutečným průměrem, ale hodnotou, která je větší než 90 \% všech jednotlivých odezev~\cite{haines06}.
+\\\indent Představuje čas, který trvá aplikaci odpovědět na požadavek klienta. Tuto metriku nelze obecně považovat za nejdůležitější, ale na straně klienta jsou jakékoliv nedostatky v této oblasti na naší aplikaci nejevidentnější. Pomalá odezva může působit neblaze na konkurenceschopnost aplikace. Klienti považují rychlou odezvu aplikace za samozřejmost, proto v nich sebemenší opoždění zanechá silně negativní dojem. Platí, že hodnota vnímaná člověkem jako průměrná odezva, není skutečným průměrem, ale hodnotou, která je větší než 90 \% všech jednotlivých odezev~\cite{haines06}.
 
 \vspace{5 mm}\noindent{\bf Dostupnost}
 \\\indent Představuje množství času, po který je aplikace klientovi k dispozici. Je důležité, aby zbytek aplikace dokázal reagovat po selhání některé z komponent. I nepatrné množství času, po který bude aplikace nedostupná, může pro velké firmy znamenat značné ztráty.
@@ -116,7 +116,7 @@ U metrik orientovaných na výkonnost nás zajímá, jakým způsobem aplikace v
 \\\indent Představuje poměr využití systémových zdrojů s jejich celkovou kapacitou. Dobře navržená aplikace by měla se svými zdroji nakládat co nejefektivněji, aby byla schopna obsloužit co největší počet požadavků v co nejkratším čase, a přitom svými zdroji zbytečně neplýtvala.
 
 \section{Klíčové cíle výkonnosti}
-Výkonnost počítačových aplikací je velmi komplexním tématem. Obecně platí, že celková výkonnost aplikace je rovna součtu výkonnosti jednotlivých částí. Je velmi důležité pochopit, že výkonnost naší aplikace se dá odladit jen do takové míry, do jaké se dají odladit jednotlivé části prostředí, ve kterém naše aplikace poběží. 
+Výkonnost počítačových aplikací je velmi komplexní téma. Obecně platí, že celková výkonnost aplikace je rovna součtu výkonnosti jednotlivých částí. Je velmi důležité pochopit, že výkonnost naší aplikace se dá odladit jen do takové míry, do jaké se dají odladit jednotlivé části prostředí, ve kterém naše aplikace poběží. 
 
 Projděme si například strukturu Java EE aplikace~\footnote{Java Enterprise Edition je součást platformy Java, určená pro vývoj a provoz podnikových aplikací a informačních systémů. Základem pro platformu Java EE je platforma Java SE, nad ní jsou definovány součásti tvořící Javu EE~\cite{wikiJavaEE}.}, která je nasazená na aplikačním serveru. Každá aplikace napsaná v jazyce Java potřebuje ke svému běhu Java virtuální stroj (JVM), jehož použití zaručuje jazyku platformovou nezávislost. Tento virtuální stroj poběží na počítači s určitým operačním systémem. Počítač komunikuje s ostatními počítači prostřednictvím sítě složené z programových a fyzických částí. Každá z těchto složek má mnoho konfigurovatelných vlastností a poskytuje mnoho možností, jak ji optimalizovat. Každá z nich se zároveň chová jinak v různých podmínkách. Z uvedených skutečností vyplývá, že k tomu, aby výsledky našich testů měly nějakou reálnou hodnotu, je potřeba naši aplikaci testovat v podmínkách, které se budou co nejvíce podobat těm, ve kterých bude skutečně nasazena.
 
@@ -142,13 +142,13 @@ V závislosti na povaze testu nás mohou zajímat:
 
 
 \vspace{5 mm}\noindent{\bf Propustnost aplikace}
-\\\indent Z pohledu Java EE aplikace nás většinou zajímá počet požadavků (transakcí), které jsme schopni obsloužit za daný časový úsek. V typické aplikaci bude více klientů vykonávat různorodé akce souběžně, proto nás zajímá propustnost jak jednotlivých požadavků, tak různých skupin složitějších scénářů (simulace reálného vytížení aplikace). Cílem testů je monitorovat chování aplikace při zvyšujícím se počtu souběžných požadavků a nalézt bod saturace, tj. počet požadavků, při nichž dojde k zahlcení aplikace, což se projeví například náhlým zhoršením času odezvy aplikace. 
+\\\indent Z pohledu Java EE aplikace nás většinou zajímá počet požadavků (transakcí), které jsme schopni obsloužit za daný časový úsek. V typické aplikaci bude více klientů vykonávat různorodé akce souběžně, proto nás zajímá propustnost jednotlivých požadavků i různých skupin složitějších scénářů (simulace reálného vytížení aplikace). Cílem testů je monitorovat chování aplikace při zvyšujícím se počtu souběžných požadavků a nalézt bod saturace, tj. počet požadavků, při nichž dojde k zahlcení aplikace, což se projeví například náhlým zhoršením času odezvy aplikace. 
 
 \vspace{5 mm}\noindent{\bf Využití zdrojů}
 \\\indent Výkonnost aplikace může být negativně ovlivněna šířkou pásma mezi klientem a aplikací, proto je potřeba určit práh objemu dat posílaných naší aplikací klienty a ten pokud možno nepřekračovat. Z hlediska testování využití šířky pásma nás zajímá následující:
 \begin{itemize}
   \item objem dat procházejících sítí
-  \item datová propustnost - jedním z naších cílů může být dosáhnout určitého datového toku, který by měla být naše aplikace schopna zpracovat
+  \item datová propustnost - jedním z naších cílů může být dosáhnutí určitého datového toku, který by měla být naše aplikace schopna zpracovat
   \item chybovost dat - vysoký počet chyb při přenosu vyžaduje přeposílání, čímž samozřejmě dochází k degradaci výkonnosti aplikace
 \end{itemize}
 V podobném smyslu bychom měli také definovat limity zdrojů serveru, které by naše aplikace neměla překračovat. Zde se zajímáme převážně o:
@@ -160,30 +160,30 @@ V podobném smyslu bychom měli také definovat limity zdrojů serveru, které b
 \end{itemize}
 
 \section{SLA}
-V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Před tím než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikaci srovnávat a tudíž dělat o její výkonnosti jakékoliv závěry.
+V ideálním světě bychom měli kontrolu nad každou částí prostředí, ve kterém naše aplikace poběží, bohužel v reálných podmínkách se často musíme spolehnout na externí dodavatele, proto je nutné klást si reálné cíle výkonnosti. Pro definování těchto cílů se používají SLA (Service Level Agreement). Předtím, než jsou SLA přesně definovány, je jakékoliv testování jen ztrátou času, jelikož v důsledku unikátnosti každé aplikace neexistují žádné pevně dané hodnoty, se kterými bychom mohli naši aplikaci srovnávat, a tudíž dělat o její výkonnosti jakékoliv závěry.
 
 Na vytváření SLA se podílejí hlavně technický (ATO) a obchodní (ABO) ředitel aplikace. ABO provede studii podnikových plánů zákazníka a navrhne SLA, která by měla být z pohledu zákazníka splněna, tímto se zároveň zaručí, že pokud budou daná SLA splněna, budou splněny také požadavky zákazníka. ATO analyzuje SLA a určí potřebné technické požadavky, které jsou nutné k jejich splnění. Je velice důležité, aby se na definováni SLA podílely obě strany. Pokud by probíhala definice SLA pouze ze strany ABO, mohlo by se stát, že budou definovány nedosažitelné požadavky, naopak pokud by se na definici podílela pouze strana ATO, aplikace by mohla být po nasazení do reálných podmínek pro koncové klienty nevyhovující~\cite{haines06}.
 
 Efektivní SLA musí být specifické, flexibilní a realistické.
 
 \vspace{5 mm}\noindent{\bf Specifické SLA}
-\\\indent Cíle určené v SLA by měly mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. Jak ABO tak ATO by se měli dohodnout na konkrétních hodnotách, to nám zaručí, že bude spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
+\\\indent Cíle určené v SLA by měly mít přesné hodnoty. Je nemožné později rozhodnout, jestli naměřená hodnota 2,25 sekundy splňuje zadání požadující hodnotu “okolo 2 sekund”. ABO i ATO by se měli dohodnout na konkrétních hodnotách, což nám zaručí spokojenost na straně klientů a testující tým bude znát přesné hodnoty k testování ještě před nasazením aplikace.
 
 \vspace{5 mm}\noindent{\bf Flexibilní SLA}
 \\\indent Flexibility SLA lze dosáhnout určením míry požadovaného úspěchu a tím brát v potaz nesplnění podmínek v důsledku nepředvídatelných okolností. Pokud naše aplikace bude v jednom případě ze dvaceti požadavků odpovídat o něco pomaleji, dá se to většinou klientů akceptovat. Ani s flexibilitou se to však nesmí přehánět a to, o kolik pomaleji může naše aplikace v oněch pár případech odpovídat, musí být přesně definováno.
 
 \vspace{5 mm}\noindent{\bf Realistické SLA}
-\\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou jak ABO, tak ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Poté, co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
+\\\indent Dosáhnutí reálných cílů v SLA se dá zajistit právě tím, že se na něm shodnou ABO i ATO. Často dochází k situacím, kdy jsou SLA definovány pouze ABO bez souhlasu ATO. Poté, co se dostanou požadavky k ATO, jsou jednoduše ignorovány pro jejich nesplnitelnost.
 
 
 \section{Identifikace a příprava kritických scénářů}
-V této části se budeme věnovat hledání co nejvěrnější simulace aplikační zátěže, tj. spouštění běžných akcí klientů ve správném poměru (např. přihlášení se do systému, vyhledání určité položky v katalogu a odhlášení se). Je dobré pouštět testy s různým typem zátěže, abychom zjistili, jak se mění charakteristika výkonu aplikace s měnící se podobou zátěže. K vytvoření zátěže lze využít některý z automatizovaných nástrojů. Dříve než začneme psát testy, tak je potřeba si rozmyslet, z jakých akcí se bude zátěž skládat.
+V této části se budeme věnovat hledání co nejvěrnější simulace aplikační zátěže, tj. spouštění běžných akcí klientů ve správném poměru (např. přihlášení se do systému, vyhledání určité položky v katalogu a odhlášení se). Je dobré pouštět testy s různým typem zátěže, abychom zjistili, jak se mění charakteristika výkonu aplikace s měnící se podobou zátěže. K vytvoření zátěže lze využít některý z automatizovaných nástrojů. Dříve, než začneme psát testy, je potřeba si rozmyslet, z jakých akcí se bude zátěž skládat.
 
 \subsection{Požadavky na aplikaci}
 
-Před tím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, a proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (např. zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstranění těchto nedostatků než testování, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
+Předtím, než se pustíme do vytváření skriptů (scénářů) pro naše testy, musíme si být jisti, že je naše aplikace dostatečně stabilní pro výkonnostní testování. Je na místě zopakovat, že cílem výkonnostního testování není hledání chyb v aplikaci, proto by se nemělo stát, že čas vymezený na testování výkonu je spotřebován při opravě chyb. Aplikace je považována za stabilní, pokud pracuje podle očekávání. Pokud jsou známy nějaké významnější funkční nedostatky ještě před testováním (např. zboží se přidá do košíku jen v 8 z 10 případů), je lepší věnovat čas nejprve odstranění těchto nedostatků než testování, protože by se lehce mohlo stát, že tyto nedostatky budou maskovat jiné chyby, které by se během testů teprve objevily.
 
-Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, ba dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Pokud je během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Pokud je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
+Máme-li k dispozici dostatečně stabilní aplikaci, je potřeba si zajistit tzv. zmražení kódu. Jakákoliv změna kódu může zásadně ovlivňovat výsledky testů, dokonce může mít fatální důsledek na jejich funkčnost (skripty jsou závislé na konkrétní verzi kódu, protože na specifický požadavek očekávají specifickou odpověď). Pokud je během výkonnostních testů nalezen kus kódu, který vyžaduje změnu, je potřeba zajistit, aby vývojáři tuto změnu provedli až po ukončení testovacího cyklu. Pokud je z nějakého důvodu potřeba tuto změnu provést ihned, je zásadní, aby se o tom dozvěděl testující tým~\cite{molyneaux09}.
 
 \subsection{Určení cílové zátěže}
 
@@ -205,7 +205,7 @@ Při provádění průzkumu dat, ať už historických nebo dat konkurence, by n
 
 \subsection{Distribuce zátěže mezi jednotlivé funkce}
 
-Nyní když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba ji vhodně distribuovat mezi jednotlivé transakce, které naše aplikace nabízí. Termínem transakce se v tomto případě myslí jakákoliv operace, kterou může uživatel s naší aplikací vykonat. I v tomto případě je nejlepší cestou využít historii předchozí verze aplikace, pokud je tato k dispozici, pokud není, tak nezbývá než rozložení zátěže mezi transakce opět odhadnout. 
+Nyní, když jsme určili celkovou zátěž, kterou budeme testovat, je potřeba ji vhodně distribuovat mezi jednotlivé transakce, které naše aplikace nabízí. Termínem transakce se v tomto případě myslí jakákoliv operace, kterou může uživatel s naší aplikací vykonat. I v tomto případě je nejlepší cestou využít historii předchozí verze aplikace, je-li k dispozici, pokud není, nezbývá než rozložení zátěže mezi transakce opět odhadnout. 
 
 \begin{figure}[!ht]
 \centering
@@ -220,7 +220,7 @@ Jedním z možných řešení je transakce rozdělit do následujících (ne nut
   \item {\bf náročné} - zejména na zdroje
   \item {\bf kritické} - zásadní pro provoz
   \item {\bf právně vymahatelné} - SLA
-  \item {\bf zjevné} - uživatel si okamžitě všimne, pokud je něco špatně
+  \item {\bf zjevné} - uživatel si okamžitě všimne, je-li něco špatně
   \item {\bf technicky riskantní} - místa, která ráda selhávají
 \end{itemize}
 
@@ -234,13 +234,13 @@ Do každé skupiny vybereme nejvýše 5 transakcí (raději méně než více, j
 \end{figure}
 
 \section{Typy testů}
-Existuje několik typů testů, které se liší jak svým průběhem, tak účelem za kterým je provádíme. Představme si proto nejdůležitější z nich~\cite{loadTest}.
+Existuje několik typů testů, které se liší svým průběhem i účelem za kterých je provádíme. Představme si proto nejdůležitější z nich~\cite{loadTest}.
 
 \vspace{5 mm}\noindent{\bf Základní test}
 \\\indent Slouží k ustanovení počátečních hodnot, které mohou být později použity pro porovnávání s výsledky ostatních testů. Test je běžně prováděn za použití jediného virtuálního uživatele pro předem určený počet akcí. Díky těmto hodnotám můžeme sledovat míru degradace výkonnosti aplikace v závislosti na měnících se metrikách testu (např. počet virtuálních uživatelů).
 
 \vspace{5 mm}\noindent{\bf Zátěžový test}
-\\\indent Slouží k určení výkonnosti aplikace při běhu s požadovanou zátěží, kterou získáváme jako odhad skutečného vytížení aplikace v reálných podmínkách. Test probíhá přibližně 5 minut, během nichž by měla být křivka zátěže na aplikaci konstantní. Cílem testu je rozhodnout, zda-li naše aplikace splňuje hodnoty určené v SLA a určit minimální požadavky na běhové prostředí.
+\\\indent Slouží k určení výkonnosti aplikace při běhu s požadovanou zátěží, kterou získáváme jako odhad skutečného vytížení aplikace v reálných podmínkách. Test probíhá přibližně 5 minut, během nichž by měla být křivka zátěže na aplikaci konstantní. Cílem testu je rozhodnout, zda-li naše aplikace splňuje hodnoty určené v SLA, a určit minimální požadavky na běhové prostředí.
 
 \vspace{5 mm}\noindent{\bf Test hraniční zátěže}
 \\\indent Zátěž na aplikaci je postupně zvyšována, díky čemuž můžeme sledovat chování aplikace v momentech, kdy počet uživatelů neustále roste a systémové zdroje začínají docházet. Cílem tohoto testu je nalezení horní hranice zátěže (čas odezvy převýší akceptovatelné maximum, pád aplikace nebo části podpůrné infrastruktury, a jiných), kterou je aplikace schopna unést. Po dosažení horní hranice snižujeme zátěž, abychom zjistili, zda-li je aplikace schopna se opět vzpamatovat. Na rozdíl od zátěžových testů se nesnažíme o simulaci reálné zátěže, ale aplikaci záměrně přetěžujeme.
@@ -283,7 +283,7 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 \\\indent Umožňuje vytvářet složitější scénáře, které jsou složeny z různých aktivit klientů. Pomocí generátorů zátěže jsou tyto scénáře využívány k vytváření zátěže na aplikaci.
 
 \vspace{5 mm}\noindent{\bf Modul na generování zátěže}
-\\\indent Pokud mají testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže (viz Obrázek~\ref{img:jmeter}).
+\\\indent Mají-li testy plnit svůj účel, musí existovat možnost je libovolně opakovat s tím, že naměřené hodnoty by se měly při zachování stávajících podmínek lišit pouze minimálně. K~dosažení této konzistence je potřeba vyloučit lidské uživatele a nahradit je virtuálními. Tento problém pomáhají řešit nástroje na generování zátěže (viz Obrázek~\ref{img:jmeter}).
 
 \begin{figure}[!ht]
 \centering
@@ -299,18 +299,18 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 Nyní zmíníme pár věcí, které nesmíme při používání těchto nástrojů opomenout.
 
 \vspace{5 mm}\noindent{\bf Latence}
-\\\indent Pokud přistupujeme k nějakému vzdálenému zdroji (webová stránka, webová služba, aj.), tak musíme počítat s určitou odezvou. Latencí nazýváme čas, který trvá požadavku, než doputuje k serveru a zase zpátky (nepočítáme čas, který potřebuje server na zpracování). S latencí můžeme mít problémy, pokud využíváme vzdálená datová centra. S tímto je potřeba počítat už při formulování SLA a zahrnout latenci i do našich testů~\cite{bhatt09}.
+\\\indent Přistupujeme-li k nějakému vzdálenému zdroji (webová stránka, webová služba, aj.), musíme počítat s určitou odezvou. Latencí nazýváme čas, který trvá požadavku, než doputuje k serveru a zase zpátky (nepočítáme čas, který potřebuje server na zpracování). S latencí můžeme mít problémy, využíváme-li vzdálená datová centra. S tímto je potřeba počítat už při formulování SLA a zahrnout latenci i do našich testů~\cite{bhatt09}.
 
 \vspace{5 mm}\noindent{\bf Navigace po stránkách}
-\\\indent Zejména u webových aplikací platí, že se dá dosáhnout jednoho cíle mnoha různými způsoby. Představme si uživatele vykonávajícího určitou transakci, který si uvědomí, že se spletl a pomocí tlačítek navigace se přesune z půlky jedné transakce na začátek jiné. Nasimulovat všechny kombinace je nemožné, protože jejich počet je nekonečný, takže bychom se o to neměli ani pokoušet. Není na škodu přidat pár scénářů, které tuto situaci simulují, ale je naprostou ztrátou času se těmto situacím intensivněji věnovat.
+\\\indent Zejména u webových aplikací platí, že se dá dosáhnout jednoho cíle mnoha různými způsoby. Představme si uživatele vykonávajícího určitou transakci, který si uvědomí, že se spletl a pomocí tlačítek navigace se přesune z půlky jedné transakce na začátek jiné. Nasimulovat všechny kombinace je nemožné, protože jejich počet je nekonečný, proto bychom se o to neměli ani pokoušet. Není na škodu přidat pár scénářů, které tuto situaci simulují, ale je naprostou ztrátou času se těmto situacím intensivněji věnovat.
 
 \vspace{5 mm}\noindent{\bf Čas na rozmyšlenou}
-\\\indent Pokud mají být podmínky při testování aplikace co nejvěrohodnější, je vhodné v testovacích scénářích simulovat čas, který uživatel strávil mezi jednotlivými obrazovkami. Pokud jsou na tvorbu testovaných scénářů použity automatizované nástroje, jsou nám hodnoty mezi jednotlivými požadavky známy. Tyto hodnoty je potřeba brát pouze jako ukázkové, protože koncovému uživateli bude vše trvat mnohem déle, proto by měly být ještě před použitím upraveny.
+\\\indent Mají-li být podmínky při testování aplikace co nejvěrohodnější, je vhodné v testovacích scénářích simulovat čas, který uživatel strávil mezi jednotlivými obrazovkami. Jsou-li na tvorbu testovaných scénářů použity automatizované nástroje, jsou nám hodnoty mezi jednotlivými požadavky známy. Tyto hodnoty je potřeba brát pouze jako ukázkové, protože koncovému uživateli bude vše trvat mnohem déle, proto by měly být ještě před použitím upraveny.
 
-Čas na rozmyšlenou se používá při provádění výkonnostních testů u hotové, funkční aplikace. Pokud jsou výsledkem testů obecná měření, tak se čas na rozmyšlenou nepoužívá. Příkladem může být porovnání výkonnosti různých programovacích technik. Poté, co najdeme nejefektivnější implementaci dané části, můžeme ji otestovat i s časem na rozmyšlenou.
+Čas na rozmyšlenou se používá při provádění výkonnostních testů u hotové, funkční aplikace. Jsou-li výsledkem testů obecná měření, čas na rozmyšlenou se nepoužívá. Příkladem může být porovnání výkonnosti různých programovacích technik. Poté, co najdeme nejefektivnější implementaci dané části, můžeme ji otestovat i s časem na rozmyšlenou.
 
 \vspace{5 mm}\noindent{\bf Počet virtuálních uživatelů se nerovná počtu aktivních uživatelů}
-\\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Pokud se uživatel musí před použitím aplikace přihlásit a po použití zase odhlásit (pokud nemusí, je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, pokud máme za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašování a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Toto se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
+\\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Musí-li se uživatel před použitím aplikace přihlásit a po použití zase odhlásit (v opačném případě je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, máme-li za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašování a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Což se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
 
 \chapter{Benchmarknig}
 
@@ -318,9 +318,9 @@ Pojmem benchmarking rozumíme proces porovnávání výkonnosti objektu tím, ž
 
 Benchmarková aplikace můžeme mít podobu reálné aplikace pro testování kompletní funkcionality systému, ale může se taky zaměřit na konkrétní komponenty (V/V operace, rychlost databáze a jiné).
 
-Benchmarkové aplikace se používají, jak při vývoji a testování nových komponent, tak při propagaci nových produktů, čehož ovšem někteří výrobci začali zneužívat. Z historie jsou známé příklady podvádění, kdy firmy vyvíjely své produkty záměrně tak, aby měly co nejlepší skóre při benchmark testech, tyto produkty ale slibovaného výkonu ve skutečných podmínkách nedosahovaly~\cite{wikiBench}.
+Benchmarkové aplikace se používají při vývoji a testování nových komponent i při propagaci nových produktů, čehož ovšem někteří výrobci začali zneužívat. Z historie jsou známé příklady podvádění, kdy firmy vyvíjely své produkty záměrně tak, aby měly co nejlepší skóre při benchmark testech, tyto produkty ale slibovaného výkonu ve skutečných podmínkách nedosahovaly~\cite{wikiBench}.
 
-Pokud hledáme specifický produkt, nelze vybírat pouze podle výsledků benchmarkových testů. Dobré výsledky v benchmark testech nám zaručí kvalitu výpočetního výkonu, nesmíme ale opomenout:
+Hledáme-li specifický produkt, nelze vybírat pouze podle výsledků benchmarkových testů. Dobré výsledky v benchmark testech nám zaručí kvalitu výpočetního výkonu, nesmíme ale opomenout:
 
 \begin{itemize}
   \item kvalitu služeb
@@ -350,7 +350,7 @@ Pod pojmem server rozumíme fyzický počítač, jehož výpočetní výkon je v
   \item {\bf webový server} - doručuje a odesílá odpovědi na požadavek klienta prostřednictvím HTTP protokolu
 \end{itemize}
 
-V naší práci budeme dále pojem sever používat výhradně pro aplikační sever certifikovaný na Java EE plný profil. Dříve něž si vysvětlíme princip profilů v Java EE, podíváme se podrobněji na rozdíl mezi aplikačním a webovým serverem, jelikož jsou tyto dva pojmy často zaměňovány.
+V naší práci budeme dále pojem sever používat výhradně pro aplikační sever certifikovaný na Java EE plný profil. Dříve, něž si vysvětlíme princip profilů v Java EE, podíváme se podrobněji na rozdíl mezi aplikačním a webovým serverem, jelikož jsou tyto dva pojmy často zaměňovány.
 
 \subsection{Webový server}
 Hlavní funkcí webového serveru je doručovat obsah klientům, kteří o něj požádali pomocí HTTP protokolu. Obsahem může být například: statická HTML stránka, obrázek nebo kaskádový styl. Odpovědí webového serverů může být také přesměrování požadavku na jinou adresu nebo generování dynamického obsahu pomocí technologií jako JSP, servletů, JSF, ASP, PHP, JavaScriptu a jiných. Požadavek klienta na určitou stránku je proveden kontaktováním webového serveru na specifické adrese (IP adresa). Po přijetí požadavku doručí webový server obsah klientovi, kterým je nejčastěji webový prohlížeč.
@@ -384,7 +384,7 @@ Novinkou v Java EE 6 prostředí je zavedení profilů. Jejich hlavním cílem j
   \item Servlet 3.0
   \item JavaServer Pages (JSP) 2.2
   \item Expression Language (EL) 2.2
-  \item Podpora debugování pro ostatní jazyky (JSR-45)~\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Pokud je požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Jak ve výborech JCP, tak v pracovních skupinách JSR poté pracují zástupci různých firem~\cite{wikiJSR}.} 1.0
+  \item Podpora debugování pro ostatní jazyky (JSR-45)~\footnote{Každý požadavek na změnu nebo doplnění platformy je realizován v rámci požadavku na změnu (JSR). Je-li požadavek na změnu schválen odpovídajícím výborem JCP, je vytvořena pracovní skupina, která pracuje na příslušné specifikaci. Specifikace přitom prochází různými fázemi a schvalovacími procesy definovanými v rámci JCP. Ve výborech JCP i v pracovních skupinách JSR poté pracují zástupci různých firem~\cite{wikiJSR}.} 1.0
   \item Standardní knihovna značek pro JSP (JSTL) 1.2
   \item JavaServer Faces (JSF) 2.0
   \item Běžné anotace Java platformy (JSR-250) 1.1
@@ -418,7 +418,7 @@ K dosažení smysluplných výsledků při benchmarkingu bychom měli postupovat
   \item identifikace a pochopení základní funkcionality produktu, který testujeme
   \item definice metrik na měření požadované funkcionality
   \item vytvoření testů, které budou tuto funkcionalitu vytěžovat a simulovat běh v reálných podmínkách
-  \item testovat produkt ve stabilních podmínkách tj. všechny testy by měly probíhat ve stejném prostředí
+  \item testovat produkt ve stabilních podmínkách, tj. všechny testy by měly probíhat ve stejném prostředí
   \item měření a vyhodnocení definovaných metrik
   \item prezentace výsledků ve odpovídající formě (grafy, tabulky, a jiné)
 \end{itemize}
@@ -464,7 +464,7 @@ Jednou z předností DayTraderu je jeho konfigurovatelnost. DayTrader nám umož
 \vspace{5 mm}\noindent{\bf Servlet-SessionBean-EntityBean}
 \\\indent Bezstavová session beana TradeBean používá entity beany jako reprezentaci objektů. Stav těchto objektů je spravován EJB kontejnerem aplikačního serveru.
 \newline
-\\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcií. Na výběr máme synchronní a asynchronní mód. Zatím co v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
+\\\indent Můžeme nastavit také způsob, jakým bude aplikace dokončovat nákupy a prodeje akcií. Na výběr máme synchronní a asynchronní mód. Zatímco v synchronním jsou objednávky uzavírány okamžitě, v asynchronním je každá objednávka nejprve zaznamenána a dokončena asynchronně pomocí JMS. Další z možností jsou například přepnutí mezi standardní a vysokou složitostí jednotlivých scénářů a možnost zapnout nebo vypnout obrázky na webovém rozhraní (což může ovlivnit dobu načítání jednotlivých stránek).
 
 Poté, co jsme si nastavili požadovaný způsob ukládání dat, je potřeba ještě vygenerovat testovací data. Iniciální hodnoty jsou nastaveny na 200 uživatelských účtů a 400 akcií různých firem, ovšem tyto hodnoty mohou být libovolně změněny. Nyní už zbývá jen použít náš oblíbený nástroj na generování zátěže a zvolit typ testu, který chceme provést. Jak již bylo zmíněno, můžeme testovat jednotlivé komponenty, ale pokud nás zajímá výkon serveru při zatížení více komponent, máme na výběr ze dvou možností. Můžeme použít skriptovací modul některého z testovacích nástrojů a připravit si zátěž přesně podle vlastních představ a nebo můžeme využít předem připraveného servletu. Pokaždé, když je zavolána adresa tohoto servletu, je provedeno přihlášení za náhodného uživatele a vykonání jednoho z nachystaných scénářů. Samotné vykonání scénáře věrně simuluje volání ostatních servletů potřebných k provedení daného scénáře společně se zadáváním náhodných hodnot. Tímto je zaručeno generování stejné zátěže jako při použití skriptovacího modulu. Generování zátěže pomocí tohoto servletu potom znamená pouze volání servletu virtuálními uživateli, o zbytek práce už se postará DayTrader sám.
 
@@ -474,22 +474,22 @@ Nyní, když víme, jaké výkonnosti chceme s naší aplikací dosáhnout, a m�
 U serveru nás nejvíce zajímají následující parametry:
 
 \vspace{5 mm}\noindent{\bf Vytížení JVM}
-\\\indent Stejně tak jako každá aplikace, tak i aplikační server běží na JVM. Optimalizace JVM v zásadě znamená nastavení správné velikosti haldy a vybrání vhodného algoritmu pro Garbage collector~\footnote{mechanismus, pomocí kterého jsou odstraňovány z paměti JVM objekty, na které již neexistují žádné reference}.
+\\\indent Stejně jako každá aplikace i aplikační server běží na JVM. Optimalizace JVM v zásadě znamená nastavení správné velikosti haldy a vybrání vhodného algoritmu pro Garbage collector~\footnote{mechanismus, pomocí kterého jsou odstraňovány z paměti JVM objekty, na které již neexistují žádné reference}.
 
 \vspace{5 mm}\noindent{\bf Fond vláken}
-\\\indent Každý nový požadavek na aplikaci je nejprve vložen do fronty. Tato fronta je obsluhována fondem vláken, které požadavek vyjme a zpracuje. Pokud je fond vláken příliš veliký, dochází ke zbytečnému zabírání systémových zdrojů, které mohly být použity jinde, ba dokonce může dojít k degradaci výkonu v důsledku častého přepínání kontextu. Je-li naopak počet vláken příliš malý, trpí tím propustnost aplikace, protože žádná volná vlákna jsou ekvivalentem žádné práce navíc.
+\\\indent Každý nový požadavek na aplikaci je nejprve vložen do fronty. Tato fronta je obsluhována fondem vláken, které požadavek vyjme a zpracuje. Je-li fond vláken příliš veliký, dochází ke zbytečnému zabírání systémových zdrojů, které mohly být použity jinde, ba dokonce může dojít k degradaci výkonu v důsledku častého přepínání kontextu. Je-li naopak počet vláken příliš malý, trpí tím propustnost aplikace, protože žádná volná vlákna jsou ekvivalentem žádné práce navíc.
 
 \vspace{5 mm}\noindent{\bf Fond JDBC připojení}
-\\\indent Většina aplikací používá jako datové úložiště databázi. Každý požadavek na přístup k databázi je před vykonáním uložen do fondu připojení (connection pool). Pokud nemá tento fond žádné volné připojení, musí požadavek čekat, což má negativní vliv na výkonnost aplikace.
+\\\indent Většina aplikací používá jako datové úložiště databázi. Každý požadavek na přístup k databázi je před vykonáním uložen do fondu připojení (connection pool). Nemá-li tento fond žádné volné připojení, musí požadavek čekat, což má negativní vliv na výkonnost aplikace.
 
 \vspace{5 mm}\noindent{\bf Cache}
 \\\indent K redukci počtu přístupů k databázi lze použít cache, protože poskytnout obsah vnitřní paměti bude vždy rychlejší než přistupovat k databázi. Ovšem je potřeba mít se na pozoru, protože enormní velikost cache může zabrat veškeré místo na haldě a způsobit selhání aplikace. Také správu cache nelze zanedbat. Při zaplnění cache a volání stále nových prvků se může stát, že aplikace stráví víc času řízením cache než poskytováním dat (thrashing). V tomto případě ztrácí cache veškeré své výhody. Je proto potřeba zvážit využití cache paměti v závislosti na povaze konkrétní aplikace. 
 
 \vspace{5 mm}\noindent{\bf Fondy pro bezstavové komponenty}
-\\\indent Veškeré bezstavové komponenty jsou uloženy ve fondu. Jakmile proces potřebuje zdroj, tak je mu poskytnut a následně vrácen do fondu. Bezstavovost nám umožňuje poskytnout procesu pokaždé jiný zdroj. Správně nastavená velikost fondu by měla zaručovat dostatek zdrojů pro všechny procesy, ovšem velikost fondu by neměla být zbytečně veliká z důvodu paměťových nákladů na údržbu.
+\\\indent Veškeré bezstavové komponenty jsou uloženy ve fondu. Jakmile proces potřebuje zdroj, je mu poskytnut a následně vrácen do fondu. Bezstavovost nám umožňuje poskytnout procesu pokaždé jiný zdroj. Správně nastavená velikost fondu by měla zaručovat dostatek zdrojů pro všechny procesy, ovšem velikost fondu by neměla být zbytečně veliká z důvodu paměťových nákladů na údržbu.
 
 \vspace{5 mm}\noindent{\bf JMS fond}
-\\\indent K dosažení asynchronního zpracování používají aplikace zprávy (messaging). Tyto zprávy jsou na straně serveru zachycovány JMS fondem. JMS fond může mít (v závislosti na implementaci) nastaven maximální počet zpráv (bytů), který je schopen příjmat. Je-li JMS fond plný a pokusí se přijímat novou zprávu, tak může dojít k totálnímu selhání služby.
+\\\indent K dosažení asynchronního zpracování používají aplikace zprávy (messaging). Tyto zprávy jsou na straně serveru zachycovány JMS fondem. JMS fond může mít (v závislosti na implementaci) nastaven maximální počet zpráv (bytů), který je schopen příjmat. Je-li JMS fond plný a pokusí se přijímat novou zprávu, může dojít k totálnímu selhání služby.
 
 
 
