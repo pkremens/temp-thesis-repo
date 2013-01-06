@@ -71,23 +71,19 @@ výkonnostní testování, aplikační server, benchmarking, generování zátě
 \tableofcontents
 
 \chapter*{Úvod}
-Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho aplikací je používáno, aniž je adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě předtím, než je nasazena do produkčního prostředí.
+Úspěch velkých firem moderní doby žije a skomírá s výkonností aplikací, které jsou pro jejich podnikání kritické. Bohužel, mnoho aplikací je používáno, aniž je adekvátně testována jejich škálovatelnost a výkonnost. Proces výkonnostního testování pomáhá identifikovat slabiny aplikace ještě předtím, než je nasazena do produkčního prostředí. Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby, ale eliminovat místa, která negativně ovlivňují výkonnost aplikace a zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které budou použity jako základ budoucího regresního testování.
 
-Během výkonnostního testování simulujeme práci klientů na testované aplikaci a monitorujeme její chování. Cílem výkonnostního testování není hledat chyby v aplikaci, ale eliminovat místa, která negativně ovlivňují její výkonnost a zároveň určit počáteční hodnoty klíčových cílů výkonnosti, které mohou být použity jako základ budoucího regresního testování.
-
-Aplikační servery jsou páteřní komponentou pro chod mnoha společností. Umožnují rychlé a spolehlivé sdílení dat, centralizovanou distribuci software, jednoduchou modernizaci, vysokou míru zabezpečení a zvyšují efektivitu všech firemních procesů. K tomu, aby aplikační servery sprvávě plnily svou funkci, je zapotřebí, aby i ony byly podrobovány testům.
-
-Aplikace by měla java EE 6, moderní technologie, ... TODO
+Aplikační servery jsou páteřní komponentou pro chod mnoha společností. Umožňují rychlé a spolehlivé sdílení dat, centralizovanou distribuci software, jednoduchou modernizaci, vysokou míru zabezpečení a zvyšují efektivitu všech firemních procesů. Abychom se ujistili, že aplikační server plní správně svoji funkci, musí být i on podroben testům. Jednotlivé funkce aplikačního serveru jsou testovány pomocí jednotkových testů, avšak k měření výkonnosti musíme být schopni server nejprve řádně za(vy)tížit. K tomu nám slouží benchmarkové aplikace, díky kterým můžeme vyvinout zátěž na požadované komponenty a zkoumat jejich chování v podmínkách, které se co nejvíce blíží těm produkčním.
 
 V úvodní kapitole definujeme metriky měření výkonu a popíšeme si klíčové cíle výkonnosti společně s procesem, při kterém nabývají konkrétních hodnot. Ukážeme si, jakým způsobem lze identifikovat kritické scénáře aplikace, vysvětlíme si rozdíly mezi jednotlivými typy testů a řekneme si něco málo o nástrojích, které nám pomáhají s automatizací testů.
 
-V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si základní typy serverů, ukážeme si rozdíly, které se mezi nimi vyskytují, a představíme si Java EE plný profil pro aplikační servery. Poté se budeme věnovat existujícím možnostem .... Závěr kapitoly bude věnován možnostem optimalizace aplikačního serveru.
+V následující kapitole si vysvětlíme pojem benchmarking, popíšeme si základní typy serverů a ukážeme si rozdíly, které se mezi nimi vyskytují. Představíme si Java EE plný profil pro aplikační servery, seznámíme se s existujícími možnostmi v oblasti benchmarkových aplikace a závěr kapitoly věnujeme možnostem optimalizace aplikačního serveru.
 
 Třetí kapitola je věnována popisu architektury aplikace a seznámení se se základními principy Java EE 6 platformy. Dále jsou podrobněji představeny některé specifikace, které jsou v aplikaci použity.
 
 V následujících čtyřech kapitolách projdeme všemi vrstvami aplikace od persistentní až po prezentační a seznámíme se s některými podpůrnými technologiemi. V každé kapitole budou popsány technologie, které byly v aplikaci použity společně s ukázkami kódu a některými řešeními.
 
-Závěrečná kapitola je věnována několika testům aplikačního serveru. Nejprve jsou představeny nástroje, které budou k testům použity, a poté jsou popsány jednotlivé testy.
+Závěrečná kapitola je věnována několika testům a srovnání aplikačních serverů. Nejprve jsou představeny nástroje, které budou k testům použity, a poté jednotlivé testy.
 
 Práce obsahuje dvě přílohy, z nichž první popisuje způsob, jakým je možné aplikaci nasadit na aplikační server a druhá nabízí seznam funkcí dostupných z webového rozhraní aplikace.
 
@@ -1240,17 +1236,16 @@ Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným n
 umoznuje nam odstrelit ve skriptovacim modulu obrazky
 \subsection{Monitorování Honze merak pameti a modul Jmeteru}
 GC rozdeleni pameti, co tam vlastne merim, pustim to vzdycky pred testem a okamzite po testu
-\subsection{JBoss AS a glass fish}
+\subsection{JBoss AS 7.1.1, 7.2 a glass fish}
 
 \section{Testování}
-\subsection{Baseline}
-nejaky minutovy chod
+
 \subsection{JVM}
 1.6 / 1.7
 \subsection{Velikost haldy a treba nejake pooly}
 \subsection{Rozdil mezi JMS a direct u JBossu}
 \subsection{Rozdil mezi glassfishem a jbossem direct}
-\subsection{Rozdil bez s logem na info na konzoli a logem na fine na konzoli}
+
 
 \chapter*{Závěr}
 
@@ -1270,11 +1265,14 @@ Testovani: Rozdily mezi servery, neni to jen tak vzit archiv a nahrat ho na jiny
 uprava na transient v Identity bean co to je proc to je
 hashe, nevim kdy a proc ale jelikos sem pouzival jen seznamy tak se volalo asi jen equals protoze sem mel celou dobu cykly v hash code a na JBossu to nevadilo ani jednou
 
-ruzne chovani, eclips linkem me to nejelo.
+ruzne chovani, eclips linkem me to nejelo. // ruzni provideri specifikaci, nejak to prelozit.
 
 do budoucna:
 mozna nejake prepinace na druh zateze treba mezi rezimem kdy budu jenom zapisovat a rezimem kdy budu jen cist
 vytvorit kompletni sadu testovacich skriptu pomoci Jmeteru aby clovek nemusel nic delat i s merenim, melo by to jit pouzet z cmd : Jelikoz je aplikace plne interaktivni, nemelo by byt tvoreni skriptu vetsim problemem (napr pomoci skriptovaciho modulu JMeteru) a nasledne to upravit a treba pomoci nejakych souboru nebo promennych s tim neco uz delat. Jmeter urcite nebude nejkomplexnejsim testvacim nastrojem, vybral sem si ho hlavne pro jeho jednoduchost tudiz mozna to sou daleko lepsi nastroje este.
+
+Pokud by to nepomohlo, mohlo by to vyresit napriklad odstraneni obousmerne vazby mezi Order a Invoice 
+Pokud uzaviram objednavku je to moc dlouha transakcni davka. Mozna by to slo upravim nejakym nastavenim serveru, ale veskere me pokusy selhaly
 
 \appendix
 
