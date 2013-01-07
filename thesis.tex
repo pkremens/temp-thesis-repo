@@ -105,7 +105,7 @@ U metrik orientovaných na službu nás zajímá, jak se aplikace chová jako sl
 \subsection{Metriky orientované na výkonnost}
 U metrik orientovaných na výkonnost nás zajímá, jakým způsobem aplikace využívá zdroje prostředí, ve kterém běží
 
-\vspace{5 mm}\noindent{\bf Propustonst}
+\vspace{5 mm}\noindent{\bf Propustnost}
 \\\indent Představuje počet akcí, které lze dokončit v určitém časovém okamžiku. Vysoká míra propustnosti odráží naši schopnost rychle a efektivně obsluhovat požadavky klientů, což se pozitivně projeví na celkové výkonnosti naší aplikace.
 
 \vspace{5 mm}\noindent{\bf Efektivita práce se zdroji}
@@ -308,7 +308,7 @@ Nyní zmíníme pár věcí, které nesmíme při používání těchto nástroj
 \vspace{5 mm}\noindent{\bf Počet virtuálních uživatelů se nerovná počtu aktivních uživatelů}
 \\\indent Jedním z požadavků na výkonnost aplikace může být podpora určitého počtu uživatelů pracujících s aplikací souběžně. Ovšem je potřeba rozlišovat mezi počtem virtuálních uživatelů (počet uživatelů z pohledu testovacího nástroje) a počtem aktivních uživatelů (počet uživatelů využívajících aplikaci). Musí-li se uživatel před použitím aplikace přihlásit a po použití zase odhlásit (v opačném případě je považován za aktivního během celého testu), znamená to, že je během jisté doby testu odhlášen a tím pádem se nedá počítat za aktivního. Toto může být problém, máme-li za jeden z výkonnostních cílů požadavek např. 1000 uživatelů souběžně využívajících aplikaci. I přesto, že testovací nástroj bude indikovat 1000 souběžných uživatelů, může se v důsledku přihlašování a odhlašování stát, že aplikace nebude nikdy použita více než stovkami uživatelů souběžně. Což se dá vyřešit např. prodloužením času vykonávání jednotlivých scénářů, aby zůstal každý virtuální uživatel aktivní po delší dobu.
 
-\chapter{Benchmarknig}
+\chapter{Benchmarking}
 
 Pojmem benchmarking rozumíme proces porovnávání výkonnosti objektu tím, že na něm provádíme různé testy a zkoušky a naměřené hodnoty porovnáváme s výsledky měření na jiných objektech se stejnou funkcionalitou. Nové generace produktů a stále nové architektury mají za následek, že je nemožné porovnat výkonnost příbuzných produktů pouze pohledem na jejich specifikace. Chceme-li například porovnat výkonnost procesorů od dvou různých výrobců, nestačí nám srovnat jen velikosti taktovacích frekvencí, počty jader a jiné metriky, ale je nutné brát v úvahu i míru optimalizace, použitou architekturu a další faktory, které již číselně vyjádřit nelze. K tomuto nám slouží benchmarkové aplikace, které jsou speciálně navržené k tomu, aby produkovaly specifický druh zátěže na konkrétní komponentu nebo systému.
 
@@ -419,7 +419,7 @@ K dosažení smysluplných výsledků při benchmarkingu bychom měli postupovat
   \item prezentace výsledků ve odpovídající formě (grafy, tabulky, a jiné)
 \end{itemize}
 
-\subsection{Benchmarkning komerčních aplikačních serverů}
+\subsection{Benchmarking komerčních aplikačních serverů}
 K porovnání komerčních aplikačních serverů nám může  sloužit například sada benchmarkových testů vyvíjených organizací SPEC (Standard Performance Evaluation Corporation). Tato každého čtvrt roku na svých stránkách zveřejňuje výsledky testů mnoha typu produktů.
 
 SPEC si dává za cíl poskytnout trhu férovou metriku k porovnávání různých systémů. Nejnovější verze testů pro porovnávání aplikačních serverů má v době psaní práce název SPECJEnterprise2010. SPECJEnterprise2010, umožňuje srovnávání výkonnosti Java EE 5 serverů a jejich podpůrné infrastruktury. Tato benchmarková aplikace je tvořena Java třídami, Java servlety, JSP, EJB, JPA entitami a MDB. Jedná se již o třetí generaci testů vyvíjených organizací SPEC pro porovnávání aplikačních serverů. Výsledky testů lze zdarma prohlížet na stránkách SPEC organizace.
@@ -431,7 +431,7 @@ Mezi výrobce aplikačních serverů, jichž výsledky jsou k dispozici patří:
 \end{itemize}
 Bohužel, jelikož nejsou benchmarky organizace SPEC zdarma, nejsou k dispozici výsledky serverů s otevřeným zdrojovým kódem, což nám znemožňuje jakékoliv porovnání s komerčními produkty.
 
-\subsection{Benchmarkning aplikačních serverů s otevřeným zdrojovým kódem}
+\subsection{Benchmarking aplikačních serverů s otevřeným zdrojovým kódem}
 Nejistá ekonomická situace posledních let a stále se zvyšující náklady na podnikání nutí mnoho společností opustit prostředí drahých komerčních produktů a hledat náhradu v podobě aplikací s otevřeným zdrojovým kódem. Toto řešení zároveň snižuje počáteční kapitál, který je nutno investovat do začátku podnikání, což zvyšuje šance na přežití mnoha společnostem.
 
 Základem našeho podnikání by proto měl být i kvalitní aplikační server, který poskytne našim aplikacím stabilní a výkonné běhové prostředí.
@@ -774,7 +774,7 @@ JPA podporuje tři různé strategie při mapování dědičnosti entit. Tato st
 Nyní, když známe jednotlivé strategie dědičnosti, je nutné uvést, že entity nemusí nutně dědit zase jenom z entit. Existují tři další typy tříd, od kterých mohou entity dědit:
 
 \vspace{5 mm}\noindent{\bf Abstraktní entita}
-\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována (stejne tak jako žádná jiná abstraktní třída v jazyce Java).
+\\\indent Z pohledu JPA se vůbec nic nemění, je možné definovat všechny tři strategie úplně stejně, jako by se jednalo o normální entitu, jediný rozdíl je v tom, že abstraktní entita nemůže být instancializována (stejně tak jako žádná jiná abstraktní třída v jazyce Java).
 
 \vspace{5 mm}\noindent{\bf Neentita}
 \\\indent Dědí-li entita z neentity, jsou při jejím uložení brány v potaz pouze její vlastní atributy. Jakýkoliv stav rodičovské neentity je ztracen.
@@ -1230,32 +1230,76 @@ Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus 
 
 Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)~\footnote{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
 
-\chapter{TESTOVANI}
-MySQL 5.5.28
-JBoss AS 7.1.1
-GlassFish 3.1.2.2
-Apache JMeter 2.8
-PerformanceMeasurement
-
-vše poběží na stoji:
-Lenovo ThinkPad T520\\
-RAM: 8GB\\
-Processor: Intel i7-2620M Quad Core\\
-V této kapitole si ukážeme 
-
-Před zahájením testu a okamžitě po jeho skoncíní změříme paměťové otisky serveru (množství, paměti které program používá ke svému běhu). Budou nás zajímat následující hodnoty:
+\chapter{Testování serverů}
+V této kapitole si ukážeme, jak pomocí naší aplikace provést několik testů. K testování sme použili následující nástroje:
 \begin{itemize}
-  \item
-  \item 
+  \item {\bf MySQL 5.5.28} - databázový server
+  \item {\bf JBoss AS 7.1.1} - aplikační server vyvíjený společností Red Hat
+  \item {\bf GlassFish 3.1.2.2} - aplikační server vyvíjený společností Sun
+  \item {\bf Apache JMeter 2.8} - nástroj na generování zátěže
 \end{itemize}
-Před každým měřením zavoláme pomocí JMX~\footnote{Java Management Extensions - technologie podporující management a monitoring aplikací} operaci forceGC(), abychom se ujistili, ze v pameti zustanou jen nezbytné objekty 
 
-\section{Nástroje}
-\subsection{Apache JMeter}
-umoznuje nam odstrelit ve skriptovacim modulu obrazky
-\subsection{Monitorování Honze merak pameti a modul Jmeteru}
-GC rozdeleni pameti, co tam vlastne merim, pustim to vzdycky pred testem a okamzite po testu
-\subsection{JBoss AS 7.1.1, 7.2 a glass fish}
+\section{Srovnání serverů}
+
+Před zahájením testu a okamžitě po jeho skončení změříme paměťové otisky serveru (množství paměti, které server používá ke běhu). Před každým měřením otisků vynutíme sběr odpadu pomocí JMX~\footnote{Java Management Extensions - technologie podporující management a monitoring aplikací} operace forceGC(), která bude volána na odpovídající managed beaně. Při měření otisků nás zajímají:
+\begin{itemize}
+  \item {\bf Eden space} - fond ze kterého je brána paměť pro tvorbu většiny objektů (na haldě)
+  \item {\bf Old gen} - fond obsahuje objekty, které již existují delší dobu (na haldě)
+  \item {\bf Perm gen} - obsahuje definice tříd a různá metadata (mimo haldu)
+  \item {\bf Heap memory} - celková velikost haldy
+\end{itemize}
+
+Pro každý pokus bude použita nová instance serveru. Každý test bude trvat 10 minut, před spuštění testu vygenerujeme 40 zákazníků a 200 produktů. K aplikaci budeme během testu přistupovat soustavně 15 klientů, kteří se budou dotazovat na servlet generující objednávky. Nesmíme zapomenout, že jeden dotaz na servlet není roven jedenomu běžnému požadavku, ale vykonání celého scénáře objednávky, který se za normálních okolností skládá z desítek různých požadavků. Klienty budeme generovat pomocí strategie postupného navyšování prvních 10 sekund testu. Časová služba na čištění objednávek a faktur bude nastavena na 20 sekund. Zajímat nás budou:
+\begin{itemize}
+  \item paměťové stopy před spuštěním a po dokončení testu
+  \item celkový počet obsloužených požadavků
+  \item propustnost
+  \item průměrný čas potřebný na obsloužení požadavku
+\end{itemize}
+
+\vspace{5 mm}\noindent{\bf Paměťové stopy}
+\\\indent Na obráku (viz obrázek~\ref{img:stopy}) vidíme porovnání paměťových stop serverů.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1.0\textwidth]{stopy}
+\caption{Paměťové stopy serverů}
+\label{img:stopy}
+\end{figure}
+
+\vspace{5 mm}\noindent{\bf Vísledky měření}
+\\\indent V našem testu si nejlépe vedl (viz obrázek \ref{img:samples}) server GlassFish, který dokázal obsloužit nejvíce požadavků.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{samples}
+\caption{Porovnání serverů}
+\label{img:samples}
+\end{figure}
+
+\section{Nalezení bodu saturace}
+V tomto testu si ukážeme, jak se servech chová po dosažení bodu saturace. K tomu použijeme nástroje Apache JMeter a server GlassFish. 
+
+Tentokrát si před testem vygenerujeme 100 zákazníků a 400 produktů. Na server budeme postupně pouštět 600 klientů pomocí strategie postupného navyšování. Klienti se postupně budou generovat prvních deset sekund testu. Celá dávka se zopakuje pětkrát. Celkem tedy budeme po serveru chtít obsloužit 3000 požadavků. Celý test bude trvat něco málo přes tři minuty.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1.0\textwidth]{saturation}
+\caption{Porovnání serverů}
+\label{img:saturation}
+\end{figure}
+
+Na obrázku~\ref{img:saturation} můžeme vidět, jak se propustnost serveru usadí na relativně konstantní hodnotě, kdežto čas odezvy stále roste. Podívejme se na ostatní naměřené hodnoty:
+\begin{itemize}
+  \item počet vzorků - očekávané 3000
+  \item propustnost - 16,4 požadavků za sekundu
+  \item průměrná doba odezvy {\bf 31844} milisekund
+\end{itemize}
+
+
+
+
+
 
 \chapter{Závěr}
 
@@ -1268,12 +1312,12 @@ V další kapitole jsem vysvětlil rozdíly mezi jednotlivými typy serverů a p
 Následující kapitoly jsem věnoval převážně architektuře aplikace a implementačním detailům. Poté, co jsme popsal třívrstvý model a detailněji prošel novinky Java EE platformy, jsem postupně prošel i všechny vrstvy aplikace a zmínil něco o nejzajímavějších specifikacích Java EE, které byly v práci použity.
 
 V poslední kapitole jsem ukázal názorné použití aplikace při srovnávání výkonnosti aplikačních serverů GlassFish a JBoss AS. Nejprve jsem představil nástroje, které jsem k testování použil, a následně prezentoval naměřené hodnoty.
-
+-
 Během studování problematiky porovnávání aplikačních serverů jsem se potýkal s nedostatkem dat, pomocí kterých by bylo možné jednotlivé servery srovnávat. Zatímco IBM a Oracle se hrdě hlásí k výsledkům dosažených v testech organizace SPEC, ostatní spíše jen tiše přihlíží nebo své výsledky nezveřejňují. K dispozici jsou proto pouze srovnání např. startovacích časů, velikosti distribuce a paměťové náročnosti. Asi nejvíce používanou aplikací je Apache DayTrader, který je vydáván jako jedna z ukázkových aplikací k serveru Apache Geronimo. S novou verzí Apache Geronimo kompatibilní s Java EE 6 byla vydána i nová verze DayTraderu, tato sice obsahuje komponenty jako entity beany a JSP, ale doufejme, že s příchodem Java EE 7 bude DayTrader opět přepracován.
 
 Jedním z příznivých objevů bylo nalezení nespočtu podpůrných nástrojů s otevřeným zdrojovým kódem. Právě automatizace je klíčová k dosažení konzistentních a věrohodných výsledků. Já sám jsem během testování použil nástroje na monitorování a na generování zátěže, ale startování serveru a nasazování aplikace jsem dělal manuálně. Tento testovací proces by mohl být předmětem budoucího vylepšení.
 
-Při testování aplikace jsem se potýkal s problémy s transakcemi. Z důvodu délky transakčních dávek a obousměrných vazeb mezi entitami docházelo k uváznutí a zrušení transakcí. Na JBossu se mi podařilo tento problém obejít zakomentováním atributu stored u Produktu, ovšem na serveru GlashFish ani tato změna tento problém 100\% nevyřešila a jedna z dvaceti transakcí byla zrušena. Problém by snad vyřešila specifická úprava nastavení poskytovatele JPA nebo fondu JDBC. Dalším z možných řešení by mohl být přechod z transakcí řízených kontejnerem na transakce řízené beanou.
+Při testování aplikace jsem se potýkal s problémy s transakcemi. Z důvodu délky transakčních dávek a obousměrných vazeb mezi entitami docházelo k uváznutí a zrušení transakcí. Nakonec se mi podařilo tento problém obejít zakomentováním atributu stored u Produktu. Správným řešením by mohla být specifická úprava nastavení poskytovatele JPA nebo fondu JDBC. Dalším z možných řešení by mohl být přechod z transakcí řízených kontejnerem na transakce řízené beanou.
 
 Narazil jsem také na menší problémy při migraci aplikace na GlassFish, kdy metody hashCode() tříd Invoice a Order na sebe vzájemně odkazovaly, čímž docházelo při volání těchto metod k zacyklení. Je zajímavé, že za celou dobu vyvíjení aplikace na serveru JBoss AS, nedošlo k zacyklení ani jednou, ovšem ihned po nasazení aplikace na GlassFish došlo k přetečení zásobníku. Stejně tak jsem řešil různá chování JPA poskytovatelů Hibernate (JBoss) a EclipseLink (GlassFish). GlassFish ovšem obsahuje v administrační konzoli nástroj na doinstalování externích modulů, proto bylo k testování použito Hibernate stejně jako na JBoss.
 
