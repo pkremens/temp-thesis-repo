@@ -64,7 +64,7 @@ The main goal of the thesis is to study issues of performance testing, investiga
 \end{ThesisAbstracten}
 
 \begin{ThesisKeyWords}
-výkonnostní testování, aplikační server, benchmarking, generování zátěže, Java EE 6, JPA, EJB, JSF, JMS, 
+výkonnostní testování, aplikační server, benchmarking, generování zátěže, Java EE 6, JPA, EJB, JSF, JMS 
 \end{ThesisKeyWords}
 
 \MainMatter
@@ -290,7 +290,7 @@ Testovací nástroje běžně poskytují následující funkcionalitu:
 
 \vspace{5 mm}\noindent{\bf Analytický modul}
 \\\indent Poskytuje nám schopnost sbírat a vyhodnocovat hodnoty naměřené v každém testu. Vyhodnocením se rozumí například vykreslení grafů, znázornění důležitých hodnot v tabulkách, a jiné.
-
+\newpage
 \section{Co nelze opomenout}
 Nyní zmíníme pár věcí, které nesmíme při používání těchto nástrojů opomenout.
 
@@ -351,7 +351,7 @@ V naší práci budeme dále pojem sever používat výhradně pro aplikační s
 \subsection{Webový server}
 Hlavní funkcí webového serveru je doručovat obsah klientům, kteří o něj požádali pomocí HTTP protokolu. Obsahem může být například: statická HTML stránka, obrázek nebo kaskádový styl. Odpovědí webového serverů může být také přesměrování požadavku na jinou adresu nebo generování dynamického obsahu pomocí technologií jako JSP, servletů, JSF, ASP, PHP, JavaScriptu a jiných. Požadavek klienta na určitou stránku je proveden kontaktováním webového serveru na specifické adrese (IP adresa). Po přijetí požadavku doručí webový server obsah klientovi, kterým je nejčastěji webový prohlížeč.
 
-Plná implementace HTTP protokolu poskytuje také funkcionalitu k příjímání obsahu od klientů. Této schopnosti je využito například při vyplňování webových formulářů nebo při nahrávání dat na server.
+Plná implementace HTTP protokolu poskytuje také funkcionalitu k přijímání obsahu od klientů. Této schopnosti je využito například při vyplňování webových formulářů nebo při nahrávání dat na server.
 
 Co do výkonnosti nás u webových serverů zajímá zejména:
 \begin{itemize}
@@ -887,7 +887,7 @@ V Java EE je tato vrstva implementována pomocí EJB. EJB jsou podobně jako ent
   \item {\bf řízení stavu} - kontejner udržuje v paměti stavy jednotlivých stavových bean a tím i vzdálený stav u klienta, kterému se jeví stav jakoby uložen lokálně
   \item {\bf poskytování fondů} - vytváření fondů instancí pro bezstavové beany a message-driven beany (MDB)
   \item {\bf řízení životního cyklu} - stará se o vytváření, inicializaci a destrukci instancí bean
-  \item {\bf messaging} - umožňuje MDB poslouchat na JMS~\footnote{Java Messiging Service - rozhraní umožňující aplikacím asynchronně vytvářet, číst, posílat a příjímat zprávy} destinacích a konzumovat zprávy
+  \item {\bf messaging} - umožňuje MDB poslouchat na JMS~\footnote{Java Messiging Service - rozhraní umožňující aplikacím asynchronně vytvářet, číst, posílat a přijímat zprávy} destinacích a konzumovat zprávy
   \item {\bf management transakcí} - beany deklarují transakční vlastnosti metod, kontejner řeší potvrzení a zrušení transakce
   \item {\bf bezpečnost} - deklarace přístupů na úrovni tříd a metod
   \item {\bf podpora souběžného zpracování} - vývojář nemusí řešit problémy synchronizace souběžných přístupů ke sdíleným datům
@@ -1231,7 +1231,7 @@ Jelikož se jedná o testovací aplikaci, byl zvolen zjednodušený mechanismus 
 Základ tvoří třída Identity, což je managed beana s rozsahem nastaveným na dané sezení. Poté, co uživatel zadá přihlašovací údaje do formuláře (ty musí být validní, jinak k přihlášení nedojde), který se vyskytuje v naší šabloně, a klikne na tlačítko přihlásit se, je zavolána akce třídy LoginBean. Tato managed beana, s rozsahem na požadavek, předá přihlašovací údaje třídě Identity, která si tyto údaje zapamatuje a vytvoří novou instanci třídy BasketBean (v rámci jednoho sezení se můžeme přihlásit za více uživatelů, proto je důležité aby měl každý z nich po přihlášení prázdný košík). Třída BasketBean má stejně jako třída Identity nastavený rozsah na dané sezení. Zákazník přidává nové produkty do košíku pomocí třídy BasketBeany a jakmile se rozhodne objednávku uzavřít, je z této třídy zavolána patřičná metoda bezstavové beany OrderManager, kterou jsme si do třídy BasketBean injektovali. Jako parametry metody na přidání nové objednávky jsou předány: kolekce objednaných produktů a email zákazníka (který je uložen ve třídě Identity)~\footnote{záměrně jsou vynechány detaily jako validace dat a autorizace, jelikož nejsou pro tuto ukázku podstatné}.
 
 \chapter{Testování serverů}
-V této kapitole si ukážeme, jak pomocí naší aplikace provést několik testů. K testování sme použili následující nástroje:
+V této kapitole předvedeme, jak naší aplikaci použít v testech. K testování jsme použijeme následující nástroje:
 \begin{itemize}
   \item {\bf MySQL 5.5.28} - databázový server
   \item {\bf JBoss AS 7.1.1} - aplikační server vyvíjený společností Red Hat
@@ -1241,15 +1241,17 @@ V této kapitole si ukážeme, jak pomocí naší aplikace provést několik tes
 
 \section{Srovnání serverů}
 
-Před zahájením testu a okamžitě po jeho skončení změříme paměťové otisky serveru (množství paměti, které server používá ke běhu). Před každým měřením otisků vynutíme sběr odpadu pomocí JMX~\footnote{Java Management Extensions - technologie podporující management a monitoring aplikací} operace forceGC(), která bude volána na odpovídající managed beaně. Při měření otisků nás zajímají:
+Před zahájením testu a okamžitě po jeho skončení změříme paměťové otisky serveru (množství paměti, které server používá ke běhu). Před každým měřením otisků zavoláme několikrát metodu forceGC() Garbage collectoru, abychom zajistili, že v paměti zůstanou pouze nezbytné objekty. 
+
+Java objetky jsou v paměti uloženy na haldě, každá halda je rozdělena do tří částí. Každá část je z pohledu garbage collectoru jinou generací~\cite{performanceTuning}. Při měření otisků nás budou zajímat:
 \begin{itemize}
-  \item {\bf Eden space} - fond ze kterého je brána paměť pro tvorbu většiny objektů (na haldě)
-  \item {\bf Old gen} - fond obsahuje objekty, které již existují delší dobu (na haldě)
+  \item {\bf Eden space} - část haldy, ze které je brána paměť pro tvorbu většiny objektů (na haldě)
+  \item {\bf Old gen} - část obsahující objekty, které již existují delší dobu (na haldě)
   \item {\bf Perm gen} - obsahuje definice tříd a různá metadata (mimo haldu)
   \item {\bf Heap memory} - celková velikost haldy
 \end{itemize}
 
-Pro každý pokus bude použita nová instance serveru. Každý test bude trvat 10 minut, před spuštění testu vygenerujeme 40 zákazníků a 200 produktů. K aplikaci budeme během testu přistupovat soustavně 15 klientů, kteří se budou dotazovat na servlet generující objednávky. Nesmíme zapomenout, že jeden dotaz na servlet není roven jedenomu běžnému požadavku, ale vykonání celého scénáře objednávky, který se za normálních okolností skládá z desítek různých požadavků. Klienty budeme generovat pomocí strategie postupného navyšování prvních 10 sekund testu. Časová služba na čištění objednávek a faktur bude nastavena na 20 sekund. Zajímat nás budou:
+Pro každý pokus bude použita nová instance serveru. Každý test bude trvat 10 minut, před spuštění testu vygenerujeme 40 zákazníků a 200 produktů. K aplikaci bude během testu přistupovat soustavně 15 klientů, kteří se budou dotazovat na servlet generující objednávky. Nesmíme zapomenout, že jeden dotaz na servlet není roven jednomu běžnému požadavku, ale vykonání celého scénáře objednávky, který se za normálních okolností skládá z desítek různých požadavků. Klienty budeme generovat pomocí strategie postupného navyšování během prvních deseti vteřin testu. Časová služba na čištění objednávek a faktur bude nastavena na 20 sekund. Zajímat nás budou:
 \begin{itemize}
   \item paměťové stopy před spuštěním a po dokončení testu
   \item celkový počet obsloužených požadavků
@@ -1267,7 +1269,7 @@ Pro každý pokus bude použita nová instance serveru. Každý test bude trvat 
 \label{img:stopy}
 \end{figure}
 
-\vspace{5 mm}\noindent{\bf Vísledky měření}
+\vspace{5 mm}\noindent{\bf Výsledky měření}
 \\\indent V našem testu si nejlépe vedl (viz obrázek \ref{img:samples}) server GlassFish, který dokázal obsloužit nejvíce požadavků.
 
 \begin{figure}[!ht]
@@ -1278,28 +1280,24 @@ Pro každý pokus bude použita nová instance serveru. Každý test bude trvat 
 \end{figure}
 
 \section{Nalezení bodu saturace}
-V tomto testu si ukážeme, jak se servech chová po dosažení bodu saturace. K tomu použijeme nástroje Apache JMeter a server GlassFish. 
+V tomto testu si ukážeme, jak se server chová po dosažení bodu saturace. K tomu použijeme Apache JMeter a server GlassFish. 
 
-Tentokrát si před testem vygenerujeme 100 zákazníků a 400 produktů. Na server budeme postupně pouštět 600 klientů pomocí strategie postupného navyšování. Klienti se postupně budou generovat prvních deset sekund testu. Celá dávka se zopakuje pětkrát. Celkem tedy budeme po serveru chtít obsloužit 3000 požadavků. Celý test bude trvat něco málo přes tři minuty.
+Tentokrát si před testem vygenerujeme 100 zákazníků a 400 produktů. Na server budeme postupně pouštět 600 klientů pomocí strategie postupného navyšování. Klienti se budou generovat prvních deset sekund testu. Celá dávka se zopakuje pětkrát. Celkem tedy budeme po serveru chtít obsloužit 3000 požadavků. Celý test bude trvat něco málo přes tři minuty.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1.0\textwidth]{saturation}
-\caption{Porovnání serverů}
+\caption{Rostoucí křivka odezvy serveru}
 \label{img:saturation}
 \end{figure}
 
-Na obrázku~\ref{img:saturation} můžeme vidět, jak se propustnost serveru usadí na relativně konstantní hodnotě, kdežto čas odezvy stále roste. Podívejme se na ostatní naměřené hodnoty:
+Na obrázku~\ref{img:saturation} můžeme vidět, že si propustnost drží stejnou hladinu, kdežto čas odezvy s přibývajícím počtem klientů stále roste. Podívejme se na ostatní naměřené hodnoty:
 \begin{itemize}
   \item počet vzorků - očekávané 3000
   \item propustnost - 16,4 požadavků za sekundu
   \item průměrná doba odezvy {\bf 31844} milisekund
 \end{itemize}
-
-
-
-
-
+Hodnota 16,4 požadavků za sekundu koresponduje s výsledky předchozích testů, ale průměrná doba odezvy je daleko za požadovanými hodnotami.
 
 \chapter{Závěr}
 
@@ -1309,19 +1307,19 @@ První kapitolu jsem věnoval podrobnějšímu seznámení se se základními po
 
 V další kapitole jsem vysvětlil rozdíly mezi jednotlivými typy serverů a představil jsem Java EE plný profil. Objasnil jsme pojem benchmarková aplikace, popsal problémy, které s porovnáváním aplikačních serverů souvisí, a blíže představil aplikaci Apache DayTrader.
 
-Následující kapitoly jsem věnoval převážně architektuře aplikace a implementačním detailům. Poté, co jsme popsal třívrstvý model a detailněji prošel novinky Java EE platformy, jsem postupně prošel i všechny vrstvy aplikace a zmínil něco o nejzajímavějších specifikacích Java EE, které byly v práci použity.
+Následující kapitoly jsem věnoval převážně architektuře aplikace a implementačním detailům. Poté, co jsem popsal třívrstvý model a detailněji prošel novinky Java EE platformy, jsem postupně prošel i všechny vrstvy aplikace a zmínil něco o nejzajímavějších specifikacích Java EE, které byly v práci použity.
 
 V poslední kapitole jsem ukázal názorné použití aplikace při srovnávání výkonnosti aplikačních serverů GlassFish a JBoss AS. Nejprve jsem představil nástroje, které jsem k testování použil, a následně prezentoval naměřené hodnoty.
--
-Během studování problematiky porovnávání aplikačních serverů jsem se potýkal s nedostatkem dat, pomocí kterých by bylo možné jednotlivé servery srovnávat. Zatímco IBM a Oracle se hrdě hlásí k výsledkům dosažených v testech organizace SPEC, ostatní spíše jen tiše přihlíží nebo své výsledky nezveřejňují. K dispozici jsou proto pouze srovnání např. startovacích časů, velikosti distribuce a paměťové náročnosti. Asi nejvíce používanou aplikací je Apache DayTrader, který je vydáván jako jedna z ukázkových aplikací k serveru Apache Geronimo. S novou verzí Apache Geronimo kompatibilní s Java EE 6 byla vydána i nová verze DayTraderu, tato sice obsahuje komponenty jako entity beany a JSP, ale doufejme, že s příchodem Java EE 7 bude DayTrader opět přepracován.
 
-Jedním z příznivých objevů bylo nalezení nespočtu podpůrných nástrojů s otevřeným zdrojovým kódem. Právě automatizace je klíčová k dosažení konzistentních a věrohodných výsledků. Já sám jsem během testování použil nástroje na monitorování a na generování zátěže, ale startování serveru a nasazování aplikace jsem dělal manuálně. Tento testovací proces by mohl být předmětem budoucího vylepšení.
+Během studování problematiky porovnávání aplikačních serverů jsem se potýkal s nedostatkem dat, pomocí kterých by bylo možné jednotlivé servery srovnávat. Zatímco IBM a Oracle se hrdě hlásí k výsledkům dosažených v testech organizace SPEC, ostatní spíše jen tiše přihlíží nebo své výsledky nezveřejňují. K dispozici jsou pouze srovnání např. startovacích časů, velikosti distribuce, paměťové náročnosti a jiných. Asi nejvíce používanou aplikací je Apache DayTrader, který je vydáván jako jedna z ukázkových aplikací k serveru Apache Geronimo. S novou verzí Apache Geronimo kompatibilní s Java EE 6 byla vydána i nová verze DayTraderu, tato sice obsahuje komponenty jako entity beany a JSP, ale doufejme, že s příchodem Java EE 7 bude DayTrader opět přepracován.
 
-Při testování aplikace jsem se potýkal s problémy s transakcemi. Z důvodu délky transakčních dávek a obousměrných vazeb mezi entitami docházelo k uváznutí a zrušení transakcí. Nakonec se mi podařilo tento problém obejít zakomentováním atributu stored u Produktu. Správným řešením by mohla být specifická úprava nastavení poskytovatele JPA nebo fondu JDBC. Dalším z možných řešení by mohl být přechod z transakcí řízených kontejnerem na transakce řízené beanou.
+Jedním z příjemných zjištění bylo nalezení nespočtu podpůrných nástrojů s otevřeným zdrojovým kódem. Právě automatizace je klíčová k dosažení konzistentních a věrohodných výsledků. Já sám jsem během testování použil nástroje na monitorování a na generování zátěže, ale startování serveru a nasazování aplikace jsem dělal manuálně. Tento testovací proces by mohl být předmětem budoucího vylepšení.
 
-Narazil jsem také na menší problémy při migraci aplikace na GlassFish, kdy metody hashCode() tříd Invoice a Order na sebe vzájemně odkazovaly, čímž docházelo při volání těchto metod k zacyklení. Je zajímavé, že za celou dobu vyvíjení aplikace na serveru JBoss AS, nedošlo k zacyklení ani jednou, ovšem ihned po nasazení aplikace na GlassFish došlo k přetečení zásobníku. Stejně tak jsem řešil různá chování JPA poskytovatelů Hibernate (JBoss) a EclipseLink (GlassFish). GlassFish ovšem obsahuje v administrační konzoli nástroj na doinstalování externích modulů, proto bylo k testování použito Hibernate stejně jako na JBoss.
+Při testování aplikace jsem se potýkal s problémy s transakcemi. Z důvodu délky transakčních dávek a obousměrných vazeb mezi entitami docházelo k uváznutí a zrušení transakcí. Nakonec se mi podařilo tento problém obejít zakomentováním atributu stored u Produktu. Správným řešením by mohla být specifická úprava nastavení poskytovatele JPA nebo fondu JDBC. Dalším z možných řešení by mohl být přechod z transakcí řízených kontejnerem na transakce řízené pomoci bean.
 
-Jedna z možných úprav do budoucna je poskytnutí variabilnější formy zátěže například vytvořením více servletů, které budou simulovat prosté procházení zákazníka stránkami a nebudou volat žádnou náročnější aplikační logiku. V současném stavu je přechod v zátěži mezi každým novým virtuálním uživatelem příliš strmý a nejde budovat variabilnější formu zátěže. 
+Narazil jsem také na menší problémy při migraci aplikace na GlassFish, kdy metody hashCode() tříd Invoice a Order na sebe vzájemně odkazovaly, čímž docházelo při volání těchto metod k zacyklení. Je zajímavé, že za celou dobu vyvíjení aplikace na serveru JBoss AS, nedošlo k zacyklení ani jednou, ovšem ihned po nasazení aplikace na GlassFish došlo k přetečení zásobníku. Stejně tak jsem řešil různá chování JPA poskytovatelů Hibernate (JBoss) a EclipseLink (GlassFish). GlassFish ovšem obsahuje v administrační konzoli nástroj na doinstalování externích modulů, proto bylo k testování použito Hibernate stejně jako na JBoss. Toto jen ukazuje, jak se mohou imlementace specifikací různých poskytovatelů lišit.
+
+Jedna z možných úprav do budoucna je poskytnutí variabilnější formy zátěže například vytvořením více servletů, které budou simulovat prosté procházení zákazníka stránkami a nebudou volat žádnou náročnější aplikační logiku. V současném stavu je přechod v zátěži mezi každým novým virtuálním uživatelem příliš strmý a nejde budovat variabilnější formu zátěže. K budování zátěže by mohl být použit také skriptovací modul některého z nástrojů, který by přistupoval manuálně k jednotlivým stránkám webového rozhraní.
 \appendix
 
 \chapter{Nasazení aplikace} 
@@ -1487,7 +1485,7 @@ http://localhost:8080/web/ShoppingServlet
 \end{lstlisting}
 
 \subsection{OpenShift}
-Odlehčená verze aplikace~\footnote{aplikace byla zabalena jako webový archiv, není použito JMS a aplikace používa odlehčenou H2 databázi} byla nasazena na platformě OpenShift společnosti Red Hat a je možné s ní pracovat na adrese:
+Odlehčená verze aplikace~\footnote{aplikace byla zabalena jako webový archiv, není použito JMS a aplikace používá odlehčenou H2 databázi} byla nasazena na platformě OpenShift společnosti Red Hat a je možné s ní pracovat na adrese:
 \begin{lstlisting}
 http://opensh-pkremens.rhcloud.com/
 \end{lstlisting}
@@ -1524,6 +1522,7 @@ Následující výčet zahrnuje seznam funkcí, které jsou dostupné z webovéh
   \item získat XML reprezentaci zákazníka (REST)
   \item získat XML reprezentaci všech zákazníků (REST)
 \end{itemize}
+\newpage
 {\bf products.xhtml}:
 \begin{itemize}  \itemsep0em
   \item vytvořit produkt
@@ -1625,7 +1624,7 @@ MALÝ, Martin.
 \bibitem{bhatt09}
 BHATT, NIRAJ.
 \emph{: Performance Testing – Response vs. Latency vs. Throughput vs. Load vs. Scalability vs. Stress vs. Robustness}.
-2009-09-17
+2009-09-17.
 \textless\href{http://nirajrules.wordpress.com/2009/09/17/measuring-performance-response-vs-latency-vs-throughput-vs-load-vs-scalability-vs-stress-vs-robustness/}{http://nirajrules.wordpress.com/2009/09/17/measuring-performance-response-vs-latency-vs-throughput-vs-load-vs-scalability-vs-stress-vs-robustness/}\textgreater.
 
 \bibitem{moorthy09}
@@ -1672,7 +1671,7 @@ San Francisco (CA): Wikimedia Foundation, 2012-10-10.
 \textless\href{http://cs.wikipedia.org/wiki/Java\_EE}{http://cs.wikipedia.org/wiki/Java\_EE}\textgreater.
 
 \bibitem{loadTest}
-\emph{Types of Tests}
+\emph{Types of Tests}.
 RPM Solutions Pty Ltd, 2004-08-04.
 \textless\href{http://www.loadtest.com.au/types\_of\_tests.htm}{http://www.loadtest.com.au/types\_of\_tests.htm}\textgreater.
 
@@ -1689,13 +1688,16 @@ Sybase Inc.
 
 \bibitem{performanceTuning}
 \emph{JBoss AS 7 Performance tuning}.
-2013-01-02
+2013-01-02.
 \textless\href{http://www.mastertheboss.com/jboss-performance/jboss-as-7-performance-tuning}{http://www.mastertheboss.com/jboss-performance/jboss-as-7-performance-tuning}\textgreater.
 
 \bibitem{datasource}
-\emph{Adding a MySQL datasource to JBoss AS 7}
-2011-07-12
+\emph{Adding a MySQL datasource to JBoss AS 7}.
+2011-07-12.
 \textless\href{https://zorq.net/b/2011/07/12/adding-a-mysql-datasource-to-jboss-as-7/}{https://zorq.net/b/2011/07/12/adding-a-mysql-datasource-to-jboss-as-7/}\textgreater.
+
+
+
 
 \end{thebibliography} %Must end the environment
 
